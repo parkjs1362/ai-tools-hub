@@ -3081,8 +3081,12 @@
             });
         });
         
+        // Google Gemini API Configuration
+        const GEMINI_API_KEY = 'REDACTED_API_KEY';
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+
         // Analysis Tools Functions
-        function analyzeChatbot() {
+        async function analyzeChatbot() {
             const input = document.getElementById('chatbotAnalysisInput');
             const resultDiv = document.getElementById('chatbotAnalysisResult');
             const resultContent = resultDiv.querySelector('.result-content');
@@ -3099,22 +3103,32 @@
             btn.innerHTML = '<span class="loading-spinner"></span> 분석 중...';
             btn.disabled = true;
             
-            // 시뮬레이션된 분석 결과 (실제로는 AI API를 호출해야 함)
-            setTimeout(() => {
-                const analysis = performChatbotAnalysis(text);
+            try {
+                const analysis = await callGeminiAPI(text, 'chatbot');
                 resultContent.innerHTML = analysis;
                 resultDiv.style.display = 'block';
                 
+                // 결과로 스크롤
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (error) {
+                console.error('분석 오류:', error);
+                resultContent.innerHTML = `
+                    <div style="background: #fef2f2; border: 1px solid #ef4444; border-radius: 8px; padding: 1rem; text-align: center;">
+                        <i class="fas fa-exclamation-triangle" style="color: #dc2626; margin-bottom: 0.5rem;"></i>
+                        <p style="color: #dc2626; margin: 0;">
+                            분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.
+                        </p>
+                    </div>
+                `;
+                resultDiv.style.display = 'block';
+            } finally {
                 // 버튼 원상복구
                 btn.innerHTML = originalText;
                 btn.disabled = false;
-                
-                // 결과로 스크롤
-                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 2000);
+            }
         }
         
-        function checkSpelling() {
+        async function checkSpelling() {
             const input = document.getElementById('spellCheckInput');
             const resultDiv = document.getElementById('spellCheckResult');
             const resultContent = resultDiv.querySelector('.result-content');
@@ -3131,130 +3145,132 @@
             btn.innerHTML = '<span class="loading-spinner"></span> 검사 중...';
             btn.disabled = true;
             
-            // 시뮬레이션된 맞춤법 검사 결과
-            setTimeout(() => {
-                const spellCheck = performSpellCheck(text);
+            try {
+                const spellCheck = await callGeminiAPI(text, 'spellcheck');
                 resultContent.innerHTML = spellCheck;
                 resultDiv.style.display = 'block';
                 
-                // 버튼 원상복구
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                
                 // 결과로 스크롤
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 1500);
-        }
-        
-        function performChatbotAnalysis(text) {
-            // 실제로는 AI API를 호출해야 하지만, 여기서는 시뮬레이션
-            const wordCount = text.split(' ').length;
-            const charCount = text.length;
-            
-            return `
-                <div style="background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                    <h5 style="color: #0369a1; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-info-circle"></i> 기본 분석
-                    </h5>
-                    <p style="margin: 0; color: #0369a1;">
-                        • 단어 수: ${wordCount}개<br>
-                        • 문자 수: ${charCount}개<br>
-                        • 예상 읽기 시간: ${Math.ceil(wordCount / 200)}분
-                    </p>
-                </div>
-                
-                <div style="background: #f0fdf4; border: 1px solid #10b981; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                    <h5 style="color: #059669; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-thumbs-up"></i> 강점 분석
-                    </h5>
-                    <ul style="margin: 0; color: #059669; padding-left: 1rem;">
-                        <li>명확한 구조와 논리적 흐름</li>
-                        <li>적절한 어휘 선택과 문체</li>
-                        <li>독자를 고려한 설명 방식</li>
-                    </ul>
-                </div>
-                
-                <div style="background: #fefce8; border: 1px solid #eab308; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                    <h5 style="color: #a16207; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-lightbulb"></i> 개선 제안
-                    </h5>
-                    <ul style="margin: 0; color: #a16207; padding-left: 1rem;">
-                        <li>더 구체적인 예시나 사례 추가 권장</li>
-                        <li>문단 길이 조정으로 가독성 향상 가능</li>
-                        <li>핵심 내용 강조를 위한 구조화 고려</li>
-                    </ul>
-                </div>
-                
-                <div style="background: #faf5ff; border: 1px solid #8b5cf6; border-radius: 8px; padding: 1rem;">
-                    <h5 style="color: #7c3aed; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-star"></i> 종합 평가
-                    </h5>
-                    <p style="margin: 0; color: #7c3aed;">
-                        <strong>품질 점수: 85/100</strong><br>
-                        전반적으로 잘 작성된 텍스트입니다. 명확한 의사전달과 적절한 구조를 갖추고 있으며, 
-                        몇 가지 개선점을 적용하면 더욱 효과적인 콘텐츠가 될 것입니다.
-                    </p>
-                </div>
-            `;
-        }
-        
-        function performSpellCheck(text) {
-            // 실제로는 맞춤법 검사 API를 호출해야 하지만, 여기서는 시뮬레이션
-            const commonErrors = [
-                { wrong: '웹사이트', correct: '웹사이트', type: '맞춤법' },
-                { wrong: '안돼요', correct: '안 돼요', type: '띄어쓰기' },
-                { wrong: '할수있다', correct: '할 수 있다', type: '띄어쓰기' },
-            ];
-            
-            let correctedText = text;
-            let errorCount = 0;
-            const errors = [];
-            
-            // 시뮬레이션된 오류 검출
-            commonErrors.forEach(error => {
-                if (text.includes(error.wrong)) {
-                    correctedText = correctedText.replace(new RegExp(error.wrong, 'g'), error.correct);
-                    errors.push(error);
-                    errorCount++;
-                }
-            });
-            
-            if (errors.length === 0) {
-                return `
-                    <div style="background: #f0fdf4; border: 1px solid #10b981; border-radius: 8px; padding: 1.5rem; text-align: center;">
-                        <i class="fas fa-check-circle" style="font-size: 2rem; color: #10b981; margin-bottom: 1rem;"></i>
-                        <h5 style="color: #059669; margin: 0 0 0.5rem 0;">검사 완료!</h5>
-                        <p style="margin: 0; color: #059669;">
-                            맞춤법, 띄어쓰기, 문법 오류가 발견되지 않았습니다.<br>
-                            올바르게 작성된 텍스트입니다. ✨
+            } catch (error) {
+                console.error('맞춤법 검사 오류:', error);
+                resultContent.innerHTML = `
+                    <div style="background: #fef2f2; border: 1px solid #ef4444; border-radius: 8px; padding: 1rem; text-align: center;">
+                        <i class="fas fa-exclamation-triangle" style="color: #dc2626; margin-bottom: 0.5rem;"></i>
+                        <p style="color: #dc2626; margin: 0;">
+                            맞춤법 검사 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.
                         </p>
                     </div>
                 `;
+                resultDiv.style.display = 'block';
+            } finally {
+                // 버튼 원상복구
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             }
+        }
+        
+        // Google Gemini API 호출 함수
+        async function callGeminiAPI(text, type) {
+            const prompts = {
+                chatbot: `다음 텍스트를 전문적으로 분석해주세요. HTML 형식으로 응답해주세요:
+
+텍스트: "${text}"
+
+다음 형식으로 분석 결과를 제공해주세요:
+
+<div style="background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+    <h5 style="color: #0369a1; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-info-circle"></i> 기본 분석
+    </h5>
+    <p style="margin: 0; color: #0369a1;">
+        • 단어 수, 문자 수, 예상 읽기 시간 등
+    </p>
+</div>
+
+<div style="background: #f0fdf4; border: 1px solid #10b981; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+    <h5 style="color: #059669; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-thumbs-up"></i> 강점 분석
+    </h5>
+    <ul style="margin: 0; color: #059669; padding-left: 1rem;">
+        <li>구체적인 강점들</li>
+    </ul>
+</div>
+
+<div style="background: #fefce8; border: 1px solid #eab308; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+    <h5 style="color: #a16207; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-lightbulb"></i> 개선 제안
+    </h5>
+    <ul style="margin: 0; color: #a16207; padding-left: 1rem;">
+        <li>구체적인 개선점들</li>
+    </ul>
+</div>
+
+<div style="background: #faf5ff; border: 1px solid #8b5cf6; border-radius: 8px; padding: 1rem;">
+    <h5 style="color: #7c3aed; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+        <i class="fas fa-star"></i> 종합 평가
+    </h5>
+    <p style="margin: 0; color: #7c3aed;">
+        <strong>품질 점수: [점수]/100</strong><br>
+        종합적인 평가와 코멘트
+    </p>
+</div>`,
+
+                spellcheck: `다음 한국어 텍스트의 맞춤법, 띄어쓰기, 문법을 검사하고 HTML 형식으로 결과를 제공해주세요:
+
+텍스트: "${text}"
+
+오류가 있다면 다음 형식으로:
+<div style="background: #fef2f2; border: 1px solid #ef4444; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+    <h5 style="color: #dc2626;">발견된 오류</h5>
+    오류 목록
+</div>
+<div style="background: #f0fdf4; border: 1px solid #10b981; border-radius: 8px; padding: 1rem;">
+    <h5 style="color: #059669;">수정된 텍스트</h5>
+    수정된 내용
+</div>
+
+오류가 없다면:
+<div style="background: #f0fdf4; border: 1px solid #10b981; border-radius: 8px; padding: 1.5rem; text-align: center;">
+    <i class="fas fa-check-circle" style="font-size: 2rem; color: #10b981; margin-bottom: 1rem;"></i>
+    <h5 style="color: #059669;">검사 완료!</h5>
+    <p style="color: #059669;">오류가 발견되지 않았습니다.</p>
+</div>`
+            };
+
+            const requestBody = {
+                contents: [{
+                    parts: [{
+                        text: prompts[type]
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.7,
+                    topK: 40,
+                    topP: 0.8,
+                    maxOutputTokens: 1000,
+                }
+            };
+
+            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API 요청 실패: ${response.status}`);
+            }
+
+            const data = await response.json();
             
-            return `
-                <div style="background: #fef2f2; border: 1px solid #ef4444; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                    <h5 style="color: #dc2626; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-exclamation-triangle"></i> 발견된 오류 (${errorCount}개)
-                    </h5>
-                    ${errors.map(error => `
-                        <div style="background: white; border-radius: 6px; padding: 0.75rem; margin-bottom: 0.5rem; border-left: 4px solid #ef4444;">
-                            <strong style="color: #dc2626;">${error.wrong}</strong> → 
-                            <strong style="color: #059669;">${error.correct}</strong>
-                            <small style="color: #6b7280; margin-left: 0.5rem;">(${error.type})</small>
-                        </div>
-                    `).join('')}
-                </div>
-                
-                <div style="background: #f0fdf4; border: 1px solid #10b981; border-radius: 8px; padding: 1rem;">
-                    <h5 style="color: #059669; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-edit"></i> 수정된 텍스트
-                    </h5>
-                    <div style="background: white; border: 1px solid #d1d5db; border-radius: 6px; padding: 1rem; line-height: 1.6;">
-                        ${correctedText}
-                    </div>
-                </div>
-            `;
+            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                return data.candidates[0].content.parts[0].text;
+            } else {
+                throw new Error('API 응답 형식이 올바르지 않습니다.');
+            }
         }
     </script>
 </body>
