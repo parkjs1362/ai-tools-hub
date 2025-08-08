@@ -762,10 +762,16 @@
         .modal-actions {
             display: flex;
             gap: 1rem;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 2rem;
             padding-top: 1rem;
             border-top: 1px solid var(--border);
+        }
+
+        .modal-actions-right {
+            display: flex;
+            gap: 1rem;
         }
 
         .btn-modal {
@@ -794,6 +800,15 @@
 
         .btn-modal.btn-save:hover {
             background: var(--primary-hover);
+        }
+
+        .btn-modal.btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-modal.btn-delete:hover {
+            background: #dc2626;
         }
 
         /* Dark mode for modal */
@@ -1109,101 +1124,178 @@
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
 
-        #responses, #spellCheckResult {
-            max-width: 800px;
-            margin: 2rem auto 0;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100px;
+        /* AI Services Row Layout */
+        .ai-services-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
         }
 
-        .response-item {
-            margin-bottom: 1.5rem;
-            background: var(--bg-primary);
-            border-radius: var(--radius);
-            padding: 1rem;
-            border: 1px solid var(--border);
-        }
-
-        .response-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .user-response .response-header {
-            color: #059669;
-        }
-
-        .ai-response .response-header {
-            color: var(--primary);
-        }
-
-        .response-content {
-            color: var(--text-primary);
-            line-height: 1.6;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        .spell-check-result {
-            background: var(--bg-primary);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .result-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            color: #059669;
-        }
-
-        .original-text, .corrected-text {
-            margin-bottom: 1rem;
-        }
-
-        .original-text h4, .corrected-text h4 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        .original-text p, .corrected-text p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            padding: 1rem;
+        .ai-service-col {
             background: var(--bg-secondary);
             border-radius: var(--radius);
+            padding: 2rem;
             border: 1px solid var(--border);
-            font-family: 'Noto Sans KR', sans-serif;
+            box-shadow: var(--shadow);
         }
 
-        .dark .response-item,
-        .dark .spell-check-result {
-            background: #111827;
+        .dark .ai-service-col {
+            background: #1f2937;
             border-color: #374151;
         }
 
-        .dark .original-text p, 
-        .dark .corrected-text p {
-            background: #1f2937;
-            border-color: #4b5563;
+        @media (max-width: 768px) {
+            .ai-services-row {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .ai-service-col {
+                padding: 1.5rem;
+            }
         }
 
-        #responses.show, #spellCheckResult.show {
-            display: block;
-            animation: fadeInUp 0.3s ease;
+
+        /* AI Services Modal */
+        .ai-services-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .ai-services-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .ai-services-modal {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .ai-services-modal-overlay.show .ai-services-modal {
+            transform: scale(1);
+        }
+
+        .ai-services-modal h2 {
+            color: #f1f5f9;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .ai-services-modal p {
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .ai-services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .ai-service-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            color: #e2e8f0;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            min-height: 60px;
+        }
+
+        .ai-service-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .ai-service-btn.has-prompt {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .ai-service-btn.has-prompt:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .ai-service-btn i:first-child {
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .ai-service-btn .fa-external-link-alt {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        @media (max-width: 640px) {
+            .ai-services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ai-services-modal {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
         }
 
         .loading {
@@ -1265,8 +1357,7 @@
                 <ul class="nav-menu">
                     <li><a href="#tools">AI 도구</a></li>
                     <li><a href="#data-analysis">데이터 분석</a></li>
-                    <li><a href="#ai-section">AI 문의</a></li>
-                    <li><a href="#spell-section">맞춤법</a></li>
+                    <li><a href="#ai-section">AI 서비스</a></li>
                     <li><a href="#prompts">프롬프트</a></li>
                 </ul>
             </nav>
@@ -2336,55 +2427,56 @@
         </div>
     </section>
 
-    <!-- AI Chat Bot Section -->
+    <!-- AI Services Section -->
     <section class="section" id="ai-section">
         <div class="container">
-            <h2 class="section-title">
-                <i class="fas fa-robot"></i>
-                AI 챗봇 문의하기
-            </h2>
-            <div class="input-section">
-                <textarea 
-                    id="userPrompt" 
-                    class="input-url-converter" 
-                    placeholder="AI 챗봇에게 물어볼 내용을 입력하세요"
-                ></textarea>
-                <button 
-                    id="submitBtn" 
-                    class="mgmt-button" 
-                    aria-label="AI 챗봇에게 문의하기"
-                >
-                    <i class="fas fa-paper-plane"></i>
-                    AI 챗봇에게 문의하기
-                </button>
-            </div>
-            <div id="responses"></div>
-        </div>
-    </section>
+            <div class="ai-services-row">
+                <!-- AI Chatbot Section -->
+                <div class="ai-service-col">
+                    <h2 class="section-title">
+                        <i class="fas fa-robot"></i>
+                        AI 챗봇 문의하기
+                    </h2>
+                    <div class="input-section">
+                        <textarea 
+                            id="userPrompt" 
+                            class="input-url-converter" 
+                            placeholder="AI 챗봇에게 물어볼 내용을 입력하세요"
+                        ></textarea>
+                        <button 
+                            id="submitBtn" 
+                            class="mgmt-button" 
+                            aria-label="AI 챗봇에게 문의하기"
+                        >
+                            <i class="fas fa-paper-plane"></i>
+                            AI 챗봇에게 문의하기
+                        </button>
+                    </div>
+                </div>
 
-    <!-- Spell Check Section -->
-    <section class="section" id="spell-section">
-        <div class="container">
-            <h2 class="section-title">
-                <i class="fas fa-spell-check"></i>
-                맞춤법 검사하기
-            </h2>
-            <div class="input-section">
-                <textarea 
-                    id="spellCheckPrompt" 
-                    class="input-url-converter" 
-                    placeholder="맞춤법을 검사할 내용을 입력하세요"
-                ></textarea>
-                <button 
-                    id="spellCheckBtn" 
-                    class="mgmt-button spell-check-btn" 
-                    aria-label="맞춤법 검사하기"
-                >
-                    <i class="fas fa-check-circle"></i>
-                    맞춤법 검사하기
-                </button>
+                <!-- Spell Check Section -->
+                <div class="ai-service-col">
+                    <h2 class="section-title">
+                        <i class="fas fa-spell-check"></i>
+                        맞춤법 검사하기
+                    </h2>
+                    <div class="input-section">
+                        <textarea 
+                            id="spellCheckPrompt" 
+                            class="input-url-converter" 
+                            placeholder="맞춤법을 검사할 내용을 입력하세요"
+                        ></textarea>
+                        <button 
+                            id="spellCheckBtn" 
+                            class="mgmt-button spell-check-btn" 
+                            aria-label="맞춤법 검사하기"
+                        >
+                            <i class="fas fa-check-circle"></i>
+                            맞춤법 검사하기
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div id="spellCheckResult"></div>
         </div>
     </section>
 
@@ -2734,8 +2826,11 @@
             </form>
             
             <div class="modal-actions">
-                <button type="button" class="btn-modal btn-cancel" onclick="closeToolModal()">취소</button>
-                <button type="button" class="btn-modal btn-save" onclick="saveTool()">저장</button>
+                <button type="button" class="btn-modal btn-delete" id="deleteToolBtn" onclick="deleteTool()" style="display: none;">삭제</button>
+                <div class="modal-actions-right">
+                    <button type="button" class="btn-modal btn-cancel" onclick="closeToolModal()">취소</button>
+                    <button type="button" class="btn-modal btn-save" onclick="saveTool()">저장</button>
+                </div>
             </div>
         </div>
     </div>
@@ -3157,6 +3252,8 @@
             document.getElementById('toolModalTitle').textContent = 'AI 도구 추가';
             document.getElementById('toolForm').reset();
             editingToolIndex = -1;
+            editingToolCard = null;
+            document.getElementById('deleteToolBtn').style.display = 'none';
             document.getElementById('toolModal').classList.add('show');
         }
         
@@ -3187,6 +3284,10 @@
             // Set modal title and show
             document.getElementById('toolModalTitle').textContent = 'AI 도구 수정';
             editingToolCard = card;
+            
+            // Show delete button for all tools being edited
+            document.getElementById('deleteToolBtn').style.display = 'block';
+            
             document.getElementById('toolModal').classList.add('show');
         }
         
@@ -3194,6 +3295,37 @@
             document.getElementById('toolModal').classList.remove('show');
             editingToolIndex = -1;
             editingToolCard = null;
+        }
+        
+        function deleteTool() {
+            if (!editingToolCard) return;
+            
+            const toolName = editingToolCard.querySelector('h3').textContent.trim();
+            const isCustomTool = editingToolCard.hasAttribute('data-custom');
+            
+            if (confirm(`"${toolName}" 도구를 삭제하시겠습니까?`)) {
+                if (isCustomTool) {
+                    // For custom tools, remove from customTools array and localStorage
+                    const customToolIndex = parseInt(editingToolCard.getAttribute('data-index'));
+                    customTools.splice(customToolIndex, 1);
+                    localStorage.setItem('customTools', JSON.stringify(customTools));
+                    
+                    // Reload custom tools to update indices
+                    loadCustomTools();
+                } else {
+                    // For built-in tools, just remove from DOM
+                    editingToolCard.remove();
+                }
+                
+                // Update statistics
+                updateStatistics();
+                
+                // Close modal
+                closeToolModal();
+                
+                // Show success message
+                alert('도구가 성공적으로 삭제되었습니다.');
+            }
         }
         
         function saveTool() {
@@ -3493,7 +3625,7 @@
                 });
             });
             
-            // AI Chatbot functionality
+            // AI Chatbot functionality with services modal
             document.getElementById('submitBtn').addEventListener('click', function() {
                 const userInput = document.getElementById('userPrompt').value.trim();
                 if (!userInput) {
@@ -3501,40 +3633,106 @@
                     return;
                 }
 
-                const responsesDiv = document.getElementById('responses');
-                
-                // Add user input to responses
-                const userDiv = document.createElement('div');
-                userDiv.className = 'response-item user-response';
-                userDiv.innerHTML = `
-                    <div class="response-header">
-                        <i class="fas fa-user"></i>
-                        <span>사용자</span>
-                    </div>
-                    <div class="response-content">${userInput}</div>
-                `;
-                responsesDiv.appendChild(userDiv);
-                
-                // Add AI response
-                const aiDiv = document.createElement('div');
-                aiDiv.className = 'response-item ai-response';
-                aiDiv.innerHTML = `
-                    <div class="response-header">
-                        <i class="fas fa-robot"></i>
-                        <span>AI 챗봇</span>
-                    </div>
-                    <div class="response-content">안녕하세요! 귀하의 질문에 대한 답변을 준비하고 있습니다. 현재 이 기능은 데모 모드로 작동하고 있습니다. 실제 AI 모델과 연동하여 더 정확한 답변을 제공할 예정입니다.</div>
-                `;
-                responsesDiv.appendChild(aiDiv);
-                
-                // Clear input
-                document.getElementById('userPrompt').value = '';
-                
-                // Scroll to latest response
-                aiDiv.scrollIntoView({ behavior: 'smooth' });
+                // Copy to clipboard
+                navigator.clipboard.writeText(userInput).then(() => {
+                    console.log('프롬프트가 클립보드에 복사되었습니다.');
+                }).catch(err => {
+                    console.error('클립보드 복사 실패:', err);
+                });
+
+                // Show AI services modal
+                showAIServicesModal(userInput);
             });
+
+            function showAIServicesModal(prompt) {
+                // Create modal overlay
+                const modalOverlay = document.createElement('div');
+                modalOverlay.className = 'ai-services-modal-overlay';
+                modalOverlay.innerHTML = `
+                    <div class="ai-services-modal">
+                        <h2>각 AI 서비스로 이동하기</h2>
+                        <p>프롬프트가 클립보드에 복사되었습니다.</p>
+                        <div class="ai-services-grid">
+                            <button class="ai-service-btn has-prompt" data-url="https://www.perplexity.ai/search?q=${encodeURIComponent(prompt)}">
+                                <i class="fas fa-search"></i>
+                                Perplexity AI에서 검색
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                            <button class="ai-service-btn" data-url="https://chat.openai.com/">
+                                <i class="fas fa-robot"></i>
+                                ChatGPT에서 질문
+                            </button>
+                            <button class="ai-service-btn has-prompt" data-url="https://felo.ai/search?q=${encodeURIComponent(prompt)}">
+                                <i class="fas fa-search"></i>
+                                Felo AI에서 검색
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                            <button class="ai-service-btn" data-url="https://claude.ai/">
+                                <i class="fas fa-brain"></i>
+                                Claude에서 질문
+                            </button>
+                            <button class="ai-service-btn has-prompt" data-url="https://genspark.ai/search?q=${encodeURIComponent(prompt)}">
+                                <i class="fas fa-search"></i>
+                                Genspark에서 검색
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                            <button class="ai-service-btn" data-url="https://grok.com/">
+                                <i class="fas fa-bolt"></i>
+                                Grok에서 질문
+                            </button>
+                            <button class="ai-service-btn" data-url="https://gemini.google.com/">
+                                <i class="fas fa-gem"></i>
+                                Google Gemini에서 질문
+                            </button>
+                            <button class="ai-service-btn" data-url="https://chat.deepseek.com/">
+                                <i class="fas fa-water"></i>
+                                DeepSeek에서 질문
+                            </button>
+                        </div>
+                        <button class="modal-close-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+
+                document.body.appendChild(modalOverlay);
+
+                // Add event listeners to service buttons
+                modalOverlay.querySelectorAll('.ai-service-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const url = this.dataset.url;
+                        window.open(url, '_blank');
+                        closeAIServicesModal();
+                    });
+                });
+
+                // Add close button event listener
+                modalOverlay.querySelector('.modal-close-btn').addEventListener('click', closeAIServicesModal);
+
+                // Close modal on overlay click
+                modalOverlay.addEventListener('click', function(e) {
+                    if (e.target === modalOverlay) {
+                        closeAIServicesModal();
+                    }
+                });
+
+                // Show modal with animation
+                setTimeout(() => {
+                    modalOverlay.classList.add('show');
+                }, 10);
+            }
+
+            function closeAIServicesModal() {
+                const modal = document.querySelector('.ai-services-modal-overlay');
+                if (modal) {
+                    modal.classList.remove('show');
+                    setTimeout(() => {
+                        modal.remove();
+                    }, 300);
+                }
+            }
             
-            // Spell Check functionality  
+            // Spell Check functionality with services modal
             document.getElementById('spellCheckBtn').addEventListener('click', function() {
                 const textToCheck = document.getElementById('spellCheckPrompt').value.trim();
                 if (!textToCheck) {
@@ -3542,31 +3740,87 @@
                     return;
                 }
 
-                const resultDiv = document.getElementById('spellCheckResult');
-                
-                // Simple demo spell check result
-                resultDiv.innerHTML = `
-                    <div class="spell-check-result">
-                        <div class="result-header">
-                            <i class="fas fa-check-circle"></i>
-                            <span>맞춤법 검사 결과</span>
+                // Copy to clipboard
+                navigator.clipboard.writeText(textToCheck).then(() => {
+                    console.log('텍스트가 클립보드에 복사되었습니다.');
+                }).catch(err => {
+                    console.error('클립보드 복사 실패:', err);
+                });
+
+                // Show spell check services modal
+                showSpellCheckServicesModal(textToCheck);
+            });
+
+            function showSpellCheckServicesModal(text) {
+                // Create modal overlay
+                const modalOverlay = document.createElement('div');
+                modalOverlay.className = 'ai-services-modal-overlay';
+                modalOverlay.innerHTML = `
+                    <div class="ai-services-modal">
+                        <h2>맞춤법 검사 서비스 선택</h2>
+                        <p>텍스트가 클립보드에 복사되었습니다.</p>
+                        <div class="ai-services-grid">
+                            <button class="ai-service-btn has-prompt" data-url="https://nara-speller.co.kr/speller">
+                                <i class="fas fa-spell-check"></i>
+                                나라 맞춤법 검사기
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                            <button class="ai-service-btn" data-url="https://chat.openai.com/">
+                                <i class="fas fa-robot"></i>
+                                ChatGPT로 검사
+                            </button>
+                            <button class="ai-service-btn has-prompt" data-url="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EB%A7%9E%EC%B6%A4%EB%B2%95+%EA%B2%80%EC%82%AC%EA%B8%B0">
+                                <i class="fas fa-search"></i>
+                                네이버 맞춤법 검사기
+                                <i class="fas fa-external-link-alt"></i>
+                            </button>
+                            <button class="ai-service-btn" data-url="https://claude.ai/">
+                                <i class="fas fa-brain"></i>
+                                Claude로 검사
+                            </button>
                         </div>
-                        <div class="result-content">
-                            <div class="original-text">
-                                <h4>원문:</h4>
-                                <p>${textToCheck}</p>
-                            </div>
-                            <div class="corrected-text">
-                                <h4>검사 결과:</h4>
-                                <p>입력하신 텍스트의 맞춤법 검사가 완료되었습니다. 현재 이 기능은 데모 모드로 작동하고 있습니다. 실제 맞춤법 검사 API와 연동하여 더 정확한 검사 결과를 제공할 예정입니다.</p>
-                            </div>
-                        </div>
+                        <button class="modal-close-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                 `;
-                
-                // Scroll to result
-                resultDiv.scrollIntoView({ behavior: 'smooth' });
-            });
+
+                document.body.appendChild(modalOverlay);
+
+                // Add event listeners to service buttons
+                modalOverlay.querySelectorAll('.ai-service-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const url = this.dataset.url;
+                        window.open(url, '_blank');
+                        closeSpellCheckServicesModal();
+                    });
+                });
+
+                // Add close button event listener
+                modalOverlay.querySelector('.modal-close-btn').addEventListener('click', closeSpellCheckServicesModal);
+
+                // Close modal on overlay click
+                modalOverlay.addEventListener('click', function(e) {
+                    if (e.target === modalOverlay) {
+                        closeSpellCheckServicesModal();
+                    }
+                });
+
+                // Show modal with animation
+                setTimeout(() => {
+                    modalOverlay.classList.add('show');
+                }, 10);
+            }
+
+            function closeSpellCheckServicesModal() {
+                const modal = document.querySelector('.ai-services-modal-overlay');
+                if (modal) {
+                    modal.classList.remove('show');
+                    setTimeout(() => {
+                        modal.remove();
+                    }, 300);
+                }
+            }
             
             // Smooth scroll for navigation
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
