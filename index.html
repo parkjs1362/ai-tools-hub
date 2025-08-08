@@ -717,6 +717,19 @@
             margin-bottom: 1.5rem;
         }
 
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
@@ -1369,9 +1382,14 @@
                 <div class="card" data-category="chatbot" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>ChatGPT</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>OpenAI의 강력한 대화형 AI 모델로, 다양한 주제에 대해 자연스럽게 대화할 수 있습니다.</p>
@@ -1390,9 +1408,14 @@
                 <div class="card" data-category="chatbot" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Claude</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>Anthropic의 도움이 되고 안전한 AI 어시스턴트입니다. 복잡한 작업도 정확하게 처리합니다.</p>
@@ -1410,9 +1433,14 @@
                 <div class="card" data-category="image" data-price="paid" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Midjourney</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>텍스트 프롬프트를 통해 놀라운 품질의 이미지를 생성하는 AI 도구입니다.</p>
                     <div class="card-tags">
@@ -1428,9 +1456,14 @@
                 <div class="card" data-category="code" data-price="paid" data-platform="plugin" data-language="multilingual">
                     <div class="card-header">
                         <h3>GitHub Copilot</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>AI 기반 코드 자동완성 도구로 개발 생산성을 크게 향상시킵니다.</p>
                     <div class="card-tags">
@@ -1446,9 +1479,14 @@
                 <div class="card" data-category="productivity" data-price="paid" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Notion AI</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>노션 워크스페이스에 통합된 AI 어시스턴트로 글쓰기와 정리 작업을 도와줍니다.</p>
                     <div class="card-tags">
@@ -1464,9 +1502,14 @@
                 <div class="card" data-category="video" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>RunwayML</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>AI를 활용한 비디오 편집 및 생성 도구로 창의적인 작업을 지원합니다.</p>
                     <div class="card-tags">
@@ -1482,9 +1525,14 @@
                 <div class="card" data-category="chatbot" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Perplexity</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>실시간 웹 검색과 AI를 결합한 지능형 검색 엔진입니다. 최신 정보를 기반으로 정확한 답변을 제공합니다.</p>
                     <div class="card-tags">
@@ -1501,9 +1549,14 @@
                 <div class="card" data-category="code" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>v0 by Vercel</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>텍스트 프롬프트로 리액트 컴포넌트를 생성하는 AI 도구입니다. Shadcn/ui를 기반으로 예쁜 디자인을 만듭니다.</p>
                     <div class="card-tags">
@@ -1520,9 +1573,14 @@
                 <div class="card" data-category="code" data-price="freemium" data-platform="app" data-language="multilingual">
                     <div class="card-header">
                         <h3>Cursor</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>AI가 내장된 코드 에디터입니다. GPT-4와 통합되어 코드 작성, 리팩토링, 디버깅을 도와줍니다.</p>
                     <div class="card-tags">
@@ -1539,9 +1597,14 @@
                 <div class="card" data-category="code" data-price="freemium" data-platform="app" data-language="multilingual">
                     <div class="card-header">
                         <h3>Windsurf</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>Codeium에서 개발한 AI 코드 에디터로, 다중 파일 편집과 컴픍스 리팩토링을 지원합니다.</p>
                     <div class="card-tags">
@@ -1558,9 +1621,14 @@
                 <div class="card" data-category="code" data-price="paid" data-platform="cli" data-language="multilingual">
                     <div class="card-header">
                         <h3>Claude Code</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>Anthropic의 Claude를 기반으로 한 CLI 코딩 도구입니다. 파일 시스템과 직접 상호작용하며 코드를 작성합니다.</p>
                     <div class="card-tags">
@@ -1577,9 +1645,14 @@
                 <div class="card" data-category="image" data-price="paid" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>DALL-E 3</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>OpenAI의 최신 이미지 생성 AI로, 더욱 정교하고 상세한 이미지를 만듭니다.</p>
                     <div class="card-tags">
@@ -1595,9 +1668,14 @@
                 <div class="card" data-category="image" data-price="free" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Stable Diffusion</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>오픈소스 이미지 생성 AI로, 로컬 설치하거나 다양한 온라인 플랫폼에서 사용 가능합니다.</p>
                     <div class="card-tags">
@@ -1613,9 +1691,14 @@
                 <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>ElevenLabs</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>고품질 AI 음성 합성 도구로, 자연스러운 음성으로 텍스트를 음성으로 변환합니다.</p>
                     <div class="card-tags">
@@ -1632,9 +1715,14 @@
                 <div class="card" data-category="code" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Bolt</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>StackBlitz의 AI 웹 개발 도구로, 전체 웹 앱을 즉시 생성하고 실시간으로 수정할 수 있습니다.</p>
                     <div class="card-tags">
@@ -1651,9 +1739,14 @@
                 <div class="card" data-category="code" data-price="paid" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Replit Agent</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>Replit의 AI 코딩 에이전트로, 자연어 명령으로 전체 소프트웨어 프로젝트를 생성합니다.</p>
                     <div class="card-tags">
@@ -1670,9 +1763,14 @@
                 <div class="card" data-category="code" data-price="paid" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Devin</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>Cognition AI의 전체 소프트웨어 개발을 담당할 수 있는 최초의 AI 소프트웨어 엔지니어입니다.</p>
                     <div class="card-tags">
@@ -1689,9 +1787,14 @@
                 <div class="card" data-category="code" data-price="free" data-platform="cli" data-language="english">
                     <div class="card-header">
                         <h3>Aider</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>터미널에서 실행되는 AI 코딩 도구로, Git 레포지토리와 다중 파일을 동시에 편집할 수 있습니다.</p>
                     <div class="card-tags">
@@ -1708,9 +1811,14 @@
                 <div class="card" data-category="chatbot" data-price="free" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>DeepSeek</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>중국의 고성능 AI 언어 모델로, 강력한 코딩과 논리적 사고 능력을 제공합니다.</p>
                     <div class="card-tags">
@@ -1727,9 +1835,14 @@
                 <div class="card" data-category="productivity" data-price="paid" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Claude Workbench</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>Claude를 위한 고급 인터페이스로, 복잡한 작업을 위한 프롬프트 엔지니어링과 반복 작업을 지원합니다.</p>
                     <div class="card-tags">
@@ -1746,9 +1859,14 @@
                 <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Suno</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <p>텍스트 프롬프트로 전체 음악을 생성하는 AI 도구로, 가사와 멜로디를 동시에 만듭니다.</p>
                     <div class="card-tags">
@@ -1765,9 +1883,14 @@
                 <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Udio</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>Google DeepMind 출신 팀이 만든 AI 음악 생성 도구로, 고품질 음원과 다양한 장르를 지원합니다.</p>
@@ -1786,9 +1909,14 @@
                 <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Framer</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>AI 기반 웹사이트 빌더로, 텔스트 프롬프트만으로 전체 웹사이트를 생성합니다.</p>
@@ -1807,9 +1935,14 @@
                 <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Gamma</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>AI로 프레젠테이션, 문서, 웹페이지를 자동 생성하는 도구입니다.</p>
@@ -1828,9 +1961,14 @@
                 <div class="card" data-category="video" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Pika Labs</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>텍스트 프롬프트로 3D 애니메이션과 비디오를 생성하는 AI 도구입니다.</p>
@@ -1849,9 +1987,14 @@
                 <div class="card" data-category="video" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Luma AI</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>텍스트 프롬프트로 고품질 비디오를 생성하는 차세대 AI 도구입니다.</p>
@@ -1870,9 +2013,14 @@
                 <div class="card" data-category="image" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Canva AI</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>Canva에 통합된 AI 디자인 도구로, 이미지 생성부터 디자인 제안까지 지원합니다.</p>
@@ -1891,9 +2039,14 @@
                 <div class="card" data-category="productivity" data-price="paid" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Jasper</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>비즈니스 마케팅 콘텐츠 제작에 특화된 AI 라이팅 도구입니다.</p>
@@ -1912,9 +2065,14 @@
                 <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Copy.ai</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>AI로 마케팅 커피, 블로그 글, 소셜 미디어 컨텐츠를 생성하는 도구입니다.</p>
@@ -1933,9 +2091,14 @@
                 <div class="card" data-category="chatbot" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Google Gemini</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>Google의 최신 멀티모달 AI 모델로, 텍스트, 이미지, 코드 처리가 가능합니다.</p>
@@ -1954,9 +2117,14 @@
                 <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Writesonic</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>AI 라이팅, SEO 최적화, 쳇봇 빌더까지 통합된 마케팅 도구입니다.</p>
@@ -1975,9 +2143,14 @@
                 <div class="card" data-category="video" data-price="paid" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Synthesia</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>AI 아바타가 나레이션하는 전문적인 비디오를 생성하는 도구입니다.</p>
@@ -2008,9 +2181,14 @@
                 <div class="card" data-category="analysis" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Obviously.ai</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>코드 없이 데이터 분석을 수행하는 AI 도구입니다. 비전문가도 쉽게 데이터를 분석하고 예측 모델을 만들 수 있습니다.</p>
@@ -2029,9 +2207,14 @@
                 <div class="card" data-category="analysis" data-price="paid" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Tableau with Einstein</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>AI 기반 데이터 시각화 도구로, 자동으로 인사이트를 발견하고 시각적으로 표현해줍니다.</p>
@@ -2050,9 +2233,14 @@
                 <div class="card" data-category="analysis" data-price="paid" data-platform="web" data-language="english">
                     <div class="card-header">
                         <h3>Dataiku</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>엔터프라이즈 AI 및 ML 플랫폼으로, 대규모 데이터 사이언스 프로젝트를 관리할 수 있습니다.</p>
@@ -2071,9 +2259,14 @@
                 <div class="card" data-category="analysis" data-price="free" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>NotebookLM</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>Google의 문서를 AI로 분석하고 요약하며 인사이트를 추출하는 노트 관리 도구입니다.</p>
@@ -2092,9 +2285,14 @@
                 <div class="card" data-category="analysis" data-price="freemium" data-platform="api" data-language="multilingual">
                     <div class="card-header">
                         <h3>MonkeyLearn</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>텍스트 분석과 감정 분석을 위한 머신러닝 도구로, API를 통해 쉽게 통합할 수 있습니다.</p>
@@ -2113,9 +2311,14 @@
                 <div class="card" data-category="analysis" data-price="freemium" data-platform="web" data-language="multilingual">
                     <div class="card-header">
                         <h3>Power BI</h3>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
+                        <div class="card-header-actions">
+                            <button class="edit-btn" onclick="editTool(this)" title="수정">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="favorite-btn" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-content">
                         <p>Microsoft의 비즈니스 인텔리전스 도구로, AI 기반 데이터 분석과 시각화를 제공합니다.</p>
@@ -2492,6 +2695,36 @@
                 <div class="form-group">
                     <label for="toolUrl">웹사이트 URL</label>
                     <input type="url" id="toolUrl" class="form-input" placeholder="https://example.com">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="toolPrice">가격</label>
+                        <select id="toolPrice" class="form-select">
+                            <option value="free">무료</option>
+                            <option value="paid">유료</option>
+                            <option value="freemium">부분 무료</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="toolPlatform">플랫폼</label>
+                        <select id="toolPlatform" class="form-select">
+                            <option value="web">웹</option>
+                            <option value="desktop">데스크톱</option>
+                            <option value="mobile">모바일</option>
+                            <option value="api">API</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="toolLanguage">언어</label>
+                        <select id="toolLanguage" class="form-select">
+                            <option value="korean">한국어</option>
+                            <option value="english">영어</option>
+                            <option value="multilingual">다국어</option>
+                        </select>
+                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -2918,6 +3151,7 @@
         // AI Tool management
         let customTools = JSON.parse(localStorage.getItem('customTools')) || [];
         let editingToolIndex = -1;
+        let editingToolCard = null;
         
         function showAddToolModal() {
             document.getElementById('toolModalTitle').textContent = 'AI 도구 추가';
@@ -2926,9 +3160,40 @@
             document.getElementById('toolModal').classList.add('show');
         }
         
+        function editTool(btn) {
+            const card = btn.closest('.card');
+            const name = card.querySelector('h3').textContent.trim();
+            const description = card.querySelector('p').textContent.trim();
+            const url = card.querySelector('.btn-primary').getAttribute('href');
+            const category = card.getAttribute('data-category');
+            const price = card.getAttribute('data-price');
+            const platform = card.getAttribute('data-platform');
+            const language = card.getAttribute('data-language');
+            
+            // Get tags from card-tags
+            const tagElements = card.querySelectorAll('.tag');
+            const tags = Array.from(tagElements).map(tag => tag.textContent.trim()).join(', ');
+            
+            // Fill the modal form
+            document.getElementById('toolName').value = name;
+            document.getElementById('toolDescription').value = description;
+            document.getElementById('toolUrl').value = url;
+            document.getElementById('toolCategory').value = category;
+            document.getElementById('toolPrice').value = price;
+            document.getElementById('toolPlatform').value = platform;
+            document.getElementById('toolLanguage').value = language;
+            document.getElementById('toolTags').value = tags;
+            
+            // Set modal title and show
+            document.getElementById('toolModalTitle').textContent = 'AI 도구 수정';
+            editingToolCard = card;
+            document.getElementById('toolModal').classList.add('show');
+        }
+        
         function closeToolModal() {
             document.getElementById('toolModal').classList.remove('show');
             editingToolIndex = -1;
+            editingToolCard = null;
         }
         
         function saveTool() {
@@ -2936,6 +3201,9 @@
             const category = document.getElementById('toolCategory').value;
             const description = document.getElementById('toolDescription').value.trim();
             const url = document.getElementById('toolUrl').value.trim();
+            const price = document.getElementById('toolPrice').value;
+            const platform = document.getElementById('toolPlatform').value;
+            const language = document.getElementById('toolLanguage').value;
             const tagsInput = document.getElementById('toolTags').value.trim();
             
             if (!name || !description) {
@@ -2945,27 +3213,55 @@
             
             const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
             
-            const toolData = {
-                name,
-                category,
-                description,
-                url: url || '#',
-                tags,
-                isCustom: true
-            };
-            
-            if (editingToolIndex >= 0) {
-                // Edit existing tool
-                customTools[editingToolIndex] = toolData;
+            if (editingToolCard) {
+                // Edit existing built-in tool
+                editingToolCard.querySelector('h3').textContent = name;
+                editingToolCard.querySelector('p').textContent = description;
+                editingToolCard.querySelector('.btn-primary').setAttribute('href', url || '#');
+                editingToolCard.setAttribute('data-category', category);
+                editingToolCard.setAttribute('data-price', price);
+                editingToolCard.setAttribute('data-platform', platform);
+                editingToolCard.setAttribute('data-language', language);
+                
+                // Update tags
+                const tagsContainer = editingToolCard.querySelector('.card-tags');
+                tagsContainer.innerHTML = '';
+                tags.forEach(tag => {
+                    const tagSpan = document.createElement('span');
+                    tagSpan.className = 'tag';
+                    tagSpan.textContent = tag;
+                    tagsContainer.appendChild(tagSpan);
+                });
+                
+                updateStatistics();
+                closeToolModal();
             } else {
-                // Add new tool
-                customTools.push(toolData);
+                // Add new custom tool or edit existing custom tool
+                const toolData = {
+                    name,
+                    category,
+                    description,
+                    url: url || '#',
+                    price,
+                    platform, 
+                    language,
+                    tags,
+                    isCustom: true
+                };
+                
+                if (editingToolIndex >= 0) {
+                    // Edit existing custom tool
+                    customTools[editingToolIndex] = toolData;
+                } else {
+                    // Add new tool
+                    customTools.push(toolData);
+                }
+                
+                localStorage.setItem('customTools', JSON.stringify(customTools));
+                loadCustomTools();
+                updateStatistics();
+                closeToolModal();
             }
-            
-            localStorage.setItem('customTools', JSON.stringify(customTools));
-            loadCustomTools();
-            updateStatistics();
-            closeToolModal();
         }
         
         function loadCustomTools() {
