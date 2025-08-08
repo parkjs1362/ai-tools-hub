@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 트렌드 허브 - 최신 AI 도구 & 프롬프트 마켓</title>
+    <link rel="icon" href="brain-favicon.svg" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #64748b;
+            --bg: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* Section */
+        .section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* Search */
+        .search-section {
+            background: var(--bg-secondary);
+            padding: 2rem 0;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            height: fit-content;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .favorite-btn:hover {
+            color: #ef4444;
+        }
+
+        .favorite-btn.active {
+            color: #ef4444;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* News Section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .featured-news {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .news-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .news-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                justify-content: flex-start;
+                overflow-x: auto;
+            }
+        }
+
+        /* Dark Mode */
+        .dark {
+            --bg: #0f172a;
+            --bg-secondary: #1e293b;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+        }
+
+        .dark .header {
+            background: rgba(15, 23, 42, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-brain"></i>
+                AI Trend Hub
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#tools">도구</a></li>
+                    <li><a href="#prompts">프롬프트</a></li>
+                    <li><a href="#news">뉴스</a></li>
+                    <li><a href="#education">교육</a></li>
+                    <li><a href="#community">커뮤니티</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>🚀 AI의 미래, 오늘 만나보세요</h1>
+            <p>가장 혁신적인 AI 도구와 트렌드를 한 곳에서 탐색하세요.<br>전문가가 선별한 최고의 AI 리소스를 제공합니다.</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">AI 도구</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">프롬프트</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">사용자</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="AI 도구를 검색해보세요..." id="searchInput">
+            </div>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="chatbot">챗봇</button>
+                <button class="filter-btn" data-filter="image">이미지</button>
+                <button class="filter-btn" data-filter="code">코딩</button>
+                <button class="filter-btn" data-filter="video">비디오</button>
+                <button class="filter-btn" data-filter="productivity">생산성</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Section -->
+    <section id="tools" class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-robot"></i>
+                AI 도구
+            </h2>
+            
+            <div class="grid" id="toolsGrid">
+                <!-- ChatGPT -->
+                <div class="card" data-category="chatbot">
+                    <div class="card-header">
+                        <h3>ChatGPT</h3>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>OpenAI의 강력한 대화형 AI 모델로, 다양한 주제에 대해 자연스럽게 대화할 수 있습니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                        <span class="tag">API</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://chat.openai.com" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Claude -->
+                <div class="card" data-category="chatbot">
+                    <div class="card-header">
+                        <h3>Claude</h3>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Anthropic의 도움이 되고 안전한 AI 어시스턴트입니다. 복잡한 작업도 정확하게 처리합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://claude.ai" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Midjourney -->
+                <div class="card" data-category="image">
+                    <div class="card-header">
+                        <h3>Midjourney</h3>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>텍스트 프롬프트를 통해 놀라운 품질의 이미지를 생성하는 AI 도구입니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">유료</span>
+                        <span class="tag">디스코드</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://www.midjourney.com" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- GitHub Copilot -->
+                <div class="card" data-category="code">
+                    <div class="card-header">
+                        <h3>GitHub Copilot</h3>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>AI 기반 코드 자동완성 도구로 개발 생산성을 크게 향상시킵니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">유료</span>
+                        <span class="tag">IDE</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://github.com/features/copilot" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Notion AI -->
+                <div class="card" data-category="productivity">
+                    <div class="card-header">
+                        <h3>Notion AI</h3>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>노션 워크스페이스에 통합된 AI 어시스턴트로 글쓰기와 정리 작업을 도와줍니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">유료</span>
+                        <span class="tag">생산성</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://www.notion.so/product/ai" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- RunwayML -->
+                <div class="card" data-category="video">
+                    <div class="card-header">
+                        <h3>RunwayML</h3>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>AI를 활용한 비디오 편집 및 생성 도구로 창의적인 작업을 지원합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://runwayml.com" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI News Section -->
+    <section id="news" class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-newspaper"></i>
+                AI 뉴스 & 트렌드
+            </h2>
+            
+            <div class="news-grid">
+                <article class="featured-news">
+                    <div class="news-meta">
+                        <span class="news-tag">주요 뉴스</span>
+                        <span class="news-date">2024.01.15</span>
+                    </div>
+                    <h3>OpenAI GPT-4 터보 출시, 성능 대폭 향상</h3>
+                    <p>최신 GPT-4 터보 모델이 출시되어 처리 속도와 정확도가 크게 개선되었습니다. 새로운 기능과 개선점을 자세히 살펴보세요.</p>
+                    <a href="#" class="btn btn-primary">자세히 보기</a>
+                </article>
+                
+                <div class="news-list">
+                    <article class="news-item">
+                        <div class="news-meta">
+                            <span class="news-tag">업데이트</span>
+                            <span class="news-date">2024.01.14</span>
+                        </div>
+                        <h4>구글 Gemini Pro, 새로운 멀티모달 기능</h4>
+                    </article>
+                    
+                    <article class="news-item">
+                        <div class="news-meta">
+                            <span class="news-tag">트렌드</span>
+                            <span class="news-date">2024.01.13</span>
+                        </div>
+                        <h4>AI 규제 법안, 국회 통과 예정</h4>
+                    </article>
+                    
+                    <article class="news-item">
+                        <div class="news-meta">
+                            <span class="news-tag">신기술</span>
+                            <span class="news-date">2024.01.12</span>
+                        </div>
+                        <h4>메타, 새로운 VR AI 도구 공개</h4>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4>AI Trend Hub</h4>
+                    <p>최신 AI 트렌드와 도구를 제공하는 플랫폼</p>
+                </div>
+                
+                <div>
+                    <h4>탐색</h4>
+                    <ul>
+                        <li><a href="#tools">AI 도구</a></li>
+                        <li><a href="#prompts">프롬프트</a></li>
+                        <li><a href="#news">뉴스</a></li>
+                        <li><a href="#education">교육</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4>지원</h4>
+                    <ul>
+                        <li><a href="#">고객지원</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">피드백</a></li>
+                        <li><a href="#">문의하기</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 AI Trend Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const icon = document.querySelector('.theme-toggle i');
+            icon.className = document.body.classList.contains('dark') ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // Favorite Toggle
+        function toggleFavorite(btn) {
+            const icon = btn.querySelector('i');
+            icon.classList.toggle('far');
+            icon.classList.toggle('fas');
+            btn.classList.toggle('active');
+        }
+
+        // Filter Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.card');
+            const searchInput = document.getElementById('searchInput');
+
+            // Filter by category
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.dataset.filter;
+                    
+                    // Update active filter
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter cards
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                cards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
