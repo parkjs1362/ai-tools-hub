@@ -1020,6 +1020,25 @@
             transform: translateX(0);
         }
 
+        /* Prompt insert notification */
+        .prompt-insert-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .prompt-insert-notification.show {
+            transform: translateX(0);
+        }
+
         /* Smooth animations */
         .card, .prompt-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3004,6 +3023,69 @@
                 console.error('프롬프트 복사에 실패했습니다:', err);
             });
         }
+
+        // Insert prompt to chatbot function
+        function insertPromptToChatbot(promptCard) {
+            const promptText = promptCard.querySelector('.prompt-content code').textContent;
+            const chatbotTextarea = document.getElementById('userPrompt');
+            
+            if (chatbotTextarea) {
+                chatbotTextarea.value = promptText;
+                chatbotTextarea.focus();
+                
+                // Scroll to chatbot section
+                document.getElementById('ai-section').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+                
+                // Show visual feedback
+                showPromptInsertNotification();
+            }
+        }
+
+        // Show prompt insert notification
+        function showPromptInsertNotification() {
+            let notification = document.querySelector('.prompt-insert-notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.className = 'prompt-insert-notification';
+                notification.innerHTML = '<i class="fas fa-check"></i> 프롬프트가 챗봇 문의하기에 입력되었습니다!';
+                document.body.appendChild(notification);
+            }
+            
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Add click event listeners to all prompt cards
+        function addPromptCardClickListeners() {
+            const promptCards = document.querySelectorAll('.prompt-card');
+            
+            promptCards.forEach(card => {
+                // Remove existing click listeners to avoid duplicates
+                card.removeEventListener('click', handlePromptCardClick);
+                // Add click event listener
+                card.addEventListener('click', handlePromptCardClick);
+                // Add cursor pointer style
+                card.style.cursor = 'pointer';
+            });
+        }
+
+        // Handle prompt card click
+        function handlePromptCardClick(event) {
+            // Prevent action if clicking on buttons
+            if (event.target.closest('.copy-btn') || 
+                event.target.closest('.edit-btn') || 
+                event.target.closest('.delete-btn') || 
+                event.target.closest('.favorite-btn')) {
+                return;
+            }
+            
+            insertPromptToChatbot(this);
+        }
         
         // Show copy notification
         function showCopyNotification() {
@@ -3168,6 +3250,10 @@
             loadCustomPrompts();
             updateStatistics();
             closePromptModal();
+            // Re-add click listeners after loading custom prompts
+            setTimeout(() => {
+                addPromptCardClickListeners();
+            }, 100);
         }
         
         function loadCustomPrompts() {
@@ -3240,6 +3326,10 @@
                 localStorage.setItem('customPrompts', JSON.stringify(customPrompts));
                 loadCustomPrompts();
                 updateStatistics();
+                // Re-add click listeners after deleting custom prompts
+                setTimeout(() => {
+                    addPromptCardClickListeners();
+                }, 100);
             }
         }
         
@@ -3552,6 +3642,11 @@
             
             // Update statistics after page load
             setTimeout(updateStatistics, 100);
+            
+            // Add click event listeners to prompt cards
+            setTimeout(() => {
+                addPromptCardClickListeners();
+            }, 200);
             
             // Set favorite states on load
             cards.forEach(card => {
