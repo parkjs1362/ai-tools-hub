@@ -5,10 +5,489 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 트렌드 허브 - 최신 AI 도구 & 프롬프트 마켓</title>
     <link rel="icon" href="brain-favicon.svg" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="modern-styles.css">
-    <link rel="stylesheet" href="ai2.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #64748b;
+            --bg: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        /* Section */
+        .section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* Search */
+        .search-section {
+            background: var(--bg-secondary);
+            padding: 2rem 0;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            height: fit-content;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .favorite-btn:hover {
+            color: #ef4444;
+        }
+
+        .favorite-btn.active {
+            color: #ef4444;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* News Section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .featured-news {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .news-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .news-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                justify-content: flex-start;
+                overflow-x: auto;
+            }
+        }
+
+        /* Dark Mode */
+        .dark {
+            --bg: #0f172a;
+            --bg-secondary: #1e293b;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+        }
+
+        .dark .header {
+            background: rgba(15, 23, 42, 0.8);
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -20,10 +499,11 @@
             </a>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#tools">AI 도구</a></li>
-                    <li><a href="#data-analysis">데이터 분석</a></li>
-                    <li><a href="#ai-section">AI 서비스</a></li>
+                    <li><a href="#tools">도구</a></li>
                     <li><a href="#prompts">프롬프트</a></li>
+                    <li><a href="#news">뉴스</a></li>
+                    <li><a href="#education">교육</a></li>
+                    <li><a href="#community">커뮤니티</a></li>
                 </ul>
             </nav>
             <button class="theme-toggle" onclick="toggleTheme()">
@@ -40,12 +520,16 @@
             
             <div class="hero-stats">
                 <div class="stat">
-                    <div class="stat-number" id="toolsCount">0</div>
+                    <div class="stat-number">150+</div>
                     <div class="stat-label">AI 도구</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number" id="promptsCount">0</div>
+                    <div class="stat-number">500+</div>
                     <div class="stat-label">프롬프트</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">사용자</div>
                 </div>
             </div>
         </div>
@@ -66,61 +550,6 @@
                 <button class="filter-btn" data-filter="code">코딩</button>
                 <button class="filter-btn" data-filter="video">비디오</button>
                 <button class="filter-btn" data-filter="productivity">생산성</button>
-                <button class="add-tool-btn" onclick="showAddToolModal()">
-                    <i class="fas fa-plus"></i> AI 도구 추가
-                </button>
-                <button class="advanced-filter-btn" onclick="toggleAdvancedFilter()">
-                    <i class="fas fa-filter"></i> 고급 필터
-                </button>
-            </div>
-            
-            <div class="advanced-filters" id="advancedFilters" style="display: none;">
-                <div class="filter-row">
-                    <div class="filter-group">
-                        <label>가격대</label>
-                        <select id="priceFilter">
-                            <option value="all">전체</option>
-                            <option value="free">무료</option>
-                            <option value="paid">유료</option>
-                            <option value="freemium">프리미엄</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>플랫폼</label>
-                        <select id="platformFilter">
-                            <option value="all">전체</option>
-                            <option value="web">웹</option>
-                            <option value="app">App</option>
-                            <option value="api">API</option>
-                            <option value="plugin">플러그인</option>
-                            <option value="cli">CLI</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>언어 지원</label>
-                        <select id="languageFilter">
-                            <option value="all">전체</option>
-                            <option value="korean">한국어</option>
-                            <option value="english">영어</option>
-                            <option value="multilingual">다국어</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <button class="reset-filters-btn" onclick="resetAdvancedFilters()">
-                            <i class="fas fa-undo"></i> 초기화
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="favorites-section" id="favoritesSection" style="display: none;">
-                <h3 class="favorites-title">
-                    <i class="fas fa-star"></i>
-                    즐겨찾는 도구
-                </h3>
-                <div class="grid" id="favoritesGrid">
-                    <!-- 즐겨찾기에 추가된 도구들이 여기에 표시됩니다 -->
-                </div>
             </div>
         </div>
     </section>
@@ -135,68 +564,51 @@
             
             <div class="grid" id="toolsGrid">
                 <!-- ChatGPT -->
-                <div class="card" data-category="chatbot" data-price="freemium" data-platform="web" data-language="multilingual">
+                <div class="card" data-category="chatbot">
                     <div class="card-header">
                         <h3>ChatGPT</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
                     </div>
-                    <div class="card-content">
-                        <p>OpenAI의 강력한 대화형 AI 모델로, 다양한 주제에 대해 자연스럽게 대화할 수 있습니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">API</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://chat.openai.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
+                    <p>OpenAI의 강력한 대화형 AI 모델로, 다양한 주제에 대해 자연스럽게 대화할 수 있습니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                        <span class="tag">API</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://chat.openai.com" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- Claude -->
-                <div class="card" data-category="chatbot" data-price="freemium" data-platform="web" data-language="multilingual">
+                <div class="card" data-category="chatbot">
                     <div class="card-header">
                         <h3>Claude</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
                     </div>
-                    <div class="card-content">
-                        <p>Anthropic의 도움이 되고 안전한 AI 어시스턴트입니다. 복잡한 작업도 정확하게 처리합니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://claude.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
+                    <p>Anthropic의 도움이 되고 안전한 AI 어시스턴트입니다. 복잡한 작업도 정확하게 처리합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://claude.ai" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- Midjourney -->
-                <div class="card" data-category="image" data-price="paid" data-platform="web" data-language="english">
+                <div class="card" data-category="image">
                     <div class="card-header">
                         <h3>Midjourney</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
                     </div>
                     <p>텍스트 프롬프트를 통해 놀라운 품질의 이미지를 생성하는 AI 도구입니다.</p>
                     <div class="card-tags">
@@ -205,21 +617,17 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://www.midjourney.com" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- GitHub Copilot -->
-                <div class="card" data-category="code" data-price="paid" data-platform="plugin" data-language="multilingual">
+                <div class="card" data-category="code">
                     <div class="card-header">
                         <h3>GitHub Copilot</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
                     </div>
                     <p>AI 기반 코드 자동완성 도구로 개발 생산성을 크게 향상시킵니다.</p>
                     <div class="card-tags">
@@ -228,21 +636,17 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://github.com/features/copilot" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- Notion AI -->
-                <div class="card" data-category="productivity" data-price="paid" data-platform="web" data-language="multilingual">
+                <div class="card" data-category="productivity">
                     <div class="card-header">
                         <h3>Notion AI</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
                     </div>
                     <p>노션 워크스페이스에 통합된 AI 어시스턴트로 글쓰기와 정리 작업을 도와줍니다.</p>
                     <div class="card-tags">
@@ -251,21 +655,17 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://www.notion.so/product/ai" target="_blank" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- RunwayML -->
-                <div class="card" data-category="video" data-price="freemium" data-platform="web" data-language="english">
+                <div class="card" data-category="video">
                     <div class="card-header">
                         <h3>RunwayML</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
                     </div>
                     <p>AI를 활용한 비디오 편집 및 생성 도구로 창의적인 작업을 지원합니다.</p>
                     <div class="card-tags">
@@ -274,1281 +674,60 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://runwayml.com" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Perplexity -->
-                <div class="card" data-category="chatbot" data-price="freemium" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Perplexity</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>실시간 웹 검색과 AI를 결합한 지능형 검색 엔진입니다. 최신 정보를 기반으로 정확한 답변을 제공합니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">유료</span>
-                        <span class="tag">검색</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://perplexity.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- v0 by Vercel -->
-                <div class="card" data-category="code" data-price="freemium" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>v0 by Vercel</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>텍스트 프롬프트로 리액트 컴포넌트를 생성하는 AI 도구입니다. Shadcn/ui를 기반으로 예쁜 디자인을 만듭니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">리액트</span>
-                        <span class="tag">디자인</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://v0.dev" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Cursor -->
-                <div class="card" data-category="code" data-price="freemium" data-platform="app" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Cursor</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>AI가 내장된 코드 에디터입니다. GPT-4와 통합되어 코드 작성, 리팩토링, 디버깅을 도와줍니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">유료</span>
-                        <span class="tag">에디터</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://cursor.sh" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Windsurf -->
-                <div class="card" data-category="code" data-price="freemium" data-platform="app" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Windsurf</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>Codeium에서 개발한 AI 코드 에디터로, 다중 파일 편집과 컴픍스 리팩토링을 지원합니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">유료</span>
-                        <span class="tag">에디터</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://codeium.com/windsurf" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Claude Code -->
-                <div class="card" data-category="code" data-price="paid" data-platform="cli" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Claude Code</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>Anthropic의 Claude를 기반으로 한 CLI 코딩 도구입니다. 파일 시스템과 직접 상호작용하며 코드를 작성합니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">유료</span>
-                        <span class="tag">CLI</span>
-                        <span class="tag">의료</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://claude.ai/code" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- DALL-E 3 -->
-                <div class="card" data-category="image" data-price="paid" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>DALL-E 3</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>OpenAI의 최신 이미지 생성 AI로, 더욱 정교하고 상세한 이미지를 만듭니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">유료</span>
-                        <span class="tag">ChatGPT</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://chat.openai.com" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Stable Diffusion -->
-                <div class="card" data-category="image" data-price="free" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Stable Diffusion</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>오픈소스 이미지 생성 AI로, 로컬 설치하거나 다양한 온라인 플랫폼에서 사용 가능합니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">오픈소스</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://stability.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- ElevenLabs -->
-                <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>ElevenLabs</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>고품질 AI 음성 합성 도구로, 자연스러운 음성으로 텍스트를 음성으로 변환합니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">유료</span>
-                        <span class="tag">음성</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://elevenlabs.io" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Bolt -->
-                <div class="card" data-category="code" data-price="freemium" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Bolt</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>StackBlitz의 AI 웹 개발 도구로, 전체 웹 앱을 즉시 생성하고 실시간으로 수정할 수 있습니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">유료</span>
-                        <span class="tag">웹개발</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://bolt.new" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Replit Agent -->
-                <div class="card" data-category="code" data-price="paid" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Replit Agent</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>Replit의 AI 코딩 에이전트로, 자연어 명령으로 전체 소프트웨어 프로젝트를 생성합니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">유료</span>
-                        <span class="tag">프로젝트</span>
-                        <span class="tag">에이전트</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://replit.com/agent" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Devin -->
-                <div class="card" data-category="code" data-price="paid" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Devin</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>Cognition AI의 전체 소프트웨어 개발을 담당할 수 있는 최초의 AI 소프트웨어 엔지니어입니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">유료</span>
-                        <span class="tag">베타</span>
-                        <span class="tag">엔지니어</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://devin.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Aider -->
-                <div class="card" data-category="code" data-price="free" data-platform="cli" data-language="english">
-                    <div class="card-header">
-                        <h3>Aider</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>터미널에서 실행되는 AI 코딩 도구로, Git 레포지토리와 다중 파일을 동시에 편집할 수 있습니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">오픈소스</span>
-                        <span class="tag">CLI</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://aider.chat" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- DeepSeek -->
-                <div class="card" data-category="chatbot" data-price="free" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>DeepSeek</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>중국의 고성능 AI 언어 모델로, 강력한 코딩과 논리적 사고 능력을 제공합니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">오픈소스</span>
-                        <span class="tag">API</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://chat.deepseek.com" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Claude Workbench -->
-                <div class="card" data-category="productivity" data-price="paid" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Claude Workbench</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>Claude를 위한 고급 인터페이스로, 복잡한 작업을 위한 프롬프트 엔지니어링과 반복 작업을 지원합니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">유료</span>
-                        <span class="tag">워크벤치</span>
-                        <span class="tag">전문가</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://claude.ai/workbench" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Suno -->
-                <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Suno</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p>텍스트 프롬프트로 전체 음악을 생성하는 AI 도구로, 가사와 멜로디를 동시에 만듭니다.</p>
-                    <div class="card-tags">
-                        <span class="tag">무료</span>
-                        <span class="tag">유료</span>
-                        <span class="tag">음악</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="https://suno.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                    </div>
-                </div>
-
-                <!-- Udio -->
-                <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Udio</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>Google DeepMind 출신 팀이 만든 AI 음악 생성 도구로, 고품질 음원과 다양한 장르를 지원합니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">음악</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://udio.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Framer -->
-                <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Framer</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>AI 기반 웹사이트 빌더로, 텔스트 프롬프트만으로 전체 웹사이트를 생성합니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">디자인</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://framer.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gamma -->
-                <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Gamma</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>AI로 프레젠테이션, 문서, 웹페이지를 자동 생성하는 도구입니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">프레젠테이션</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://gamma.app" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pika Labs -->
-                <div class="card" data-category="video" data-price="freemium" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Pika Labs</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>텍스트 프롬프트로 3D 애니메이션과 비디오를 생성하는 AI 도구입니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">비디오</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://pika.art" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Luma AI -->
-                <div class="card" data-category="video" data-price="freemium" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Luma AI</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>텍스트 프롬프트로 고품질 비디오를 생성하는 차세대 AI 도구입니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">비디오</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://lumalabs.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Canva AI -->
-                <div class="card" data-category="image" data-price="freemium" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Canva AI</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>Canva에 통합된 AI 디자인 도구로, 이미지 생성부터 디자인 제안까지 지원합니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">디자인</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://canva.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Jasper -->
-                <div class="card" data-category="productivity" data-price="paid" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Jasper</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>비즈니스 마케팅 콘텐츠 제작에 특화된 AI 라이팅 도구입니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">유료</span>
-                            <span class="tag">마케팅</span>
-                            <span class="tag">컨텐츠</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://jasper.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Copy.ai -->
-                <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Copy.ai</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>AI로 마케팅 커피, 블로그 글, 소셜 미디어 컨텐츠를 생성하는 도구입니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">마케팅</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://copy.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gemini -->
-                <div class="card" data-category="chatbot" data-price="freemium" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Google Gemini</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>Google의 최신 멀티모달 AI 모델로, 텍스트, 이미지, 코드 처리가 가능합니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">멀티모달</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://gemini.google.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Writesonic -->
-                <div class="card" data-category="productivity" data-price="freemium" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Writesonic</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>AI 라이팅, SEO 최적화, 쳇봇 빌더까지 통합된 마케팅 도구입니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">SEO</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://writesonic.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Synthesia -->
-                <div class="card" data-category="video" data-price="paid" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Synthesia</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>AI 아바타가 나레이션하는 전문적인 비디오를 생성하는 도구입니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">유료</span>
-                            <span class="tag">나레이션</span>
-                            <span class="tag">AI 아바타</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://synthesia.io" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
+                        <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- AI Data Analysis Tools Section -->
-    <section id="data-analysis" class="section">
+    <!-- AI News Section -->
+    <section id="news" class="section">
         <div class="container">
             <h2 class="section-title">
-                <i class="fas fa-chart-bar"></i>
-                AI 데이터 분석 도구
+                <i class="fas fa-newspaper"></i>
+                AI 뉴스 & 트렌드
             </h2>
             
-            <div class="grid" id="dataAnalysisGrid">
-                <!-- Obviously.ai -->
-                <div class="card" data-category="analysis" data-price="freemium" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Obviously.ai</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
+            <div class="news-grid">
+                <article class="featured-news">
+                    <div class="news-meta">
+                        <span class="news-tag">주요 뉴스</span>
+                        <span class="news-date">2024.01.15</span>
                     </div>
-                    <div class="card-content">
-                        <p>코드 없이 데이터 분석을 수행하는 AI 도구입니다. 비전문가도 쉽게 데이터를 분석하고 예측 모델을 만들 수 있습니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">노코드</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://obviously.ai" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tableau with Einstein -->
-                <div class="card" data-category="analysis" data-price="paid" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Tableau with Einstein</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>AI 기반 데이터 시각화 도구로, 자동으로 인사이트를 발견하고 시각적으로 표현해줍니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">유료</span>
-                            <span class="tag">시각화</span>
-                            <span class="tag">기업용</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://tableau.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dataiku -->
-                <div class="card" data-category="analysis" data-price="paid" data-platform="web" data-language="english">
-                    <div class="card-header">
-                        <h3>Dataiku</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>엔터프라이즈 AI 및 ML 플랫폼으로, 대규모 데이터 사이언스 프로젝트를 관리할 수 있습니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">유료</span>
-                            <span class="tag">엔터프라이즈</span>
-                            <span class="tag">머신러닝</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://dataiku.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NotebookLM -->
-                <div class="card" data-category="analysis" data-price="free" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>NotebookLM</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>Google의 문서를 AI로 분석하고 요약하며 인사이트를 추출하는 노트 관리 도구입니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">문서분석</span>
-                            <span class="tag">Google</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://notebooklm.google.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MonkeyLearn -->
-                <div class="card" data-category="analysis" data-price="freemium" data-platform="api" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>MonkeyLearn</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>텍스트 분석과 감정 분석을 위한 머신러닝 도구로, API를 통해 쉽게 통합할 수 있습니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">텍스트분석</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://monkeylearn.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Power BI -->
-                <div class="card" data-category="analysis" data-price="freemium" data-platform="web" data-language="multilingual">
-                    <div class="card-header">
-                        <h3>Power BI</h3>
-                        <div class="card-header-actions">
-                            <button class="edit-btn" onclick="editTool(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="favorite-btn" onclick="toggleFavorite(this)">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <p>Microsoft의 비즈니스 인텔리전스 도구로, AI 기반 데이터 분석과 시각화를 제공합니다.</p>
-                        <div class="card-tags">
-                            <span class="tag">무료</span>
-                            <span class="tag">유료</span>
-                            <span class="tag">비즈니스</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="https://powerbi.microsoft.com" target="_blank" class="btn btn-primary">사용하기</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Services Section -->
-    <section class="section" id="ai-section">
-        <div class="container">
-            <div class="ai-services-row">
-                <!-- AI Chatbot Section -->
-                <div class="ai-service-col">
-                    <h2 class="section-title">
-                        <i class="fas fa-robot"></i>
-                        AI 챗봇 문의하기
-                    </h2>
-                    <div class="input-section">
-                        <textarea 
-                            id="userPrompt" 
-                            class="input-url-converter" 
-                            placeholder="AI 챗봇에게 물어볼 내용을 입력하세요"
-                        ></textarea>
-                        <button 
-                            id="submitBtn" 
-                            class="mgmt-button" 
-                            aria-label="AI 챗봇에게 문의하기"
-                        >
-                            <i class="fas fa-paper-plane"></i>
-                            AI 챗봇에게 문의하기
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Spell Check Section -->
-                <div class="ai-service-col">
-                    <h2 class="section-title">
-                        <i class="fas fa-spell-check"></i>
-                        맞춤법 검사하기
-                    </h2>
-                    <div class="input-section">
-                        <textarea 
-                            id="spellCheckPrompt" 
-                            class="input-url-converter" 
-                            placeholder="맞춤법을 검사할 내용을 입력하세요"
-                        ></textarea>
-                        <button 
-                            id="spellCheckBtn" 
-                            class="mgmt-button spell-check-btn" 
-                            aria-label="맞춤법 검사하기"
-                        >
-                            <i class="fas fa-check-circle"></i>
-                            맞춤법 검사하기
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Prompts Section -->
-    <section id="prompts" class="section">
-        <div class="container">
-            <h2 class="section-title">
-                <i class="fas fa-magic"></i>
-                AI 프롬프트
-            </h2>
-            
-            <div class="prompt-categories">
-                <button class="prompt-filter-btn active" data-category="all">전체</button>
-                <button class="prompt-filter-btn" data-category="writing">글쓰기</button>
-                <button class="prompt-filter-btn" data-category="business">비즈니스</button>
-                <button class="prompt-filter-btn" data-category="creative">창작</button>
-                <button class="prompt-filter-btn" data-category="analysis">분석</button>
-                <button class="prompt-filter-btn" data-category="coding">코딩</button>
-                <button class="add-prompt-btn" onclick="showAddPromptModal()">
-                    <i class="fas fa-plus"></i> 프롬프트 추가
-                </button>
-            </div>
-            
-            <div class="prompt-grid" id="promptGrid">
-                <!-- 글쓰기 프롬프트 -->
-                <div class="prompt-card" data-category="writing">
-                    <div class="prompt-header">
-                        <h3>블로그 글 작성</h3>
-                        <div class="prompt-header-actions">
-                            <button class="edit-btn" onclick="editBuiltInPrompt(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="copy-btn" onclick="copyPrompt(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="prompt-description">SEO에 최적화된 블로그 글을 작성해주는 프롬프트</p>
-                    <div class="prompt-content">
-                        <code>'주제'에 대한 SEO 최적화된 블로그 글을 작성해주세요. 다음 요구사항을 포함해주세요:
-1. 눈길을 끄는 제목 (H1)
-2. 소제목들 (H2, H3)
-3. 독자의 관심을 끄는 인트로
-4. 구체적인 예시와 설명
-5. 실용적인 팁이나 조언
-6. 행동을 유도하는 결론</code>
-                    </div>
-                    <div class="prompt-tags">
-                        <span class="tag">글쓰기</span>
-                        <span class="tag">SEO</span>
-                        <span class="tag">블로그</span>
-                    </div>
-                </div>
-
-                <!-- 비즈니스 프롬프트 -->
-                <div class="prompt-card" data-category="business">
-                    <div class="prompt-header">
-                        <h3>비즈니스 계획서</h3>
-                        <div class="prompt-header-actions">
-                            <button class="edit-btn" onclick="editBuiltInPrompt(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="copy-btn" onclick="copyPrompt(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="prompt-description">전문적인 비즈니스 계획서를 작성해주는 프롬프트</p>
-                    <div class="prompt-content">
-                        <code>'비즈니스 아이디어'에 대한 상세한 비즈니스 계획서를 작성해주세요. 다음 항목을 포함해주세요:
-1. 요약 (Executive Summary)
-2. 사업 개요와 비전
-3. 시장 분석 및 경쟁 분석
-4. 마케팅 전략
-5. 운영 계획
-6. 재무 계획 및 예상 수익
-7. 위험 요소 및 대안</code>
-                    </div>
-                    <div class="prompt-tags">
-                        <span class="tag">비즈니스</span>
-                        <span class="tag">계획서</span>
-                        <span class="tag">전략</span>
-                    </div>
-                </div>
-
-                <!-- 창작 프롬프트 -->
-                <div class="prompt-card" data-category="creative">
-                    <div class="prompt-header">
-                        <h3>이야기 자동 생성</h3>
-                        <div class="prompt-header-actions">
-                            <button class="edit-btn" onclick="editBuiltInPrompt(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="copy-btn" onclick="copyPrompt(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="prompt-description">재미있고 매력적인 이야기를 만들어주는 프롬프트</p>
-                    <div class="prompt-content">
-                        <code>'장르'의 짧은 이야기를 만들어주세요. 다음 요소를 포함해주세요:
-1. 흥미로운 캐릭터 설정
-2. 관심을 끄는 갈등 상황
-3. 예상치 못한 내용 전개
-4. 만족스러운 결말
-5. 독자가 기억할 만한 덤지나 교훈
-이야기 길이: 500-800단어</code>
-                    </div>
-                    <div class="prompt-tags">
-                        <span class="tag">창작</span>
-                        <span class="tag">이야기</span>
-                        <span class="tag">소설</span>
-                    </div>
-                </div>
-
-                <!-- 분석 프롬프트 -->
-                <div class="prompt-card" data-category="analysis">
-                    <div class="prompt-header">
-                        <h3>데이터 분석 도우미</h3>
-                        <div class="prompt-header-actions">
-                            <button class="edit-btn" onclick="editBuiltInPrompt(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="copy-btn" onclick="copyPrompt(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="prompt-description">복잡한 데이터를 쉽게 이해할 수 있도록 분석해주는 프롬프트</p>
-                    <div class="prompt-content">
-                        <code>주어진 데이터를 분석하고 인사이트를 도출해주세요:
-1. 데이터 요약 및 특징
-2. 주요 트렌드 및 패턴 식별
-3. 이상치나 놀랄운 결과 지적
-4. 비즈니스 영향도 분석
-5. 실용적인 제안 사항
-6. 추가 분석이 필요한 영역 제시
-
-답변을 비전문가도 이해할 수 있도록 쉽게 설명해주세요.</code>
-                    </div>
-                    <div class="prompt-tags">
-                        <span class="tag">분석</span>
-                        <span class="tag">데이터</span>
-                        <span class="tag">비즈니스</span>
-                    </div>
-                </div>
-
-                <!-- 코딩 프롬프트 -->
-                <div class="prompt-card" data-category="coding">
-                    <div class="prompt-header">
-                        <h3>코드 리뷰 및 개선</h3>
-                        <div class="prompt-header-actions">
-                            <button class="edit-btn" onclick="editPrompt(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="copy-btn" onclick="copyPrompt(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="prompt-description">코드의 품질을 향상시켜주는 전문적인 리뷰 프롬프트</p>
-                    <div class="prompt-content">
-                        <code>다음 코드를 전문적으로 리뷰해주세요:
-
-[코드 붙여넣기]
-
-리뷰 방향:
-1. 코드 품질 개선 방안
-2. 성능 최적화 가능한 부분
-3. 보안 취약점 점검
-4. 가독성 향상 제안
-5. 베스트 프랙티스 준수 여부
-6. 대안 솔루션 제시
-
-개선된 코드 예시와 함께 설명해주세요.</code>
-                    </div>
-                    <div class="prompt-tags">
-                        <span class="tag">코딩</span>
-                        <span class="tag">리뷰</span>
-                        <span class="tag">개선</span>
-                    </div>
-                </div>
-
-                <!-- 마케팅 프롬프트 -->
-                <div class="prompt-card" data-category="business">
-                    <div class="prompt-header">
-                        <h3>마케팅 캐페인 기획</h3>
-                        <div class="prompt-header-actions">
-                            <button class="edit-btn" onclick="editPrompt(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="copy-btn" onclick="copyPrompt(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="prompt-description">효과적인 마케팅 캐페인을 기획하는 전문적인 프롬프트</p>
-                    <div class="prompt-content">
-                        <code>'제품/서비스'에 대한 마케팅 캐페인을 기획해주세요:
-
-1. 타겟 고객 분석
-   - 연령, 성별, 관심사, 소비패턴
-   - 고객의 포인트와 니즈 분석
-
-2. 캐페인 목표 설정
-   - 브랜드 인지도 향상
-   - 매출 증대 목표
-   - 고객 획득 목표
-
-3. 메시지 전략
-   - 핵심 메시지 개발
-   - USP(고유 판매 제안) 정의
-   - 채널별 메시지 컴스터마이징
-
-4. 채널 및 매체 선택
-5. 예산 배분 및 일정
-6. 성과 측정 KPI 설정</code>
-                    </div>
-                    <div class="prompt-tags">
-                        <span class="tag">마케팅</span>
-                        <span class="tag">캐페인</span>
-                        <span class="tag">비즈니스</span>
-                    </div>
-                </div>
-
-                <!-- SEO 프롬프트 -->
-                <div class="prompt-card" data-category="writing">
-                    <div class="prompt-header">
-                        <h3>SEO 최적화 글쓰기</h3>
-                        <div class="prompt-header-actions">
-                            <button class="edit-btn" onclick="editPrompt(this)" title="수정">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="copy-btn" onclick="copyPrompt(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="prompt-description">검색 엔진에서 상위 노출되는 고품질 컨텐츠를 만들어주는 프롬프트</p>
-                    <div class="prompt-content">
-                        <code>'키워드'에 대한 SEO 최적화 컨텐츠를 작성해주세요:
-
-1. 제목 최적화
-   - 대상 키워드 포함
-   - 클릭을 유도하는 매력적인 제목
-   - 60자 이내로 제한
-
-2. 메타 디스크립션
-   - 155자 이내의 설명
-   - 키워드와 행동 유도 문구 포함
-
-3. 본문 구조
-   - H1, H2, H3 적절한 사용
-   - 내부 링크 및 외부 링크 추가
-   - 1500-2000단어 분량
-
-4. 키워드 전략
-   - 대상 키워드 자연스럽게 배치
-   - 롭테일 키워드 3-5개 포함
-   - LSI 키워드 활용
-
-5. 사용자 경험 고려
-   - 쉽게 읽히는 문단 구성
-   - 불릿 포인트와 번호 리스트 활용</code>
-                    </div>
-                    <div class="prompt-tags">
-                        <span class="tag">SEO</span>
-                        <span class="tag">컨텐츠</span>
-                        <span class="tag">마케팅</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Add/Edit Tool Modal -->
-    <div class="modal-overlay" id="toolModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 id="toolModalTitle">AI 도구 추가</h2>
-                <button class="modal-close" onclick="closeToolModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <form id="toolForm">
-                <div class="form-group">
-                    <label for="toolName">도구 이름 *</label>
-                    <input type="text" id="toolName" class="form-input" required>
-                </div>
+                    <h3>OpenAI GPT-4 터보 출시, 성능 대폭 향상</h3>
+                    <p>최신 GPT-4 터보 모델이 출시되어 처리 속도와 정확도가 크게 개선되었습니다. 새로운 기능과 개선점을 자세히 살펴보세요.</p>
+                    <a href="#" class="btn btn-primary">자세히 보기</a>
+                </article>
                 
-                <div class="form-group">
-                    <label for="toolCategory">카테고리 *</label>
-                    <select id="toolCategory" class="form-select" required>
-                        <option value="chatbot">챗봇</option>
-                        <option value="image">이미지</option>
-                        <option value="code">코딩</option>
-                        <option value="video">비디오</option>
-                        <option value="productivity">생산성</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="toolDescription">설명 *</label>
-                    <textarea id="toolDescription" class="form-textarea" required placeholder="이 AI 도구에 대한 설명을 입력하세요..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="toolUrl">웹사이트 URL</label>
-                    <input type="url" id="toolUrl" class="form-input" placeholder="https://example.com">
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="toolPrice">가격</label>
-                        <select id="toolPrice" class="form-select">
-                            <option value="free">무료</option>
-                            <option value="paid">유료</option>
-                            <option value="freemium">부분 무료</option>
-                        </select>
-                    </div>
+                <div class="news-list">
+                    <article class="news-item">
+                        <div class="news-meta">
+                            <span class="news-tag">업데이트</span>
+                            <span class="news-date">2024.01.14</span>
+                        </div>
+                        <h4>구글 Gemini Pro, 새로운 멀티모달 기능</h4>
+                    </article>
                     
-                    <div class="form-group">
-                        <label for="toolPlatform">플랫폼</label>
-                        <select id="toolPlatform" class="form-select">
-                            <option value="web">웹</option>
-                            <option value="desktop">데스크톱</option>
-                            <option value="mobile">모바일</option>
-                            <option value="api">API</option>
-                        </select>
-                    </div>
+                    <article class="news-item">
+                        <div class="news-meta">
+                            <span class="news-tag">트렌드</span>
+                            <span class="news-date">2024.01.13</span>
+                        </div>
+                        <h4>AI 규제 법안, 국회 통과 예정</h4>
+                    </article>
                     
-                    <div class="form-group">
-                        <label for="toolLanguage">언어</label>
-                        <select id="toolLanguage" class="form-select">
-                            <option value="korean">한국어</option>
-                            <option value="english">영어</option>
-                            <option value="multilingual">다국어</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="toolTags">태그 (콤마로 구분)</label>
-                    <input type="text" id="toolTags" class="form-input" placeholder="무료, 유료, API">
-                </div>
-            </form>
-            
-            <div class="modal-actions">
-                <button type="button" class="btn-modal btn-delete" id="deleteToolBtn" onclick="deleteTool()" style="display: none;">삭제</button>
-                <div class="modal-actions-right">
-                    <button type="button" class="btn-modal btn-cancel" onclick="closeToolModal()">취소</button>
-                    <button type="button" class="btn-modal btn-save" onclick="saveTool()">저장</button>
+                    <article class="news-item">
+                        <div class="news-meta">
+                            <span class="news-tag">신기술</span>
+                            <span class="news-date">2024.01.12</span>
+                        </div>
+                        <h4>메타, 새로운 VR AI 도구 공개</h4>
+                    </article>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Add/Edit Prompt Modal -->
-    <div class="modal-overlay" id="promptModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 id="modalTitle">프롬프트 추가</h2>
-                <button class="modal-close" onclick="closePromptModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <form id="promptForm">
-                <div class="form-group">
-                    <label for="promptTitle">제목 *</label>
-                    <input type="text" id="promptTitle" class="form-input" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="promptCategory">카테고리 *</label>
-                    <select id="promptCategory" class="form-select" required>
-                        <option value="writing">글쓰기</option>
-                        <option value="business">비즈니스</option>
-                        <option value="creative">창작</option>
-                        <option value="analysis">분석</option>
-                        <option value="coding">코딩</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="promptDescription">설명</label>
-                    <input type="text" id="promptDescription" class="form-input" placeholder="이 프롬프트에 대한 간단한 설명을 입력하세요">
-                </div>
-                
-                <div class="form-group">
-                    <label for="promptContent">프롬프트 내용 *</label>
-                    <textarea id="promptContent" class="form-textarea" required placeholder="프롬프트 내용을 입력하세요..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="promptTags">태그 (콤마로 구분)</label>
-                    <input type="text" id="promptTags" class="form-input" placeholder="태그1, 태그2, 태그3">
-                </div>
-            </form>
-            
-            <div class="modal-actions">
-                <button type="button" class="btn-modal btn-cancel" onclick="closePromptModal()">취소</button>
-                <button type="button" class="btn-modal btn-save" onclick="savePrompt()">저장</button>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1563,11 +742,21 @@
                     <h4>탐색</h4>
                     <ul>
                         <li><a href="#tools">AI 도구</a></li>
-                        <li><a href="#data-analysis">데이터 분석</a></li>
                         <li><a href="#prompts">프롬프트</a></li>
+                        <li><a href="#news">뉴스</a></li>
+                        <li><a href="#education">교육</a></li>
                     </ul>
                 </div>
                 
+                <div>
+                    <h4>지원</h4>
+                    <ul>
+                        <li><a href="#">고객지원</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">피드백</a></li>
+                        <li><a href="#">문의하기</a></li>
+                    </ul>
+                </div>
             </div>
             
             <div class="footer-bottom">
@@ -1592,725 +781,13 @@
             btn.classList.toggle('active');
         }
 
-        // Favorites management with localStorage
-        let favorites = JSON.parse(localStorage.getItem('aiFavorites')) || [];
-        
-        // Load favorites on page load
-        function loadFavorites() {
-            const favoriteCards = [];
-            favorites.forEach(cardId => {
-                const originalCard = document.querySelector(`[data-card-id="${cardId}"]`);
-                if (originalCard) {
-                    const clonedCard = originalCard.cloneNode(true);
-                    favoriteCards.push(clonedCard);
-                }
-            });
-            
-            const favoritesGrid = document.getElementById('favoritesGrid');
-            const favoritesSection = document.getElementById('favoritesSection');
-            
-            if (favoriteCards.length > 0) {
-                favoritesGrid.innerHTML = '';
-                favoriteCards.forEach(card => favoritesGrid.appendChild(card));
-                favoritesSection.style.display = 'block';
-            } else {
-                favoritesSection.style.display = 'none';
-            }
-        }
-        
-        // Enhanced favorite toggle with persistence
-        function toggleFavorite(btn) {
-            const card = btn.closest('.card');
-            const cardTitle = card.querySelector('h3').textContent;
-            const icon = btn.querySelector('i');
-            
-            // Generate unique card ID
-            const cardId = cardTitle.replace(/\s+/g, '-').toLowerCase();
-            card.setAttribute('data-card-id', cardId);
-            
-            if (favorites.includes(cardId)) {
-                // Remove from favorites
-                favorites = favorites.filter(id => id !== cardId);
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                btn.classList.remove('active');
-            } else {
-                // Add to favorites
-                favorites.push(cardId);
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                btn.classList.add('active');
-            }
-            
-            localStorage.setItem('aiFavorites', JSON.stringify(favorites));
-            loadFavorites();
-        }
-        
-        // Copy prompt function
-        function copyPrompt(btn) {
-            const promptCard = btn.closest('.prompt-card');
-            const promptText = promptCard.querySelector('.prompt-content code').textContent;
-            
-            navigator.clipboard.writeText(promptText).then(() => {
-                showCopyNotification();
-                
-                // Visual feedback
-                const icon = btn.querySelector('i');
-                icon.classList.remove('fa-copy');
-                icon.classList.add('fa-check');
-                btn.style.background = '#10b981';
-                
-                setTimeout(() => {
-                    icon.classList.remove('fa-check');
-                    icon.classList.add('fa-copy');
-                    btn.style.background = '';
-                }, 1000);
-            }).catch(err => {
-                console.error('프롬프트 복사에 실패했습니다:', err);
-            });
-        }
-
-        // Insert prompt to chatbot function
-        function insertPromptToChatbot(promptCard) {
-            const promptText = promptCard.querySelector('.prompt-content code').textContent;
-            const chatbotTextarea = document.getElementById('userPrompt');
-            
-            if (chatbotTextarea) {
-                chatbotTextarea.value = promptText;
-                chatbotTextarea.focus();
-                
-                // Scroll to chatbot section
-                document.getElementById('ai-section').scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
-                
-                // Show visual feedback
-                showPromptInsertNotification();
-            }
-        }
-
-        // Show prompt insert notification
-        function showPromptInsertNotification() {
-            let notification = document.querySelector('.prompt-insert-notification');
-            if (!notification) {
-                notification = document.createElement('div');
-                notification.className = 'prompt-insert-notification';
-                notification.innerHTML = '<i class="fas fa-check"></i> 프롬프트가 챗봇 문의하기에 입력되었습니다!';
-                document.body.appendChild(notification);
-            }
-            
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Add click event listeners to all prompt cards
-        function addPromptCardClickListeners() {
-            const promptCards = document.querySelectorAll('.prompt-card');
-            
-            promptCards.forEach(card => {
-                // Remove existing click listeners to avoid duplicates
-                card.removeEventListener('click', handlePromptCardClick);
-                // Add click event listener
-                card.addEventListener('click', handlePromptCardClick);
-                // Add cursor pointer style
-                card.style.cursor = 'pointer';
-            });
-        }
-
-        // Handle prompt card click
-        function handlePromptCardClick(event) {
-            // Prevent action if clicking on buttons
-            if (event.target.closest('.copy-btn') || 
-                event.target.closest('.edit-btn') || 
-                event.target.closest('.delete-btn') || 
-                event.target.closest('.favorite-btn')) {
-                return;
-            }
-            
-            insertPromptToChatbot(this);
-        }
-        
-        // Show copy notification
-        function showCopyNotification() {
-            let notification = document.querySelector('.copy-notification');
-            if (!notification) {
-                notification = document.createElement('div');
-                notification.className = 'copy-notification';
-                notification.innerHTML = '<i class="fas fa-check"></i> 프롬프트가 복사되었습니다!';
-                document.body.appendChild(notification);
-            }
-            
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Statistics counting
-        function updateStatistics() {
-            const toolCards = document.querySelectorAll('.card[data-category]');
-            const promptCards = document.querySelectorAll('.prompt-card[data-category]');
-            
-            const toolsCount = toolCards.length;
-            const promptsCount = promptCards.length;
-            
-            // Animate count up
-            animateNumber('toolsCount', toolsCount);
-            animateNumber('promptsCount', promptsCount);
-        }
-        
-        function animateNumber(elementId, targetNumber) {
-            const element = document.getElementById(elementId);
-            const duration = 1000;
-            const startTime = performance.now();
-            
-            function updateCount(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const currentCount = Math.floor(progress * targetNumber);
-                
-                element.textContent = currentCount + '+';
-                
-                if (progress < 1) {
-                    requestAnimationFrame(updateCount);
-                }
-            }
-            
-            requestAnimationFrame(updateCount);
-        }
-        
-        // Prompt management
-        let customPrompts = JSON.parse(localStorage.getItem('customPrompts')) || [];
-        let editingPromptIndex = -1;
-        let editingBuiltInCard = null;
-        
-        function showAddPromptModal() {
-            document.getElementById('modalTitle').textContent = '프롬프트 추가';
-            document.getElementById('promptForm').reset();
-            editingPromptIndex = -1;
-            document.getElementById('promptModal').classList.add('show');
-        }
-        
-        function editPrompt(btn) {
-            const card = btn.closest('.prompt-card');
-            const title = card.querySelector('h3').textContent;
-            const description = card.querySelector('.prompt-description').textContent;
-            const content = card.querySelector('.prompt-content code').textContent;
-            const category = card.dataset.category;
-            const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent).join(', ');
-            
-            document.getElementById('modalTitle').textContent = '프롬프트 수정';
-            document.getElementById('promptTitle').value = title;
-            document.getElementById('promptDescription').value = description;
-            document.getElementById('promptContent').value = content;
-            document.getElementById('promptCategory').value = category;
-            document.getElementById('promptTags').value = tags;
-            
-            // Find the index of this prompt in customPrompts
-            editingPromptIndex = customPrompts.findIndex(p => p.title === title);
-            
-            document.getElementById('promptModal').classList.add('show');
-        }
-        
-        function editBuiltInPrompt(btn) {
-            const card = btn.closest('.prompt-card');
-            const title = card.querySelector('h3').textContent;
-            const description = card.querySelector('.prompt-description').textContent;
-            const content = card.querySelector('.prompt-content code').textContent;
-            const category = card.dataset.category;
-            const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent).join(', ');
-            
-            document.getElementById('modalTitle').textContent = '기본 프롬프트 수정';
-            document.getElementById('promptTitle').value = title;
-            document.getElementById('promptDescription').value = description;
-            document.getElementById('promptContent').value = content;
-            document.getElementById('promptCategory').value = category;
-            document.getElementById('promptTags').value = tags;
-            
-            // Mark as built-in prompt editing
-            editingPromptIndex = -2; // Special flag for built-in prompts
-            editingBuiltInCard = card; // Store reference to the card
-            
-            document.getElementById('promptModal').classList.add('show');
-        }
-        
-        function closePromptModal() {
-            document.getElementById('promptModal').classList.remove('show');
-            editingPromptIndex = -1;
-            editingBuiltInCard = null;
-        }
-        
-        function savePrompt() {
-            const title = document.getElementById('promptTitle').value.trim();
-            const description = document.getElementById('promptDescription').value.trim();
-            const content = document.getElementById('promptContent').value.trim();
-            const category = document.getElementById('promptCategory').value;
-            const tagsInput = document.getElementById('promptTags').value.trim();
-            
-            if (!title || !content) {
-                alert('제목과 내용은 필수입니다.');
-                return;
-            }
-            
-            const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
-            
-            if (editingPromptIndex === -2 && editingBuiltInCard) {
-                // Edit built-in prompt - update the DOM directly
-                const card = editingBuiltInCard;
-                card.querySelector('h3').textContent = title;
-                card.querySelector('.prompt-description').textContent = description || 'SEO에 최적화된 블로그 글을 작성해주는 프롬프트';
-                card.querySelector('.prompt-content code').textContent = content;
-                card.dataset.category = category;
-                
-                // Update tags
-                const tagsContainer = card.querySelector('.prompt-tags');
-                if (tagsContainer) {
-                    tagsContainer.innerHTML = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-                }
-                
-                closePromptModal();
-                return;
-            }
-            
-            const promptData = {
-                title,
-                description: description || '사용자 정의 프롬프트',
-                content,
-                category,
-                tags,
-                isCustom: true
-            };
-            
-            if (editingPromptIndex >= 0) {
-                // Edit existing prompt
-                customPrompts[editingPromptIndex] = promptData;
-            } else {
-                // Add new prompt
-                customPrompts.push(promptData);
-            }
-            
-            localStorage.setItem('customPrompts', JSON.stringify(customPrompts));
-            loadCustomPrompts();
-            updateStatistics();
-            closePromptModal();
-            // Re-add click listeners after loading custom prompts
-            setTimeout(() => {
-                addPromptCardClickListeners();
-            }, 100);
-        }
-        
-        function loadCustomPrompts() {
-            const promptGrid = document.getElementById('promptGrid');
-            
-            // Remove existing custom prompts
-            const existingCustomPrompts = promptGrid.querySelectorAll('.prompt-card[data-custom="true"]');
-            existingCustomPrompts.forEach(card => card.remove());
-            
-            // Add custom prompts
-            customPrompts.forEach((prompt, index) => {
-                const promptCard = createPromptCard(prompt, index);
-                promptGrid.appendChild(promptCard);
-            });
-        }
-        
-        function createPromptCard(prompt, index) {
-            const card = document.createElement('div');
-            card.className = 'prompt-card';
-            card.dataset.category = prompt.category;
-            card.dataset.custom = 'true';
-            
-            const tagsHtml = prompt.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-            
-            card.innerHTML = `
-                <div class="prompt-header">
-                    <h3>${prompt.title}</h3>
-                    <div class="prompt-header-actions">
-                        <button class="edit-btn" onclick="editCustomPrompt(${index})" title="수정">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="delete-btn" onclick="deleteCustomPrompt(${index})" title="삭제">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <button class="copy-btn" onclick="copyPrompt(this)">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
-                <p class="prompt-description">${prompt.description}</p>
-                <div class="prompt-content">
-                    <code>${prompt.content}</code>
-                </div>
-                <div class="prompt-tags">
-                    ${tagsHtml}
-                </div>
-            `;
-            
-            return card;
-        }
-        
-        function editCustomPrompt(index) {
-            const prompt = customPrompts[index];
-            
-            document.getElementById('modalTitle').textContent = '프롬프트 수정';
-            document.getElementById('promptTitle').value = prompt.title;
-            document.getElementById('promptDescription').value = prompt.description;
-            document.getElementById('promptContent').value = prompt.content;
-            document.getElementById('promptCategory').value = prompt.category;
-            document.getElementById('promptTags').value = prompt.tags.join(', ');
-            
-            editingPromptIndex = index;
-            
-            document.getElementById('promptModal').classList.add('show');
-        }
-        
-        function deleteCustomPrompt(index) {
-            if (confirm('이 프롬프트를 삭제하시겠습니까?')) {
-                customPrompts.splice(index, 1);
-                localStorage.setItem('customPrompts', JSON.stringify(customPrompts));
-                loadCustomPrompts();
-                updateStatistics();
-                // Re-add click listeners after deleting custom prompts
-                setTimeout(() => {
-                    addPromptCardClickListeners();
-                }, 100);
-            }
-        }
-        
-        // AI Tool management
-        let customTools = JSON.parse(localStorage.getItem('customTools')) || [];
-        let editingToolIndex = -1;
-        let editingToolCard = null;
-        
-        function showAddToolModal() {
-            document.getElementById('toolModalTitle').textContent = 'AI 도구 추가';
-            document.getElementById('toolForm').reset();
-            editingToolIndex = -1;
-            editingToolCard = null;
-            document.getElementById('deleteToolBtn').style.display = 'none';
-            document.getElementById('toolModal').classList.add('show');
-        }
-        
-        function editTool(btn) {
-            const card = btn.closest('.card');
-            const name = card.querySelector('h3').textContent.trim();
-            const description = card.querySelector('p').textContent.trim();
-            const url = card.querySelector('.btn-primary').getAttribute('href');
-            const category = card.getAttribute('data-category');
-            const price = card.getAttribute('data-price');
-            const platform = card.getAttribute('data-platform');
-            const language = card.getAttribute('data-language');
-            
-            // Get tags from card-tags
-            const tagElements = card.querySelectorAll('.tag');
-            const tags = Array.from(tagElements).map(tag => tag.textContent.trim()).join(', ');
-            
-            // Fill the modal form
-            document.getElementById('toolName').value = name;
-            document.getElementById('toolDescription').value = description;
-            document.getElementById('toolUrl').value = url;
-            document.getElementById('toolCategory').value = category;
-            document.getElementById('toolPrice').value = price;
-            document.getElementById('toolPlatform').value = platform;
-            document.getElementById('toolLanguage').value = language;
-            document.getElementById('toolTags').value = tags;
-            
-            // Set modal title and show
-            document.getElementById('toolModalTitle').textContent = 'AI 도구 수정';
-            editingToolCard = card;
-            
-            // Show delete button for all tools being edited
-            document.getElementById('deleteToolBtn').style.display = 'block';
-            
-            document.getElementById('toolModal').classList.add('show');
-        }
-        
-        function closeToolModal() {
-            document.getElementById('toolModal').classList.remove('show');
-            editingToolIndex = -1;
-            editingToolCard = null;
-        }
-        
-        function deleteTool() {
-            if (!editingToolCard) return;
-            
-            const toolName = editingToolCard.querySelector('h3').textContent.trim();
-            const isCustomTool = editingToolCard.hasAttribute('data-custom');
-            
-            if (confirm(`"${toolName}" 도구를 삭제하시겠습니까?`)) {
-                if (isCustomTool) {
-                    // For custom tools, remove from customTools array and localStorage
-                    const customToolIndex = parseInt(editingToolCard.getAttribute('data-index'));
-                    customTools.splice(customToolIndex, 1);
-                    localStorage.setItem('customTools', JSON.stringify(customTools));
-                    
-                    // Reload custom tools to update indices
-                    loadCustomTools();
-                } else {
-                    // For built-in tools, just remove from DOM
-                    editingToolCard.remove();
-                }
-                
-                // Update statistics
-                updateStatistics();
-                
-                // Close modal
-                closeToolModal();
-                
-                // Show success message
-                alert('도구가 성공적으로 삭제되었습니다.');
-            }
-        }
-        
-        function saveTool() {
-            const name = document.getElementById('toolName').value.trim();
-            const category = document.getElementById('toolCategory').value;
-            const description = document.getElementById('toolDescription').value.trim();
-            const url = document.getElementById('toolUrl').value.trim();
-            const price = document.getElementById('toolPrice').value;
-            const platform = document.getElementById('toolPlatform').value;
-            const language = document.getElementById('toolLanguage').value;
-            const tagsInput = document.getElementById('toolTags').value.trim();
-            
-            if (!name || !description) {
-                alert('도구 이름과 설명은 필수입니다.');
-                return;
-            }
-            
-            const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
-            
-            if (editingToolCard) {
-                // Edit existing built-in tool
-                editingToolCard.querySelector('h3').textContent = name;
-                editingToolCard.querySelector('p').textContent = description;
-                editingToolCard.querySelector('.btn-primary').setAttribute('href', url || '#');
-                editingToolCard.setAttribute('data-category', category);
-                editingToolCard.setAttribute('data-price', price);
-                editingToolCard.setAttribute('data-platform', platform);
-                editingToolCard.setAttribute('data-language', language);
-                
-                // Update tags
-                const tagsContainer = editingToolCard.querySelector('.card-tags');
-                tagsContainer.innerHTML = '';
-                tags.forEach(tag => {
-                    const tagSpan = document.createElement('span');
-                    tagSpan.className = 'tag';
-                    tagSpan.textContent = tag;
-                    tagsContainer.appendChild(tagSpan);
-                });
-                
-                updateStatistics();
-                closeToolModal();
-            } else {
-                // Add new custom tool or edit existing custom tool
-                const toolData = {
-                    name,
-                    category,
-                    description,
-                    url: url || '#',
-                    price,
-                    platform, 
-                    language,
-                    tags,
-                    isCustom: true
-                };
-                
-                if (editingToolIndex >= 0) {
-                    // Edit existing custom tool
-                    customTools[editingToolIndex] = toolData;
-                } else {
-                    // Add new tool
-                    customTools.push(toolData);
-                }
-                
-                localStorage.setItem('customTools', JSON.stringify(customTools));
-                loadCustomTools();
-                updateStatistics();
-                closeToolModal();
-            }
-        }
-        
-        function loadCustomTools() {
-            const toolsGrid = document.getElementById('toolsGrid');
-            
-            // Remove existing custom tools
-            const existingCustomTools = toolsGrid.querySelectorAll('.card[data-custom="true"]');
-            existingCustomTools.forEach(card => card.remove());
-            
-            // Add custom tools
-            customTools.forEach((tool, index) => {
-                const toolCard = createToolCard(tool, index);
-                toolsGrid.appendChild(toolCard);
-            });
-        }
-        
-        function createToolCard(tool, index) {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.dataset.category = tool.category;
-            card.dataset.custom = 'true';
-            
-            const tagsHtml = tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-            const urlHtml = tool.url && tool.url !== '#' ? 
-                `<a href="${tool.url}" target="_blank" class="btn btn-primary">사용하기</a>` :
-                `<button class="btn btn-secondary" disabled>링크 없음</button>`;
-            
-            card.innerHTML = `
-                <div class="card-header">
-                    <h3>${tool.name}</h3>
-                    <div class="card-header-actions">
-                        <button class="edit-btn" onclick="editCustomTool(${index})" title="수정">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="delete-btn" onclick="deleteCustomTool(${index})" title="삭제">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <button class="favorite-btn" onclick="toggleFavorite(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <p>${tool.description}</p>
-                    <div class="card-tags">
-                        ${tagsHtml}
-                    </div>
-                    <div class="card-actions">
-                        ${urlHtml}
-                    </div>
-                </div>
-            `;
-            
-            return card;
-        }
-        
-        function editCustomTool(index) {
-            const tool = customTools[index];
-            
-            document.getElementById('toolModalTitle').textContent = 'AI 도구 수정';
-            document.getElementById('toolName').value = tool.name;
-            document.getElementById('toolCategory').value = tool.category;
-            document.getElementById('toolDescription').value = tool.description;
-            document.getElementById('toolUrl').value = tool.url === '#' ? '' : tool.url;
-            document.getElementById('toolTags').value = tool.tags.join(', ');
-            
-            editingToolIndex = index;
-            
-            document.getElementById('toolModal').classList.add('show');
-        }
-        
-        function deleteCustomTool(index) {
-            if (confirm('이 AI 도구를 삭제하시겠습니까?')) {
-                customTools.splice(index, 1);
-                localStorage.setItem('customTools', JSON.stringify(customTools));
-                loadCustomTools();
-                updateStatistics();
-            }
-        }
-        
-        // Advanced Filter Functions
-        function toggleAdvancedFilter() {
-            const advancedFilters = document.getElementById('advancedFilters');
-            if (advancedFilters.style.display === 'none') {
-                advancedFilters.style.display = 'block';
-            } else {
-                advancedFilters.style.display = 'none';
-            }
-        }
-        
-        function resetAdvancedFilters() {
-            document.getElementById('priceFilter').value = 'all';
-            document.getElementById('platformFilter').value = 'all';
-            document.getElementById('languageFilter').value = 'all';
-            applyAdvancedFilters();
-        }
-        
-        function applyAdvancedFilters() {
-            const cards = document.querySelectorAll('.card[data-category]');
-            const priceFilter = document.getElementById('priceFilter').value;
-            const platformFilter = document.getElementById('platformFilter').value;
-            const languageFilter = document.getElementById('languageFilter').value;
-            
-            cards.forEach(card => {
-                let showCard = true;
-                
-                // Price filter
-                if (priceFilter !== 'all') {
-                    const cardPrice = card.dataset.price;
-                    if (priceFilter === 'free' && cardPrice !== 'free' && cardPrice !== 'freemium') {
-                        showCard = false;
-                    } else if (priceFilter === 'paid' && cardPrice !== 'paid' && cardPrice !== 'freemium') {
-                        showCard = false;
-                    } else if (priceFilter === 'freemium' && cardPrice !== 'freemium') {
-                        showCard = false;
-                    }
-                }
-                
-                // Platform filter
-                if (platformFilter !== 'all' && showCard) {
-                    const cardPlatform = card.dataset.platform;
-                    if (cardPlatform !== platformFilter) {
-                        showCard = false;
-                    }
-                }
-                
-                // Language filter
-                if (languageFilter !== 'all' && showCard) {
-                    const cardLanguage = card.dataset.language;
-                    if (cardLanguage !== languageFilter) {
-                        showCard = false;
-                    }
-                }
-                
-                card.style.display = showCard ? 'block' : 'none';
-            });
-        }
-
         // Filter Functionality
         document.addEventListener('DOMContentLoaded', function() {
             const filterBtns = document.querySelectorAll('.filter-btn');
             const cards = document.querySelectorAll('.card');
             const searchInput = document.getElementById('searchInput');
-            const promptFilterBtns = document.querySelectorAll('.prompt-filter-btn');
-            const promptCards = document.querySelectorAll('.prompt-card');
-            
-            // Advanced filter event listeners
-            document.getElementById('priceFilter').addEventListener('change', applyAdvancedFilters);
-            document.getElementById('platformFilter').addEventListener('change', applyAdvancedFilters);
-            document.getElementById('languageFilter').addEventListener('change', applyAdvancedFilters);
 
-            // Load favorites, custom prompts and tools on page load
-            loadFavorites();
-            loadCustomPrompts();
-            loadCustomTools();
-            
-            // Update statistics after page load
-            setTimeout(updateStatistics, 100);
-            
-            // Add click event listeners to prompt cards
-            setTimeout(() => {
-                addPromptCardClickListeners();
-            }, 200);
-            
-            // Set favorite states on load
-            cards.forEach(card => {
-                const cardTitle = card.querySelector('h3').textContent;
-                const cardId = cardTitle.replace(/\s+/g, '-').toLowerCase();
-                card.setAttribute('data-card-id', cardId);
-                
-                const favoriteBtn = card.querySelector('.favorite-btn');
-                const icon = favoriteBtn.querySelector('i');
-                
-                if (favorites.includes(cardId)) {
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-                    favoriteBtn.classList.add('active');
-                }
-            });
-
-            // AI Tools Filter by category
+            // Filter by category
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     const filter = this.dataset.filter;
@@ -2322,26 +799,6 @@
                     // Filter cards
                     cards.forEach(card => {
                         if (filter === 'all' || card.dataset.category === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-            
-            // Prompt Filter by category
-            promptFilterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const category = this.dataset.category;
-                    
-                    // Update active filter
-                    promptFilterBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Filter prompt cards
-                    promptCards.forEach(card => {
-                        if (category === 'all' || card.dataset.category === category) {
                             card.style.display = 'block';
                         } else {
                             card.style.display = 'none';
@@ -2365,219 +822,7 @@
                     }
                 });
             });
-            
-            // AI Chatbot functionality with services modal
-            document.getElementById('submitBtn').addEventListener('click', function() {
-                const userInput = document.getElementById('userPrompt').value.trim();
-                if (!userInput) {
-                    alert('문의할 내용을 입력해주세요.');
-                    return;
-                }
-
-                // Copy to clipboard
-                navigator.clipboard.writeText(userInput).then(() => {
-                    console.log('프롬프트가 클립보드에 복사되었습니다.');
-                }).catch(err => {
-                    console.error('클립보드 복사 실패:', err);
-                });
-
-                // Show AI services modal
-                showAIServicesModal(userInput);
-            });
-
-            function showAIServicesModal(prompt) {
-                // Create modal overlay
-                const modalOverlay = document.createElement('div');
-                modalOverlay.className = 'ai-services-modal-overlay';
-                modalOverlay.innerHTML = `
-                    <div class="ai-services-modal">
-                        <h2>각 AI 서비스로 이동하기</h2>
-                        <p>프롬프트가 클립보드에 복사되었습니다.</p>
-                        <div class="ai-services-grid">
-                            <button class="ai-service-btn has-prompt" data-url="https://www.perplexity.ai/search?q=${encodeURIComponent(prompt)}">
-                                <i class="fas fa-search"></i>
-                                Perplexity AI에서 검색
-                                <i class="fas fa-external-link-alt"></i>
-                            </button>
-                            <button class="ai-service-btn" data-url="https://chat.openai.com/">
-                                <i class="fas fa-robot"></i>
-                                ChatGPT에서 질문
-                            </button>
-                            <button class="ai-service-btn has-prompt" data-url="https://felo.ai/search?q=${encodeURIComponent(prompt)}">
-                                <i class="fas fa-search"></i>
-                                Felo AI에서 검색
-                                <i class="fas fa-external-link-alt"></i>
-                            </button>
-                            <button class="ai-service-btn" data-url="https://claude.ai/">
-                                <i class="fas fa-brain"></i>
-                                Claude에서 질문
-                            </button>
-                            <button class="ai-service-btn has-prompt" data-url="https://genspark.ai/search?q=${encodeURIComponent(prompt)}">
-                                <i class="fas fa-search"></i>
-                                Genspark에서 검색
-                                <i class="fas fa-external-link-alt"></i>
-                            </button>
-                            <button class="ai-service-btn" data-url="https://grok.com/">
-                                <i class="fas fa-bolt"></i>
-                                Grok에서 질문
-                            </button>
-                            <button class="ai-service-btn" data-url="https://gemini.google.com/">
-                                <i class="fas fa-gem"></i>
-                                Google Gemini에서 질문
-                            </button>
-                            <button class="ai-service-btn" data-url="https://chat.deepseek.com/">
-                                <i class="fas fa-water"></i>
-                                DeepSeek에서 질문
-                            </button>
-                        </div>
-                        <button class="modal-close-btn">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                `;
-
-                document.body.appendChild(modalOverlay);
-
-                // Add event listeners to service buttons
-                modalOverlay.querySelectorAll('.ai-service-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const url = this.dataset.url;
-                        window.open(url, '_blank');
-                        closeAIServicesModal();
-                    });
-                });
-
-                // Add close button event listener
-                modalOverlay.querySelector('.modal-close-btn').addEventListener('click', closeAIServicesModal);
-
-                // Close modal on overlay click
-                modalOverlay.addEventListener('click', function(e) {
-                    if (e.target === modalOverlay) {
-                        closeAIServicesModal();
-                    }
-                });
-
-                // Show modal with animation
-                setTimeout(() => {
-                    modalOverlay.classList.add('show');
-                }, 10);
-            }
-
-            function closeAIServicesModal() {
-                const modal = document.querySelector('.ai-services-modal-overlay');
-                if (modal) {
-                    modal.classList.remove('show');
-                    setTimeout(() => {
-                        modal.remove();
-                    }, 300);
-                }
-            }
-            
-            // Spell Check functionality with services modal
-            document.getElementById('spellCheckBtn').addEventListener('click', function() {
-                const textToCheck = document.getElementById('spellCheckPrompt').value.trim();
-                if (!textToCheck) {
-                    alert('검사할 내용을 입력해주세요.');
-                    return;
-                }
-
-                // Copy to clipboard
-                navigator.clipboard.writeText(textToCheck).then(() => {
-                    console.log('텍스트가 클립보드에 복사되었습니다.');
-                }).catch(err => {
-                    console.error('클립보드 복사 실패:', err);
-                });
-
-                // Show spell check services modal
-                showSpellCheckServicesModal(textToCheck);
-            });
-
-            function showSpellCheckServicesModal(text) {
-                // Create modal overlay
-                const modalOverlay = document.createElement('div');
-                modalOverlay.className = 'ai-services-modal-overlay';
-                modalOverlay.innerHTML = `
-                    <div class="ai-services-modal">
-                        <h2>맞춤법 검사 서비스 선택</h2>
-                        <p>텍스트가 클립보드에 복사되었습니다.</p>
-                        <div class="ai-services-grid">
-                            <button class="ai-service-btn has-prompt" data-url="https://nara-speller.co.kr/speller">
-                                <i class="fas fa-spell-check"></i>
-                                나라 맞춤법 검사기
-                                <i class="fas fa-external-link-alt"></i>
-                            </button>
-                            <button class="ai-service-btn" data-url="https://chat.openai.com/">
-                                <i class="fas fa-robot"></i>
-                                ChatGPT로 검사
-                            </button>
-                            <button class="ai-service-btn has-prompt" data-url="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EB%A7%9E%EC%B6%A4%EB%B2%95+%EA%B2%80%EC%82%AC%EA%B8%B0">
-                                <i class="fas fa-search"></i>
-                                네이버 맞춤법 검사기
-                                <i class="fas fa-external-link-alt"></i>
-                            </button>
-                            <button class="ai-service-btn" data-url="https://claude.ai/">
-                                <i class="fas fa-brain"></i>
-                                Claude로 검사
-                            </button>
-                        </div>
-                        <button class="modal-close-btn">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                `;
-
-                document.body.appendChild(modalOverlay);
-
-                // Add event listeners to service buttons
-                modalOverlay.querySelectorAll('.ai-service-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const url = this.dataset.url;
-                        window.open(url, '_blank');
-                        closeSpellCheckServicesModal();
-                    });
-                });
-
-                // Add close button event listener
-                modalOverlay.querySelector('.modal-close-btn').addEventListener('click', closeSpellCheckServicesModal);
-
-                // Close modal on overlay click
-                modalOverlay.addEventListener('click', function(e) {
-                    if (e.target === modalOverlay) {
-                        closeSpellCheckServicesModal();
-                    }
-                });
-
-                // Show modal with animation
-                setTimeout(() => {
-                    modalOverlay.classList.add('show');
-                }, 10);
-            }
-
-            function closeSpellCheckServicesModal() {
-                const modal = document.querySelector('.ai-services-modal-overlay');
-                if (modal) {
-                    modal.classList.remove('show');
-                    setTimeout(() => {
-                        modal.remove();
-                    }, 300);
-                }
-            }
-            
-            // Smooth scroll for navigation
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
         });
-        
     </script>
 </body>
 </html>
