@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 트렌드 허브 - AI 도구 & 뉴스 허브</title>
-    <link rel="icon" href="brain-favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <meta name="description" content="최신 AI 도구와 한국 AI 뉴스를 한 곳에서. ChatGPT, Claude, Gemini 등 20개 이상의 AI 도구를 탐색하세요.">
+    <meta name="keywords" content="AI 도구, 인공지능, ChatGPT, Claude, Gemini, AI 뉴스, 한국 AI">
+    <meta property="og:title" content="AI 트렌드 허브 - AI 도구 & 뉴스">
+    <meta property="og:description" content="최신 AI 도구와 한국 AI 뉴스를 한 곳에서 탐색하세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://parkjs1362.github.io/ai-tools-hub/">
+    <meta name="twitter:card" content="summary_large_image">
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -324,6 +331,16 @@
             background: var(--surface-soft);
             padding: 56px 0 22px;
             border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            backdrop-filter: blur(12px);
+            transition: box-shadow var(--transition);
+        }
+
+        .search-section.scrolled {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 16px 0;
         }
 
         .search-box {
@@ -830,6 +847,109 @@
             }
         }
 
+        /* Tool Detail Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 28px;
+            position: relative;
+            box-shadow: var(--shadow);
+            animation: modalIn 0.25s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            border: none;
+            background: var(--surface-soft);
+            color: var(--muted);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--border);
+            color: var(--ink);
+        }
+
+        .modal h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            padding-right: 40px;
+        }
+
+        .modal-desc {
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .modal-features {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .modal-features li {
+            padding: 6px 0;
+            color: var(--ink);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .modal-features li::before {
+            content: "✓";
+            color: var(--brand);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .modal-price {
+            background: var(--surface-soft);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        .modal-price strong {
+            color: var(--ink);
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -949,7 +1069,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://chat.openai.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('chatgpt')">자세히</button>
                     </div>
                 </div>
 
@@ -971,7 +1091,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://claude.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('claude')">자세히</button>
                     </div>
                 </div>
 
@@ -994,7 +1114,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://gemini.google.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('gemini')">자세히</button>
                     </div>
                 </div>
 
@@ -1016,7 +1136,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://grok.x.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('grok')">자세히</button>
                     </div>
                 </div>
 
@@ -1038,7 +1158,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://chat.deepseek.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('deepseek')">자세히</button>
                     </div>
                 </div>
 
@@ -1060,7 +1180,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://www.meta.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('meta-ai')">자세히</button>
                     </div>
                 </div>
 
@@ -1082,7 +1202,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://www.perplexity.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('perplexity')">자세히</button>
                     </div>
                 </div>
 
@@ -1104,7 +1224,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://www.midjourney.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('midjourney')">자세히</button>
                     </div>
                 </div>
 
@@ -1126,7 +1246,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://openai.com/dall-e-3" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('dall-e-3')">자세히</button>
                     </div>
                 </div>
 
@@ -1148,7 +1268,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://firefly.adobe.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('adobe-firefly')">자세히</button>
                     </div>
                 </div>
 
@@ -1170,7 +1290,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://stability.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('stable-diffusion')">자세히</button>
                     </div>
                 </div>
 
@@ -1192,7 +1312,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('github-copilot')">자세히</button>
                     </div>
                 </div>
 
@@ -1215,7 +1335,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://cursor.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('cursor')">자세히</button>
                     </div>
                 </div>
 
@@ -1237,7 +1357,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://claude.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('claude-code')">자세히</button>
                     </div>
                 </div>
 
@@ -1259,7 +1379,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://runwayml.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('runwayml')">자세히</button>
                     </div>
                 </div>
 
@@ -1281,7 +1401,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://sora.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('sora')">자세히</button>
                     </div>
                 </div>
 
@@ -1303,7 +1423,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://www.notion.so/product/ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('notion-ai')">자세히</button>
                     </div>
                 </div>
 
@@ -1325,7 +1445,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://notebooklm.google" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('notebooklm')">자세히</button>
                     </div>
                 </div>
 
@@ -1347,7 +1467,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://suno.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('suno')">자세히</button>
                     </div>
                 </div>
 
@@ -1369,7 +1489,7 @@
                     </div>
                     <div class="card-actions">
                         <a href="https://www.udio.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
-                        <button class="btn btn-secondary">자세히</button>
+                        <button class="btn btn-secondary" onclick="openToolDetail('udio')">자세히</button>
                     </div>
                 </div>
             </div>
@@ -1382,7 +1502,7 @@
             <div class="news-head">
                 <h2 class="section-title">
                     <i class="fas fa-newspaper"></i>
-                    AI 뉴스 & 트렌드
+                    한국 AI 뉴스
                 </h2>
                 <div class="news-controls">
                     <span class="news-status" id="newsStatus" data-state="idle" aria-live="polite">업데이트 대기</span>
@@ -1404,6 +1524,14 @@
         </div>
     </section>
 
+    <!-- Tool Detail Modal -->
+    <div class="modal-overlay" id="toolModal" onclick="closeToolModal(event)">
+        <div class="modal">
+            <button class="modal-close" onclick="closeToolModal()">&times;</button>
+            <div id="toolModalContent"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -1422,18 +1550,17 @@
                 </div>
 
                 <div>
-                    <h4>지원</h4>
+                    <h4>링크</h4>
                     <ul>
-                        <li><a href="#">고객지원</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">피드백</a></li>
-                        <li><a href="#">문의하기</a></li>
+                        <li><a href="https://github.com/parkjs1362/ai-tools-hub" target="_blank">GitHub</a></li>
+                        <li><a href="#tools">AI 도구</a></li>
+                        <li><a href="#news">뉴스</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2025 AI Trend Hub. All rights reserved.</p>
+                <p>&copy; 2026 AI Trend Hub. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1526,16 +1653,20 @@
         // ===== News =====
         const NEWS_FEEDS = [
             {
-                name: 'TechCrunch',
-                url: 'https://techcrunch.com/feed/'
+                name: 'AI타임스',
+                url: 'https://www.aitimes.com/rss/allArticle.xml'
             },
             {
-                name: 'VentureBeat',
-                url: 'http://feeds.venturebeat.com/VentureBeat'
+                name: 'ZDNet Korea',
+                url: 'https://zdnet.co.kr/rss/all_news.xml'
             },
             {
-                name: 'Google News AI',
-                url: 'https://news.google.com/rss/search?q=artificial%20intelligence&hl=en-US&gl=US&ceid=US:en'
+                name: '전자신문',
+                url: 'https://rss.etnews.com/Section901.xml'
+            },
+            {
+                name: 'Google News 한국어',
+                url: 'https://news.google.com/rss/search?q=인공지능+AI&hl=ko&gl=KR&ceid=KR:ko'
             }
         ];
 
@@ -1545,12 +1676,12 @@
         };
 
         const AI_PATTERNS = [
-            /ai/i,
+            /\bai\b/i,
             /artificial intelligence/i,
             /machine learning/i,
             /genai/i,
             /generative ai/i,
-            /llm/i,
+            /\bllm\b/i,
             /gpt/i,
             /openai/i,
             /anthropic/i,
@@ -1563,7 +1694,12 @@
             /인공지능/,
             /머신러닝/,
             /생성형/,
-            /대규모\s*언어/
+            /대규모\s*언어/,
+            /AI 모델/,
+            /딥러닝/,
+            /자연어/,
+            /챗봇/,
+            /생성형 AI/
         ];
 
         const newsState = {
@@ -1710,7 +1846,7 @@
         async function fetchFeedText(url) {
             const proxies = [
                 target => `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
-                target => `https://r.jina.ai/http://${target.replace(/^https?:\/\//, '')}`,
+                target => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(target)}`,
                 target => target
             ];
 
@@ -1871,11 +2007,200 @@
             `).join('');
         }
 
+        // ===== Tool Details =====
+        const TOOL_DETAILS = {
+            'chatgpt': {
+                name: 'ChatGPT',
+                desc: 'OpenAI가 개발한 대화형 AI 모델입니다. GPT-4o 기반으로 텍스트, 이미지, 음성을 이해하며, 글쓰기, 코딩, 분석 등 다양한 작업을 수행합니다.',
+                features: ['멀티모달 입력 (텍스트, 이미지, 음성)', '플러그인 및 GPTs 커스텀 봇', '웹 브라우징 및 코드 실행'],
+                price: '무료 (GPT-3.5) / Plus $20/월 (GPT-4o)',
+                url: 'https://chat.openai.com'
+            },
+            'claude': {
+                name: 'Claude',
+                desc: 'Anthropic이 개발한 안전하고 유용한 AI 어시스턴트입니다. 긴 문맥 처리와 정확한 분석에 강점이 있으며, 코딩과 글쓰기에서 뛰어난 성능을 보입니다.',
+                features: ['200K 토큰 긴 문맥 처리', '안전하고 정직한 응답 설계', '코딩, 분석, 글쓰기 전문'],
+                price: '무료 (제한적) / Pro $20/월',
+                url: 'https://claude.ai'
+            },
+            'gemini': {
+                name: 'Gemini',
+                desc: 'Google이 개발한 차세대 멀티모달 AI 모델입니다. 텍스트, 이미지, 코드, 오디오를 통합적으로 이해하고 Google 생태계와 긴밀히 연동됩니다.',
+                features: ['Google 서비스 통합 (Gmail, Docs 등)', '멀티모달 이해 (이미지, 코드, 오디오)', 'Google 검색 기반 최신 정보'],
+                price: '무료 / Advanced $19.99/월',
+                url: 'https://gemini.google.com'
+            },
+            'grok': {
+                name: 'Grok',
+                desc: 'xAI가 개발한 AI 챗봇으로, X(트위터) 플랫폼의 실시간 데이터에 접근할 수 있습니다. 유머러스한 성격과 솔직한 답변이 특징입니다.',
+                features: ['X(트위터) 실시간 데이터 접근', '유머러스하고 솔직한 응답 스타일', '이미지 생성 기능 내장'],
+                price: 'X Premium+ 구독 포함',
+                url: 'https://grok.x.ai'
+            },
+            'deepseek': {
+                name: 'DeepSeek',
+                desc: '중국 AI 스타트업이 개발한 오픈소스 모델입니다. R1 추론 모델은 GPT-4급 성능을 무료로 제공하며, MIT 라이선스로 자유롭게 사용 가능합니다.',
+                features: ['GPT-4급 추론 성능 (R1)', 'MIT 라이선스 오픈소스', '로컬 실행 및 API 지원'],
+                price: '무료 (웹/API 모두)',
+                url: 'https://chat.deepseek.com'
+            },
+            'meta-ai': {
+                name: 'Meta AI',
+                desc: 'Meta가 개발한 Llama 기반 AI 어시스턴트입니다. 오픈소스 모델로 다양한 플랫폼에서 사용 가능하며, Instagram, WhatsApp 등에 통합되어 있습니다.',
+                features: ['Llama 오픈소스 모델 기반', 'Meta 플랫폼 통합 (Instagram, WhatsApp)', '이미지 생성 기능 포함'],
+                price: '무료',
+                url: 'https://www.meta.ai'
+            },
+            'perplexity': {
+                name: 'Perplexity',
+                desc: 'AI 기반 검색 엔진으로, 실시간 웹 검색 결과를 종합하여 출처와 함께 정확한 답변을 제공합니다. 연구 및 사실 확인에 특화되어 있습니다.',
+                features: ['실시간 웹 검색 + AI 요약', '출처 인용으로 신뢰도 확보', 'Focus 모드 (학술, 영상 등)'],
+                price: '무료 / Pro $20/월',
+                url: 'https://www.perplexity.ai'
+            },
+            'midjourney': {
+                name: 'Midjourney',
+                desc: '텍스트 프롬프트로 고품질 아트워크를 생성하는 AI 이미지 도구입니다. 예술적이고 창의적인 이미지 생성에 특화되어 있습니다.',
+                features: ['최고 수준의 이미지 품질', '다양한 아트 스타일 지원', '디스코드 기반 커뮤니티'],
+                price: 'Basic $10/월 ~ Pro $60/월',
+                url: 'https://www.midjourney.com'
+            },
+            'dall-e-3': {
+                name: 'DALL-E 3',
+                desc: 'OpenAI의 최신 이미지 생성 모델입니다. ChatGPT와 통합되어 자연어로 정확한 이미지를 생성하며, 텍스트 렌더링 성능이 뛰어납니다.',
+                features: ['ChatGPT 통합으로 쉬운 프롬프트', '정확한 텍스트 렌더링', '안전성 필터 내장'],
+                price: 'ChatGPT Plus 포함 ($20/월)',
+                url: 'https://openai.com/dall-e-3'
+            },
+            'adobe-firefly': {
+                name: 'Adobe Firefly',
+                desc: 'Adobe의 생성형 AI로, 상업적으로 안전한 학습 데이터를 사용합니다. Photoshop, Illustrator 등 Adobe 도구와 긴밀히 통합됩니다.',
+                features: ['상업적 사용 안전 (저작권 보호)', 'Adobe Creative Cloud 통합', '이미지 생성 + 편집 + 효과'],
+                price: '무료 크레딧 / Creative Cloud 포함',
+                url: 'https://firefly.adobe.com'
+            },
+            'stable-diffusion': {
+                name: 'Stable Diffusion',
+                desc: 'Stability AI의 오픈소스 이미지 생성 모델입니다. 로컬 PC에서 무료로 실행할 수 있으며, 커뮤니티의 다양한 커스텀 모델과 LoRA를 활용할 수 있습니다.',
+                features: ['완전 오픈소스 (로컬 실행)', '커스텀 모델/LoRA 생태계', 'ComfyUI, WebUI 등 다양한 인터페이스'],
+                price: '무료 (로컬) / API 별도',
+                url: 'https://stability.ai'
+            },
+            'github-copilot': {
+                name: 'GitHub Copilot',
+                desc: 'GitHub과 OpenAI가 공동 개발한 AI 코딩 어시스턴트입니다. VS Code, JetBrains 등 주요 IDE에서 실시간 코드 자동완성과 제안을 제공합니다.',
+                features: ['IDE 통합 실시간 코드 완성', '코드 설명 및 리팩토링', '채팅 기반 코드 Q&A'],
+                price: 'Individual $10/월 / Business $19/월',
+                url: 'https://github.com/features/copilot'
+            },
+            'cursor': {
+                name: 'Cursor',
+                desc: 'AI 네이티브 코드 에디터입니다. VS Code 기반으로 AI 코드 생성, 편집, 디버깅이 자연스럽게 통합되어 있으며, 코드베이스 전체를 이해합니다.',
+                features: ['AI 코드 생성 및 편집 통합', '코드베이스 컨텍스트 이해', 'VS Code 확장 호환'],
+                price: '무료 (제한적) / Pro $20/월',
+                url: 'https://cursor.com'
+            },
+            'claude-code': {
+                name: 'Claude Code',
+                desc: 'Anthropic의 CLI 기반 AI 코딩 에이전트입니다. 터미널에서 직접 코드를 작성, 수정, 리팩토링하며 Git 워크플로우와 자연스럽게 통합됩니다.',
+                features: ['터미널 기반 에이전틱 코딩', '프로젝트 전체 컨텍스트 이해', 'Git 커밋/PR 자동화'],
+                price: 'Claude API 사용량 기반',
+                url: 'https://claude.ai'
+            },
+            'runwayml': {
+                name: 'RunwayML',
+                desc: 'AI 기반 비디오 생성 및 편집 도구입니다. Gen-2 모델로 텍스트나 이미지에서 비디오를 생성하며, 전문 영상 편집 기능도 제공합니다.',
+                features: ['텍스트/이미지 → 비디오 생성', '모션 브러시로 정밀 제어', '전문 비디오 편집 도구'],
+                price: '무료 크레딧 / Standard $12/월',
+                url: 'https://runwayml.com'
+            },
+            'sora': {
+                name: 'Sora',
+                desc: 'OpenAI의 텍스트-투-비디오 생성 모델입니다. 텍스트 설명만으로 최대 1분 길이의 사실적인 영상을 생성할 수 있습니다.',
+                features: ['텍스트로 고품질 비디오 생성', '최대 1분 길이 영상', '사실적인 물리 시뮬레이션'],
+                price: 'ChatGPT Plus/Pro 포함',
+                url: 'https://sora.com'
+            },
+            'notion-ai': {
+                name: 'Notion AI',
+                desc: 'Notion 워크스페이스에 통합된 AI 어시스턴트입니다. 글쓰기, 요약, 번역, 브레인스토밍 등 생산성 작업을 노션 안에서 바로 수행합니다.',
+                features: ['노션 워크스페이스 네이티브 통합', '글쓰기/요약/번역 자동화', 'Q&A로 문서 검색 및 답변'],
+                price: 'AI 애드온 $10/월',
+                url: 'https://www.notion.so/product/ai'
+            },
+            'notebooklm': {
+                name: 'NotebookLM',
+                desc: 'Google의 AI 노트북으로, 업로드한 문서를 기반으로 질의응답, 요약, 팟캐스트 생성까지 수행합니다. 개인 지식 베이스로 활용할 수 있습니다.',
+                features: ['문서 기반 Q&A 및 요약', 'AI 팟캐스트 자동 생성', 'PDF, 웹페이지, 유튜브 소스 지원'],
+                price: '무료',
+                url: 'https://notebooklm.google'
+            },
+            'suno': {
+                name: 'Suno',
+                desc: '텍스트 프롬프트로 완성도 높은 음악을 생성하는 AI입니다. 가사, 멜로디, 보컬까지 자동으로 만들어 누구나 음악을 창작할 수 있습니다.',
+                features: ['텍스트로 풀 음악 생성 (가사+멜로디)', '다양한 장르 및 스타일 지원', '보컬 포함 고품질 출력'],
+                price: '무료 (하루 5곡) / Pro $8/월',
+                url: 'https://suno.com'
+            },
+            'udio': {
+                name: 'Udio',
+                desc: 'AI 음악 생성 플랫폼으로, 다양한 장르와 스타일의 음악을 텍스트로 만들 수 있습니다. 음악적 뉘앙스 표현에 강점이 있습니다.',
+                features: ['고품질 음악 생성', '세밀한 스타일/장르 제어', '음악 확장 및 리믹스 기능'],
+                price: '무료 (제한적) / Standard $10/월',
+                url: 'https://www.udio.com'
+            }
+        };
+
+        function openToolDetail(name) {
+            const tool = TOOL_DETAILS[name];
+            if (!tool) return;
+            const content = document.getElementById('toolModalContent');
+            if (!content) return;
+            content.innerHTML = `
+                <h3>${escapeHtml(tool.name)}</h3>
+                <p class="modal-desc">${escapeHtml(tool.desc)}</p>
+                <ul class="modal-features">
+                    ${tool.features.map(f => `<li>${escapeHtml(f)}</li>`).join('')}
+                </ul>
+                <div class="modal-price"><strong>가격:</strong> ${escapeHtml(tool.price)}</div>
+                <a href="${tool.url}" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center">공식 사이트 방문</a>
+            `;
+            document.getElementById('toolModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeToolModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('toolModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeToolModal();
+        });
+
+        // ===== Sticky Scroll Detection =====
+        function initStickySearch() {
+            const searchSection = document.querySelector('.search-section');
+            if (!searchSection) return;
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        searchSection.classList.toggle('scrolled', window.scrollY > 200);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             restoreTheme();
             restoreFavorites();
             initFilters();
             initNews();
+            initStickySearch();
         });
     </script>
 </body>
