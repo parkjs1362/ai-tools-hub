@@ -258,6 +258,51 @@
             opacity: 0.85;
         }
 
+        /* Weekly Pick Banner */
+        .weekly-pick {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-soft) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px 28px;
+            margin: -36px auto 0;
+            max-width: 720px;
+            position: relative;
+            z-index: 10;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .weekly-pick-badge {
+            background: linear-gradient(120deg, var(--accent), var(--accent-2));
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .weekly-pick-text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .weekly-pick-text strong {
+            color: var(--ink);
+        }
+
+        .weekly-pick-text span {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .weekly-pick .btn {
+            flex-shrink: 0;
+        }
+
         .section {
             padding: 72px 0;
         }
@@ -277,7 +322,7 @@
 
         .search-section {
             background: var(--surface-soft);
-            padding: 36px 0 22px;
+            padding: 56px 0 22px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -346,9 +391,15 @@
             box-shadow: 0 12px 20px rgba(15, 118, 110, 0.2);
         }
 
+        .filter-count {
+            font-size: 0.8em;
+            opacity: 0.7;
+            margin-left: 2px;
+        }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 22px;
             margin-top: 24px;
         }
@@ -365,6 +416,37 @@
             gap: 12px;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: cardReveal 0.5s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0s; }
+        .card:nth-child(2) { animation-delay: 0.05s; }
+        .card:nth-child(3) { animation-delay: 0.1s; }
+        .card:nth-child(4) { animation-delay: 0.15s; }
+        .card:nth-child(5) { animation-delay: 0.2s; }
+        .card:nth-child(6) { animation-delay: 0.25s; }
+        .card:nth-child(7) { animation-delay: 0.3s; }
+        .card:nth-child(8) { animation-delay: 0.35s; }
+        .card:nth-child(9) { animation-delay: 0.4s; }
+        .card:nth-child(10) { animation-delay: 0.45s; }
+        .card:nth-child(11) { animation-delay: 0.5s; }
+        .card:nth-child(12) { animation-delay: 0.55s; }
+        .card:nth-child(13) { animation-delay: 0.6s; }
+        .card:nth-child(14) { animation-delay: 0.65s; }
+        .card:nth-child(15) { animation-delay: 0.7s; }
+        .card:nth-child(16) { animation-delay: 0.75s; }
+        .card:nth-child(17) { animation-delay: 0.8s; }
+        .card:nth-child(18) { animation-delay: 0.85s; }
+        .card:nth-child(19) { animation-delay: 0.9s; }
+        .card:nth-child(20) { animation-delay: 0.95s; }
+
+        @keyframes cardReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card::before {
@@ -386,6 +468,37 @@
             opacity: 1;
         }
 
+        /* Badge system */
+        .card[data-badge="new"]::after {
+            content: "NEW";
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: linear-gradient(120deg, #6366f1, #8b5cf6);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .card[data-badge="hot"]::after {
+            content: "HOT";
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: linear-gradient(120deg, #f97316, #ef4444);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 999px;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -393,6 +506,34 @@
             gap: 12px;
             position: relative;
             z-index: 1;
+        }
+
+        .card-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .card-icon-fa {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #fff;
+            font-size: 1rem;
         }
 
         .card h3 {
@@ -682,6 +823,11 @@
             .hero {
                 padding: 72px 0 56px;
             }
+
+            .weekly-pick {
+                margin: -28px 16px 0;
+                padding: 16px 20px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -690,6 +836,11 @@
             *::after {
                 animation: none !important;
                 transition: none !important;
+            }
+
+            .card {
+                opacity: 1;
+                transform: none;
             }
         }
     </style>
@@ -719,23 +870,35 @@
         <div class="container">
             <h1>🚀 AI의 미래, 오늘 만나보세요</h1>
             <p>가장 혁신적인 AI 도구와 뉴스를 한 곳에서 탐색하세요.<br>전문가가 선별한 최고의 AI 리소스를 제공합니다.</p>
-            
+
             <div class="hero-stats">
                 <div class="stat">
-                    <div class="stat-number">150+</div>
+                    <div class="stat-number">20+</div>
                     <div class="stat-label">AI 도구</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">500+</div>
-                    <div class="stat-label">뉴스</div>
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">카테고리</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">10K+</div>
-                    <div class="stat-label">사용자</div>
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">뉴스 업데이트</div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Weekly Pick Banner -->
+    <div class="container">
+        <div class="weekly-pick">
+            <span class="weekly-pick-badge"><i class="fas fa-fire"></i> Weekly Pick</span>
+            <div class="weekly-pick-text">
+                <strong>DeepSeek R1</strong> &mdash;
+                <span>오픈소스 추론 모델의 새로운 기준. MIT 라이선스로 누구나 무료로 사용 가능!</span>
+            </div>
+            <a href="https://chat.deepseek.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+        </div>
+    </div>
 
     <!-- Search Section -->
     <section class="search-section">
@@ -744,14 +907,16 @@
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" placeholder="AI 도구를 검색해보세요..." id="searchInput">
             </div>
-            
+
             <div class="filters">
                 <button class="filter-btn active" data-filter="all">전체</button>
                 <button class="filter-btn" data-filter="chatbot">챗봇</button>
+                <button class="filter-btn" data-filter="search">검색</button>
                 <button class="filter-btn" data-filter="image">이미지</button>
                 <button class="filter-btn" data-filter="code">코딩</button>
                 <button class="filter-btn" data-filter="video">비디오</button>
                 <button class="filter-btn" data-filter="productivity">생산성</button>
+                <button class="filter-btn" data-filter="music">음악</button>
             </div>
         </div>
     </section>
@@ -763,12 +928,15 @@
                 <i class="fas fa-robot"></i>
                 AI 도구
             </h2>
-            
+
             <div class="grid" id="toolsGrid">
                 <!-- ChatGPT -->
-                <div class="card" data-category="chatbot">
+                <div class="card" data-category="chatbot" data-name="chatgpt">
                     <div class="card-header">
-                        <h3>ChatGPT</h3>
+                        <div class="card-title-row">
+                            <img src="images/chatgpt-icon-filled-256.webp" alt="ChatGPT" class="card-icon">
+                            <h3>ChatGPT</h3>
+                        </div>
                         <button class="favorite-btn" onclick="toggleFavorite(this)">
                             <i class="far fa-heart"></i>
                         </button>
@@ -780,15 +948,18 @@
                         <span class="tag">API</span>
                     </div>
                     <div class="card-actions">
-                        <a href="https://chat.openai.com" target="_blank" class="btn btn-primary">사용하기</a>
+                        <a href="https://chat.openai.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
                         <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- Claude -->
-                <div class="card" data-category="chatbot">
+                <div class="card" data-category="chatbot" data-name="claude">
                     <div class="card-header">
-                        <h3>Claude</h3>
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#d97706,#b45309)"><i class="fas fa-message"></i></span>
+                            <h3>Claude</h3>
+                        </div>
                         <button class="favorite-btn" onclick="toggleFavorite(this)">
                             <i class="far fa-heart"></i>
                         </button>
@@ -799,15 +970,129 @@
                         <span class="tag">유료</span>
                     </div>
                     <div class="card-actions">
-                        <a href="https://claude.ai" target="_blank" class="btn btn-primary">사용하기</a>
+                        <a href="https://claude.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Gemini -->
+                <div class="card" data-category="chatbot" data-badge="new" data-name="gemini">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/google-bard-icon-filled-256.webp" alt="Gemini" class="card-icon">
+                            <h3>Gemini</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Google의 차세대 멀티모달 AI 모델. 텍스트, 이미지, 코드를 통합적으로 이해합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                        <span class="tag">Google</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://gemini.google.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Grok -->
+                <div class="card" data-category="chatbot" data-badge="new" data-name="grok">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/grok-icon-filled-256.webp" alt="Grok" class="card-icon">
+                            <h3>Grok</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>xAI의 실시간 정보 접근이 가능한 AI 챗봇. X(트위터) 플랫폼과 긴밀하게 통합됩니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">X 통합</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://grok.x.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- DeepSeek -->
+                <div class="card" data-category="chatbot" data-badge="hot" data-name="deepseek">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/deepseek-icon-filled-256.webp" alt="DeepSeek" class="card-icon">
+                            <h3>DeepSeek</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>중국 스타트업의 오픈소스 AI 모델. R1 추론 모델로 GPT-4급 성능을 무료로 제공합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">오픈소스</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://chat.deepseek.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Meta AI -->
+                <div class="card" data-category="chatbot" data-badge="new" data-name="meta-ai">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/meta-ai-icon-filled-256.webp" alt="Meta AI" class="card-icon">
+                            <h3>Meta AI</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Meta의 Llama 기반 AI 어시스턴트. 오픈소스 모델로 다양한 플랫폼에서 사용 가능합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">오픈소스</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://www.meta.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Perplexity -->
+                <div class="card" data-category="search" data-badge="hot" data-name="perplexity">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#20b2aa,#008080)"><i class="fas fa-magnifying-glass"></i></span>
+                            <h3>Perplexity</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>AI 기반 검색 엔진. 실시간 웹 검색과 출처 인용으로 신뢰할 수 있는 답변을 제공합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://www.perplexity.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
                         <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- Midjourney -->
-                <div class="card" data-category="image">
+                <div class="card" data-category="image" data-name="midjourney">
                     <div class="card-header">
-                        <h3>Midjourney</h3>
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)"><i class="fas fa-palette"></i></span>
+                            <h3>Midjourney</h3>
+                        </div>
                         <button class="favorite-btn" onclick="toggleFavorite(this)">
                             <i class="far fa-heart"></i>
                         </button>
@@ -818,15 +1103,84 @@
                         <span class="tag">디스코드</span>
                     </div>
                     <div class="card-actions">
-                        <a href="https://www.midjourney.com" target="_blank" class="btn btn-primary">사용하기</a>
+                        <a href="https://www.midjourney.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- DALL-E 3 -->
+                <div class="card" data-category="image" data-badge="new" data-name="dall-e-3">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-image"></i></span>
+                            <h3>DALL-E 3</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>OpenAI의 최신 이미지 생성 모델. ChatGPT와 통합되어 자연어로 고품질 이미지를 생성합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">유료</span>
+                        <span class="tag">ChatGPT</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://openai.com/dall-e-3" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Adobe Firefly -->
+                <div class="card" data-category="image" data-badge="new" data-name="adobe-firefly">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#f43f5e,#e11d48)"><i class="fas fa-fire"></i></span>
+                            <h3>Adobe Firefly</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Adobe의 생성형 AI. 상업적 사용이 안전한 이미지 생성과 편집 기능을 제공합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://firefly.adobe.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Stable Diffusion -->
+                <div class="card" data-category="image" data-name="stable-diffusion">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"><i class="fas fa-atom"></i></span>
+                            <h3>Stable Diffusion</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Stability AI의 오픈소스 이미지 생성 모델. 로컬에서 무료로 실행할 수 있습니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">오픈소스</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://stability.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
                         <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- GitHub Copilot -->
-                <div class="card" data-category="code">
+                <div class="card" data-category="code" data-name="github-copilot">
                     <div class="card-header">
-                        <h3>GitHub Copilot</h3>
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#1e3a5f,#0d1b2a)"><i class="fab fa-github"></i></span>
+                            <h3>GitHub Copilot</h3>
+                        </div>
                         <button class="favorite-btn" onclick="toggleFavorite(this)">
                             <i class="far fa-heart"></i>
                         </button>
@@ -837,34 +1191,63 @@
                         <span class="tag">IDE</span>
                     </div>
                     <div class="card-actions">
-                        <a href="https://github.com/features/copilot" target="_blank" class="btn btn-primary">사용하기</a>
+                        <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
                         <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
-                <!-- Notion AI -->
-                <div class="card" data-category="productivity">
+                <!-- Cursor -->
+                <div class="card" data-category="code" data-badge="hot" data-name="cursor">
                     <div class="card-header">
-                        <h3>Notion AI</h3>
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i class="fas fa-terminal"></i></span>
+                            <h3>Cursor</h3>
+                        </div>
                         <button class="favorite-btn" onclick="toggleFavorite(this)">
                             <i class="far fa-heart"></i>
                         </button>
                     </div>
-                    <p>노션 워크스페이스에 통합된 AI 어시스턴트로 글쓰기와 정리 작업을 도와줍니다.</p>
+                    <p>AI 네이티브 코드 에디터. VS Code 기반으로 AI 코드 생성과 편집이 자연스럽게 통합됩니다.</p>
                     <div class="card-tags">
+                        <span class="tag">무료</span>
                         <span class="tag">유료</span>
-                        <span class="tag">생산성</span>
+                        <span class="tag">IDE</span>
                     </div>
                     <div class="card-actions">
-                        <a href="https://www.notion.so/product/ai" target="_blank" class="btn btn-primary">사용하기</a>
+                        <a href="https://cursor.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Claude Code -->
+                <div class="card" data-category="code" data-badge="new" data-name="claude-code">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#d97706,#92400e)"><i class="fas fa-code"></i></span>
+                            <h3>Claude Code</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Anthropic의 CLI 기반 AI 코딩 에이전트. 터미널에서 직접 코드 작성과 리팩토링을 수행합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">유료</span>
+                        <span class="tag">CLI</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://claude.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
                         <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
 
                 <!-- RunwayML -->
-                <div class="card" data-category="video">
+                <div class="card" data-category="video" data-name="runwayml">
                     <div class="card-header">
-                        <h3>RunwayML</h3>
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#06b6d4,#0891b2)"><i class="fas fa-video"></i></span>
+                            <h3>RunwayML</h3>
+                        </div>
                         <button class="favorite-btn" onclick="toggleFavorite(this)">
                             <i class="far fa-heart"></i>
                         </button>
@@ -875,7 +1258,117 @@
                         <span class="tag">유료</span>
                     </div>
                     <div class="card-actions">
-                        <a href="https://runwayml.com" target="_blank" class="btn btn-primary">사용하기</a>
+                        <a href="https://runwayml.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Sora -->
+                <div class="card" data-category="video" data-badge="hot" data-name="sora">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/openai-sora-icon-filled-256.webp" alt="Sora" class="card-icon">
+                            <h3>Sora</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>OpenAI의 텍스트-투-비디오 생성 모델. 텍스트 설명만으로 사실적인 영상을 만듭니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">유료</span>
+                        <span class="tag">OpenAI</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://sora.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Notion AI -->
+                <div class="card" data-category="productivity" data-name="notion-ai">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#1e1e1e,#444)"><i class="fas fa-lightbulb"></i></span>
+                            <h3>Notion AI</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>노션 워크스페이스에 통합된 AI 어시스턴트로 글쓰기와 정리 작업을 도와줍니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">유료</span>
+                        <span class="tag">생산성</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://www.notion.so/product/ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- NotebookLM -->
+                <div class="card" data-category="productivity" data-badge="hot" data-name="notebooklm">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/google-notebooklm-icon-filled-128.webp" alt="NotebookLM" class="card-icon">
+                            <h3>NotebookLM</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Google의 AI 노트북. 문서를 업로드하면 AI가 요약, 질의응답, 팟캐스트까지 생성합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">Google</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://notebooklm.google" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Suno -->
+                <div class="card" data-category="music" data-badge="new" data-name="suno">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#ec4899,#be185d)"><i class="fas fa-music"></i></span>
+                            <h3>Suno</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>텍스트 프롬프트로 고품질 음악을 생성하는 AI. 가사와 멜로디를 동시에 만들어냅니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://suno.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Udio -->
+                <div class="card" data-category="music" data-badge="new" data-name="udio">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)"><i class="fas fa-headphones"></i></span>
+                            <h3>Udio</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>AI 음악 생성 플랫폼. 다양한 장르와 스타일의 음악을 텍스트로 만들 수 있습니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://www.udio.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
                         <button class="btn btn-secondary">자세히</button>
                     </div>
                 </div>
@@ -896,12 +1389,12 @@
                     <button class="btn btn-secondary" id="newsRefreshBtn" type="button">새로고침</button>
                 </div>
             </div>
-            
+
             <div class="news-grid" id="newsGrid">
                 <article class="featured-news" id="newsFeatured">
                     <div class="news-placeholder">최신 AI 뉴스를 불러오는 중입니다.</div>
                 </article>
-                
+
                 <div class="news-list" id="newsList">
                     <article class="news-item">
                         <div class="news-placeholder">뉴스 목록을 업데이트 중입니다.</div>
@@ -919,7 +1412,7 @@
                     <h4>AI Trend Hub</h4>
                     <p>최신 AI 트렌드와 도구를 제공하는 플랫폼</p>
                 </div>
-                
+
                 <div>
                     <h4>탐색</h4>
                     <ul>
@@ -927,7 +1420,7 @@
                         <li><a href="#news">뉴스</a></li>
                     </ul>
                 </div>
-                
+
                 <div>
                     <h4>지원</h4>
                     <ul>
@@ -938,32 +1431,99 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p>&copy; 2024 AI Trend Hub. All rights reserved.</p>
+                <p>&copy; 2025 AI Trend Hub. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Theme Toggle
+        // ===== localStorage Keys =====
+        const STORAGE_KEYS = {
+            darkMode: 'aith-dark-mode',
+            favorites: 'aith-favorites'
+        };
+
+        // ===== Theme Toggle with localStorage =====
         function toggleTheme() {
             document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
             const icon = document.querySelector('.theme-toggle i');
             if (icon) {
-                icon.className = document.body.classList.contains('dark') ? 'fas fa-sun' : 'fas fa-moon';
+                icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            }
+            try {
+                localStorage.setItem(STORAGE_KEYS.darkMode, isDark ? '1' : '0');
+            } catch (e) { /* ignore */ }
+        }
+
+        function restoreTheme() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEYS.darkMode);
+                if (saved === '1') {
+                    document.body.classList.add('dark');
+                    const icon = document.querySelector('.theme-toggle i');
+                    if (icon) icon.className = 'fas fa-sun';
+                }
+            } catch (e) { /* ignore */ }
+        }
+
+        // ===== Favorites with localStorage =====
+        function getFavorites() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEYS.favorites);
+                return saved ? JSON.parse(saved) : [];
+            } catch (e) {
+                return [];
             }
         }
 
-        // Favorite Toggle
+        function saveFavorites(favorites) {
+            try {
+                localStorage.setItem(STORAGE_KEYS.favorites, JSON.stringify(favorites));
+            } catch (e) { /* ignore */ }
+        }
+
         function toggleFavorite(btn) {
             const icon = btn.querySelector('i');
             if (!icon) return;
             icon.classList.toggle('far');
             icon.classList.toggle('fas');
             btn.classList.toggle('active');
+
+            const card = btn.closest('.card');
+            const name = card ? card.dataset.name : null;
+            if (!name) return;
+
+            const favorites = getFavorites();
+            const idx = favorites.indexOf(name);
+            if (idx >= 0) {
+                favorites.splice(idx, 1);
+            } else {
+                favorites.push(name);
+            }
+            saveFavorites(favorites);
         }
 
+        function restoreFavorites() {
+            const favorites = getFavorites();
+            if (!favorites.length) return;
+            document.querySelectorAll('.card').forEach(card => {
+                const name = card.dataset.name;
+                if (name && favorites.includes(name)) {
+                    const btn = card.querySelector('.favorite-btn');
+                    const icon = btn ? btn.querySelector('i') : null;
+                    if (icon) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        btn.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        // ===== News =====
         const NEWS_FEEDS = [
             {
                 name: 'TechCrunch',
@@ -985,7 +1545,7 @@
         };
 
         const AI_PATTERNS = [
-            /ai/i,
+            /ai/i,
             /artificial intelligence/i,
             /machine learning/i,
             /genai/i,
@@ -998,6 +1558,8 @@
             /claude/i,
             /diffusion/i,
             /foundation model/i,
+            /deepseek/i,
+            /perplexity/i,
             /인공지능/,
             /머신러닝/,
             /생성형/,
@@ -1009,6 +1571,7 @@
             lastUpdated: null
         };
 
+        // ===== Filters with count =====
         function initFilters() {
             const filterBtns = document.querySelectorAll('.filter-btn');
             const cards = Array.from(document.querySelectorAll('.card'));
@@ -1017,6 +1580,21 @@
             if (!filterBtns.length || !cards.length || !searchInput) {
                 return;
             }
+
+            // Update filter counts
+            filterBtns.forEach(btn => {
+                const filter = btn.dataset.filter;
+                let count;
+                if (filter === 'all') {
+                    count = cards.length;
+                } else {
+                    count = cards.filter(c => c.dataset.category === filter).length;
+                }
+                const countSpan = document.createElement('span');
+                countSpan.className = 'filter-count';
+                countSpan.textContent = `(${count})`;
+                btn.appendChild(countSpan);
+            });
 
             let activeFilter = 'all';
             let searchTerm = '';
@@ -1028,7 +1606,7 @@
                     const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
                     const description = card.querySelector('p')?.textContent?.toLowerCase() || '';
                     const matchesSearch = !term || title.includes(term) || description.includes(term);
-                    card.style.display = matchesFilter && matchesSearch ? 'block' : 'none';
+                    card.style.display = matchesFilter && matchesSearch ? '' : 'none';
                 });
             };
 
@@ -1294,6 +1872,8 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            restoreTheme();
+            restoreFavorites();
             initFilters();
             initNews();
         });
