@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 트렌드 허브 - AI 도구 & 뉴스 허브</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
-    <meta name="description" content="최신 AI 도구와 한국 AI 뉴스를 한 곳에서. ChatGPT, Claude, Gemini 등 20개 이상의 AI 도구를 탐색하세요.">
-    <meta name="keywords" content="AI 도구, 인공지능, ChatGPT, Claude, Gemini, AI 뉴스, 한국 AI">
-    <meta property="og:title" content="AI 트렌드 허브 - AI 도구 & 뉴스">
-    <meta property="og:description" content="최신 AI 도구와 한국 AI 뉴스를 한 곳에서 탐색하세요.">
+    <title>JoonHub - 개인 개발 포털</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="description" content="개인 프로젝트, AI 도구, 개발 리소스를 한 곳에서 관리하는 개인 포털">
+    <meta name="keywords" content="JoonHub, 개인 포털, AI 도구, 개발 대시보드, 프로젝트 관리">
+    <meta property="og:title" content="JoonHub - 개인 개발 포털">
+    <meta property="og:description" content="프로젝트, AI 도구, 개발 리소스를 한 곳에서">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://parkjs1362.github.io/ai-tools-hub/">
     <meta name="twitter:card" content="summary_large_image">
@@ -190,7 +190,7 @@
         .hero {
             position: relative;
             overflow: hidden;
-            padding: 92px 0 72px;
+            padding: 60px 0 50px;
             background: linear-gradient(135deg, #0f766e 0%, #f97316 100%);
             color: #fff;
         }
@@ -263,51 +263,6 @@
         .stat-label {
             font-size: 0.95rem;
             opacity: 0.85;
-        }
-
-        /* Weekly Pick Banner */
-        .weekly-pick {
-            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-soft) 100%);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 20px 28px;
-            margin: -36px auto 0;
-            max-width: 720px;
-            position: relative;
-            z-index: 10;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
-
-        .weekly-pick-badge {
-            background: linear-gradient(120deg, var(--accent), var(--accent-2));
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .weekly-pick-text {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .weekly-pick-text strong {
-            color: var(--ink);
-        }
-
-        .weekly-pick-text span {
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-
-        .weekly-pick .btn {
-            flex-shrink: 0;
         }
 
         .section {
@@ -691,76 +646,117 @@
             100% { transform: scale(1); opacity: 0.7; }
         }
 
-        .news-grid {
+        /* GitHub Repos */
+        .repos-section {
+            padding: 30px 0;
+        }
+
+        .repos-grid {
             display: grid;
-            grid-template-columns: 1.4fr 1fr;
-            gap: 24px;
-            margin-top: 12px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-width: var(--container);
+            margin: 0 auto;
         }
 
-        .featured-news {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 22px;
-            box-shadow: var(--shadow-soft);
+        .repo-item {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .news-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .news-item {
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
             background: var(--surface);
-            border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            padding: 14px;
-            box-shadow: var(--shadow-soft);
             transition: var(--transition);
+            text-decoration: none;
+            color: var(--ink);
+        }
+
+        .repo-item:hover {
+            background: var(--surface-soft);
+            transform: translateX(4px);
+        }
+
+        .repo-item .repo-icon {
+            color: var(--muted);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .repo-item .repo-name {
+            font-weight: 500;
+            font-size: 0.92rem;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .repo-item .repo-link-icon {
+            color: var(--muted);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .repo-item:hover .repo-link-icon {
+            opacity: 1;
+        }
+
+        /* News Widget */
+        .news-widget-section {
+            padding: 30px 0;
+        }
+
+        .news-widget {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .news-widget-list {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
-        .news-item:hover {
-            transform: translateY(-3px);
-            border-color: rgba(15, 118, 110, 0.3);
-        }
-
-        .news-meta {
+        .news-widget-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--ink);
         }
 
-        .news-tag {
-            background: rgba(15, 118, 110, 0.12);
-            color: var(--brand-strong);
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 700;
+        .news-widget-item:hover {
+            background: var(--surface-soft);
         }
 
-        .news-date {
-            color: var(--muted);
-            font-size: 0.8rem;
-        }
-
-        .news-description {
-            color: var(--muted);
-        }
-
-        .news-link {
-            font-size: 0.85rem;
-            font-weight: 700;
+        .news-widget-item .news-source {
+            font-size: 0.72rem;
+            font-weight: 600;
             color: var(--brand);
+            white-space: nowrap;
+            min-width: 70px;
+        }
+
+        .news-widget-item .news-title {
+            flex: 1;
+            font-size: 0.9rem;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .news-widget-item .news-date {
+            font-size: 0.75rem;
+            color: var(--muted);
+            white-space: nowrap;
         }
 
         .news-placeholder {
@@ -816,8 +812,12 @@
                 justify-content: center;
             }
 
-            .news-grid {
-                grid-template-columns: 1fr;
+            .quick-links-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
         }
 
@@ -828,7 +828,9 @@
 
             .nav-menu {
                 justify-content: center;
-                gap: 12px;
+                gap: 8px;
+                flex-wrap: wrap;
+                font-size: 0.9rem;
             }
 
             .filters {
@@ -838,12 +840,36 @@
             }
 
             .hero {
-                padding: 72px 0 56px;
+                padding: 48px 0 38px;
             }
 
-            .weekly-pick {
-                margin: -28px 16px 0;
-                padding: 16px 20px;
+            .quick-links-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .repos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-link-card {
+                padding: 12px 14px;
+            }
+
+            .project-card {
+                padding: 18px;
+            }
+
+            .project-card .project-actions {
+                flex-direction: column;
+            }
+
+            .project-card .project-actions a {
+                justify-content: center;
             }
         }
 
@@ -963,6 +989,204 @@
                 transform: none;
             }
         }
+
+        /* Quick Links */
+        .quick-links-section {
+            padding: 40px 0 20px;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            max-width: var(--container);
+            margin: 0 auto;
+        }
+
+        .quick-link-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 18px;
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--brand);
+            text-decoration: none;
+            color: var(--ink);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .quick-link-card .ql-icon {
+            font-size: 1.4rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .quick-link-card .ql-svg-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-link-card .ql-svg-icon svg {
+            fill: currentColor;
+        }
+
+        .quick-link-card .ql-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .quick-link-card .ql-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .quick-link-card .ql-desc {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        /* My Projects */
+        .projects-section {
+            padding: 30px 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            max-width: var(--container);
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .project-card .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .project-card .project-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .status-badge.maintenance {
+            background: rgba(245, 158, 11, 0.15);
+            color: #d97706;
+        }
+
+        .status-badge.archived {
+            background: rgba(107, 114, 128, 0.15);
+            color: #6b7280;
+        }
+
+        body.dark .status-badge.active { color: #34d399; }
+        body.dark .status-badge.maintenance { color: #fbbf24; }
+        body.dark .status-badge.archived { color: #9ca3af; }
+
+        .project-card .project-desc {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 14px;
+        }
+
+        .project-card .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .project-card .tech-tag {
+            padding: 3px 10px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .project-card .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .project-card .project-actions a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .project-card .btn-visit {
+            background: var(--brand);
+            color: white;
+        }
+
+        .project-card .btn-visit:hover {
+            background: var(--brand-strong);
+        }
+
+        .project-card .btn-github {
+            background: var(--bg-secondary);
+            color: var(--ink);
+        }
+
+        .project-card .btn-github:hover {
+            background: var(--border);
+        }
     </style>
 </head>
 <body>
@@ -970,12 +1194,15 @@
     <header class="header">
         <div class="nav-container">
             <a href="#" class="logo">
-                <i class="fas fa-brain"></i>
-                AI Trend Hub
+                <i class="fas fa-code"></i>
+                JoonHub
             </a>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#tools">도구</a></li>
+                    <li><a href="#quick-links">빠른링크</a></li>
+                    <li><a href="#projects">프로젝트</a></li>
+                    <li><a href="#tools">AI 도구</a></li>
+                    <li><a href="#repos">저장소</a></li>
                     <li><a href="#news">뉴스</a></li>
                 </ul>
             </nav>
@@ -988,37 +1215,41 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>🚀 AI의 미래, 오늘 만나보세요</h1>
-            <p>가장 혁신적인 AI 도구와 뉴스를 한 곳에서 탐색하세요.<br>전문가가 선별한 최고의 AI 리소스를 제공합니다.</p>
+            <h1>JoonHub</h1>
+            <p>개인 프로젝트, AI 도구, 개발 리소스를 한 곳에서</p>
 
             <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">프로젝트</div>
+                </div>
                 <div class="stat">
                     <div class="stat-number">20+</div>
                     <div class="stat-label">AI 도구</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">7</div>
-                    <div class="stat-label">카테고리</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">뉴스 업데이트</div>
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">저장소</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Weekly Pick Banner -->
-    <div class="container">
-        <div class="weekly-pick">
-            <span class="weekly-pick-badge"><i class="fas fa-fire"></i> Weekly Pick</span>
-            <div class="weekly-pick-text">
-                <strong>DeepSeek R1</strong> &mdash;
-                <span>오픈소스 추론 모델의 새로운 기준. MIT 라이선스로 누구나 무료로 사용 가능!</span>
-            </div>
-            <a href="https://chat.deepseek.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+    <!-- Quick Links Section -->
+    <section id="quick-links" class="quick-links-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-bolt"></i> 빠른 링크</h2>
+            <div id="quickLinksGrid" class="quick-links-grid"></div>
         </div>
-    </div>
+    </section>
+
+    <!-- My Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-rocket"></i> 내 프로젝트</h2>
+            <div id="projectsGrid" class="projects-grid"></div>
+        </div>
+    </section>
 
     <!-- Search Section -->
     <section class="search-section">
@@ -1496,29 +1727,21 @@
         </div>
     </section>
 
-    <!-- AI News Section -->
-    <section id="news" class="section">
+    <!-- GitHub Repos Section -->
+    <section id="repos" class="repos-section">
         <div class="container">
-            <div class="news-head">
-                <h2 class="section-title">
-                    <i class="fas fa-newspaper"></i>
-                    한국 AI 뉴스
-                </h2>
-                <div class="news-controls">
-                    <span class="news-status" id="newsStatus" data-state="idle" aria-live="polite">업데이트 대기</span>
-                    <button class="btn btn-secondary" id="newsRefreshBtn" type="button">새로고침</button>
-                </div>
-            </div>
+            <h2 class="section-title"><i class="fa-brands fa-github"></i> GitHub 저장소</h2>
+            <div id="reposGrid" class="repos-grid"></div>
+        </div>
+    </section>
 
-            <div class="news-grid" id="newsGrid">
-                <article class="featured-news" id="newsFeatured">
-                    <div class="news-placeholder">최신 AI 뉴스를 불러오는 중입니다.</div>
-                </article>
-
-                <div class="news-list" id="newsList">
-                    <article class="news-item">
-                        <div class="news-placeholder">뉴스 목록을 업데이트 중입니다.</div>
-                    </article>
+    <!-- AI News Section -->
+    <section id="news" class="news-widget-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-newspaper"></i> AI 뉴스</h2>
+            <div class="news-widget">
+                <div id="newsWidget" class="news-widget-list">
+                    <div class="loading-spinner">뉴스 로딩 중...</div>
                 </div>
             </div>
         </div>
@@ -1537,14 +1760,17 @@
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <h4>AI Trend Hub</h4>
-                    <p>최신 AI 트렌드와 도구를 제공하는 플랫폼</p>
+                    <h4>JoonHub</h4>
+                    <p>개인 개발 포털</p>
                 </div>
 
                 <div>
                     <h4>탐색</h4>
                     <ul>
+                        <li><a href="#quick-links">빠른링크</a></li>
+                        <li><a href="#projects">프로젝트</a></li>
                         <li><a href="#tools">AI 도구</a></li>
+                        <li><a href="#repos">저장소</a></li>
                         <li><a href="#news">뉴스</a></li>
                     </ul>
                 </div>
@@ -1560,7 +1786,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 AI Trend Hub. All rights reserved.</p>
+                <p>&copy; 2026 JoonHub. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1568,9 +1794,119 @@
     <script>
         // ===== localStorage Keys =====
         const STORAGE_KEYS = {
-            darkMode: 'aith-dark-mode',
-            favorites: 'aith-favorites'
+            darkMode: 'joonhub-dark-mode',
+            favorites: 'joonhub-favorites'
         };
+
+        // ===== JoonHub Data Store =====
+        const JOONHUB = {
+            quickLinks: [
+                { name: 'Vercel', url: 'https://vercel.com/joon-its-projects', iconType: 'svg', icon: '<svg width="20" height="20" viewBox="0 0 76 65" fill="currentColor"><path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/></svg>', color: '#000000', description: 'Deployment Dashboard' },
+                { name: 'GitHub', url: 'https://github.com/parkjs1362', iconType: 'fa', icon: 'fa-brands fa-github', color: '#333333', description: 'Repositories' },
+                { name: 'Supabase (ADHD)', url: 'https://supabase.com/dashboard/project/vnepfecmrxfhayzvkdbq', iconType: 'fa', icon: 'fas fa-database', color: '#3ECF8E', description: 'ADHD Community DB' },
+                { name: 'Supabase (LawStudy)', url: 'https://supabase.com/dashboard/project/nezolbpgxaljuwbzpste', iconType: 'fa', icon: 'fas fa-database', color: '#3ECF8E', description: 'LawStudy DB' },
+                { name: 'Cloudflare', url: 'https://dash.cloudflare.com', iconType: 'fa', icon: 'fa-brands fa-cloudflare', color: '#F6821F', description: 'CDN & Pages' },
+                { name: 'n8n (Local)', url: 'http://localhost:5678', iconType: 'fa', icon: 'fas fa-diagram-project', color: '#FF6D5A', description: 'Workflow Automation' }
+            ],
+            projects: [
+                { name: 'ADHD Community', url: 'https://adhd-community-gold.vercel.app', github: 'https://github.com/parkjs1362/adhd-community', status: 'active', description: 'ADHD 커뮤니티 플랫폼', tech: ['Next.js', 'Supabase', 'Tailwind'] },
+                { name: 'LawStudy', url: 'https://lawstudy.vercel.app', github: null, status: 'maintenance', description: '법학 학습 플랫폼', tech: ['Next.js', 'Supabase'] },
+                { name: 'Joonit Blog', url: 'https://joonit.vercel.app', github: 'https://github.com/parkjs1362/joonit', status: 'active', description: '개인 기술 블로그', tech: ['Next.js'] },
+                { name: 'Keyword Dashboard', url: 'https://keyword-dashboard.pages.dev', github: 'https://github.com/parkjs1362/keyword-dashboard', status: 'active', description: 'SEO 키워드 분석 대시보드', tech: ['React', 'Cloudflare Pages'] },
+                { name: 'JoonHub', url: 'https://parkjs1362.github.io/ai-tools-hub/', github: 'https://github.com/parkjs1362/ai-tools-hub', status: 'active', description: '개인 개발 포털 (현재 사이트)', tech: ['Vanilla HTML/CSS/JS'] }
+            ],
+            repos: [
+                { name: 'adhd-community', url: 'https://github.com/parkjs1362/adhd-community' },
+                { name: 'bookmark-sync', url: 'https://github.com/parkjs1362/bookmark-sync' },
+                { name: 'expense-tracker', url: 'https://github.com/parkjs1362/expense-tracker' },
+                { name: 'gmail-filter', url: 'https://github.com/parkjs1362/gmail-filter' },
+                { name: 'joonit', url: 'https://github.com/parkjs1362/joonit' },
+                { name: 'keyword-dashboard', url: 'https://github.com/parkjs1362/keyword-dashboard' },
+                { name: 'portfolio', url: 'https://github.com/parkjs1362/portfolio' },
+                { name: 'real-estate-aggregator', url: 'https://github.com/parkjs1362/real-estate-aggregator' },
+                { name: 'relations', url: 'https://github.com/parkjs1362/relations' },
+                { name: 'webapp', url: 'https://github.com/parkjs1362/webapp' },
+                { name: 'ai-tools-hub', url: 'https://github.com/parkjs1362/ai-tools-hub' }
+            ]
+        };
+
+        function migrateStorage() {
+            const migrations = {
+                'aith-dark-mode': 'joonhub-dark-mode',
+                'aith-favorites': 'joonhub-favorites'
+            };
+            Object.entries(migrations).forEach(([oldKey, newKey]) => {
+                const val = localStorage.getItem(oldKey);
+                if (val !== null && localStorage.getItem(newKey) === null) {
+                    localStorage.setItem(newKey, val);
+                    localStorage.removeItem(oldKey);
+                }
+            });
+        }
+
+        function renderQuickLinks() {
+            const grid = document.getElementById('quickLinksGrid');
+            if (!grid) return;
+            grid.innerHTML = JOONHUB.quickLinks.map(link => {
+                const iconHtml = link.iconType === 'svg'
+                    ? `<span class="ql-svg-icon">${link.icon}</span>`
+                    : `<i class="${link.icon}" style="color:${link.color}"></i>`;
+                return `<a href="${safeUrl(link.url)}" target="_blank" rel="noopener noreferrer" class="quick-link-card" style="border-left-color:${link.color}">
+            <span class="ql-icon">${iconHtml}</span>
+            <span class="ql-info">
+                <span class="ql-name">${escapeHtml(link.name)}</span>
+                <span class="ql-desc">${escapeHtml(link.description)}</span>
+            </span>
+        </a>`;
+            }).join('');
+        }
+
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+            if (!grid) return;
+            const statusLabels = { active: '진행중', maintenance: '메인터넌스', archived: '아카이브' };
+            grid.innerHTML = JOONHUB.projects.map(proj => {
+                const techHtml = proj.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('');
+                const githubBtn = proj.github
+                    ? `<a href="${safeUrl(proj.github)}" target="_blank" rel="noopener noreferrer" class="btn-github"><i class="fa-brands fa-github"></i> GitHub</a>`
+                    : '';
+                return `<div class="project-card">
+            <div class="project-header">
+                <span class="project-name">${escapeHtml(proj.name)}</span>
+                <span class="status-badge ${proj.status}">${statusLabels[proj.status] || proj.status}</span>
+            </div>
+            <p class="project-desc">${escapeHtml(proj.description)}</p>
+            <div class="tech-tags">${techHtml}</div>
+            <div class="project-actions">
+                <a href="${safeUrl(proj.url)}" target="_blank" rel="noopener noreferrer" class="btn-visit"><i class="fas fa-external-link-alt"></i> 사이트 방문</a>
+                ${githubBtn}
+            </div>
+        </div>`;
+            }).join('');
+        }
+
+        function updateHeroStats() {
+            const statsEl = document.querySelector('.hero-stats');
+            if (!statsEl) return;
+            const stats = statsEl.querySelectorAll('.stat-number');
+            if (stats.length >= 3) {
+                stats[0].textContent = JOONHUB.projects.length;
+                stats[1].textContent = '20+';
+                stats[2].textContent = JOONHUB.repos.length;
+            }
+        }
+
+        function renderRepos() {
+            const grid = document.getElementById('reposGrid');
+            if (!grid) return;
+            grid.innerHTML = JOONHUB.repos.map(repo => {
+                return `<a href="${safeUrl(repo.url)}" target="_blank" rel="noopener noreferrer" class="repo-item">
+                    <i class="fa-brands fa-github repo-icon"></i>
+                    <span class="repo-name">${escapeHtml(repo.name)}</span>
+                    <i class="fas fa-external-link-alt repo-link-icon"></i>
+                </a>`;
+            }).join('');
+        }
 
         // ===== Theme Toggle with localStorage =====
         function toggleTheme() {
@@ -1636,7 +1972,7 @@
         function restoreFavorites() {
             const favorites = getFavorites();
             if (!favorites.length) return;
-            document.querySelectorAll('.card').forEach(card => {
+            document.querySelectorAll('#toolsGrid .card').forEach(card => {
                 const name = card.dataset.name;
                 if (name && favorites.includes(name)) {
                     const btn = card.querySelector('.favorite-btn');
@@ -1671,7 +2007,7 @@
         ];
 
         const NEWS_CONFIG = {
-            maxItems: 7,
+            maxItems: 4,
             refreshMs: 30 * 60 * 1000
         };
 
@@ -1710,7 +2046,7 @@
         // ===== Filters with count =====
         function initFilters() {
             const filterBtns = document.querySelectorAll('.filter-btn');
-            const cards = Array.from(document.querySelectorAll('.card'));
+            const cards = Array.from(document.querySelectorAll('#toolsGrid .card'));
             const searchInput = document.getElementById('searchInput');
 
             if (!filterBtns.length || !cards.length || !searchInput) {
@@ -1972,39 +2308,21 @@
         }
 
         function renderNews(items) {
-            const featuredEl = document.getElementById('newsFeatured');
-            const listEl = document.getElementById('newsList');
-
-            if (!featuredEl || !listEl) return;
+            const widget = document.getElementById('newsWidget');
+            if (!widget) return;
 
             if (!items.length) {
-                featuredEl.innerHTML = '<div class="news-placeholder">표시할 뉴스가 없습니다.</div>';
-                listEl.innerHTML = '';
+                widget.innerHTML = '<div class="news-placeholder">표시할 뉴스가 없습니다.</div>';
                 return;
             }
 
-            const [featured, ...rest] = items;
-            const featuredLink = safeUrl(featured.link);
-            featuredEl.innerHTML = `
-                <div class="news-meta">
-                    <span class="news-tag">${escapeHtml(featured.source)}</span>
-                    <span class="news-date">${formatDate(featured.date)}</span>
-                </div>
-                <h3>${escapeHtml(featured.title)}</h3>
-                <p class="news-description">${escapeHtml(truncate(featured.description, 180))}</p>
-                <a href="${featuredLink}" target="_blank" rel="noopener" class="btn btn-primary">자세히 보기</a>
-            `;
-
-            listEl.innerHTML = rest.slice(0, 5).map(item => `
-                <article class="news-item">
-                    <div class="news-meta">
-                        <span class="news-tag">${escapeHtml(item.source)}</span>
-                        <span class="news-date">${formatDate(item.date)}</span>
-                    </div>
-                    <h4>${escapeHtml(truncate(item.title, 90))}</h4>
-                    <a href="${safeUrl(item.link)}" target="_blank" rel="noopener" class="news-link">원문 보기</a>
-                </article>
-            `).join('');
+            widget.innerHTML = items.slice(0, 4).map(item => {
+                return `<a href="${safeUrl(item.link)}" target="_blank" rel="noopener noreferrer" class="news-widget-item">
+                    <span class="news-source">${escapeHtml(item.source)}</span>
+                    <span class="news-title">${escapeHtml(item.title)}</span>
+                    <span class="news-date">${escapeHtml(formatDate(item.date))}</span>
+                </a>`;
+            }).join('');
         }
 
         // ===== Tool Details =====
@@ -2196,6 +2514,11 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            migrateStorage();
+            renderQuickLinks();
+            renderProjects();
+            renderRepos();
+            updateHeroStats();
             restoreTheme();
             restoreFavorites();
             initFilters();
