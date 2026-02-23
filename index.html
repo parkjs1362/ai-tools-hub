@@ -1173,6 +1173,18 @@
         .link-chromeStore{ background: #4285F4; }
         .link-local      { background: #6B7280; }
         .link-default    { background: var(--muted); }
+        .link-xcode      { background: rgba(28,140,253,0.12); color: #1c8cfd; }
+        .link-app        { background: rgba(76,175,80,0.12); color: #4caf50; }
+        .link-launchd    { background: rgba(255,152,0,0.12); color: #ff9800; }
+        .link-obsidian   { background: rgba(124,58,237,0.12); color: #7c3aed; }
+        .link-folder     { background: rgba(158,158,158,0.12); color: #9e9e9e; }
+
+        button.project-link-btn {
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            font-size: inherit;
+        }
 
         /* planned status badge */
         .status-badge.planned {
@@ -1295,6 +1307,25 @@
             background: #e5e7eb;
             color: #000;
         }
+
+        body.dark .link-xcode   { background: rgba(28,140,253,0.2); color: #5aadff; }
+        body.dark .link-app     { background: rgba(76,175,80,0.2); color: #81c784; }
+        body.dark .link-launchd { background: rgba(255,152,0,0.2); color: #ffb74d; }
+        body.dark .link-obsidian{ background: rgba(124,58,237,0.2); color: #a78bfa; }
+        body.dark .link-folder  { background: rgba(158,158,158,0.2); color: #bdbdbd; }
+
+        /* toast notifications */
+        .toast {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
+            padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.85rem;
+            opacity: 0; transition: opacity 0.3s, transform 0.3s; z-index: 9999;
+            pointer-events: none; max-width: 90vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .toast-success { background: #1a1a2e; color: #4ade80; }
+        .toast-error { background: #1a1a2e; color: #f87171; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        body.dark .toast-success { background: #e8e8e8; color: #166534; }
+        body.dark .toast-error { background: #e8e8e8; color: #991b1b; }
     </style>
 </head>
 <body>
@@ -1942,53 +1973,71 @@
                 }},
                 { name: 'Gmail Filter', status: 'active', description: 'Gmail 자동 필터 메뉴바 앱', tech: ['Node.js', 'GCP'], links: {
                     github: 'https://github.com/parkjs1362/gmail-filter',
-                    gcp: 'https://console.cloud.google.com/welcome?hl=ko&project=gmail-filter-488023'
+                    gcp: 'https://console.cloud.google.com/welcome?hl=ko&project=gmail-filter-488023',
+                    app: 'open ~/Desktop/Gmail Filter.app',
+                    launchd: 'launchctl kickstart -k gui/$(id -u)/com.user.gmail-filter-menubar'
                 }},
                 { name: 'BookmarkSync', status: 'active', description: '브라우저 북마크 동기화 앱', tech: ['Swift', 'macOS'], links: {
-                    github: 'https://github.com/parkjs1362/bookmark-sync'
+                    github: 'https://github.com/parkjs1362/bookmark-sync',
+                    app: 'open ~/Desktop/BookmarkSync.app',
+                    launchd: 'launchctl kickstart -k gui/$(id -u)/com.user.bookmark-sync-menubar'
                 }},
                 { name: 'Expense Tracker', status: 'active', description: '가계부 앱', tech: ['React', 'Node.js'], links: {
-                    github: 'https://github.com/parkjs1362/expense-tracker'
+                    github: 'https://github.com/parkjs1362/expense-tracker',
+                    app: 'open ~/Desktop/Expense Tracker.app'
                 }},
                 { name: 'Frontend Hero', status: 'active', description: '프론트엔드 학습 Chrome 확장', tech: ['Chrome Extension', 'Manifest V3'], links: {
                     chromeStore: 'https://chromewebstore.google.com'
                 }},
                 { name: 'Portfolio', status: 'active', description: '포트폴리오 웹사이트', tech: ['Next.js', 'Tailwind'], links: {
-                    github: 'https://github.com/parkjs1362/portfolio'
+                    github: 'https://github.com/parkjs1362/portfolio',
+                    vercel: 'https://vercel.com/joon-its-projects/portfolio'
                 }},
                 { name: 'Real Estate Aggregator', status: 'active', description: '부동산 데이터 통합 플랫폼', tech: ['React', 'Node.js'], links: {
                     github: 'https://github.com/parkjs1362/real-estate-aggregator',
                     dataPortal: 'https://www.data.go.kr'
                 }},
-                { name: 'URL Admin', status: 'active', description: 'URL 관리 패널', tech: ['React', 'Node.js'], links: {}},
+                { name: 'URL Admin', status: 'active', description: 'URL 관리 패널', tech: ['React', 'Node.js'], links: {
+                    folder: '~/Dropbox/code/url-admin/'
+                }},
                 { name: 'Study System', status: 'active', description: '학습 관리 시스템', tech: ['React', 'Node.js'], links: {
                     github: 'https://github.com/parkjs1362/webapp'
                 }},
                 { name: 'n8n Setup', status: 'active', description: 'n8n 로컬 자동화 설정', tech: ['n8n', 'Docker'], links: {
-                    local: 'http://localhost:5678'
+                    local: 'http://localhost:5678',
+                    folder: '~/code/n8n-setup/'
                 }},
                 { name: 'Daysie', status: 'active', description: 'D-Day 카운트다운 앱', tech: ['Flutter', 'Drift', 'Riverpod'], links: {
                     appStore: 'https://apps.apple.com',
-                    playConsole: 'https://play.google.com/console'
+                    playConsole: 'https://play.google.com/console',
+                    xcode: 'open ~/Dropbox/code/daysie/ios/Runner.xcworkspace',
+                    folder: '~/Dropbox/code/daysie/'
                 }},
                 { name: 'KIS Trading', status: 'active', description: '한국투자증권 자동매매 봇', tech: ['Python', 'KIS API'], links: {
                     kis: 'https://apiportal.koreainvestment.com',
-                    telegram: 'https://t.me'
+                    telegram: 'https://t.me',
+                    folder: '~/code/kis-trading/'
                 }},
                 { name: 'MacNotificationAI', status: 'active', description: 'macOS 알림 AI 분석', tech: ['Swift', 'macOS'], links: {
-                    github: 'https://github.com/parkjs1362/mac-notification-ai'
+                    github: 'https://github.com/parkjs1362/mac-notification-ai',
+                    xcode: 'open ~/code/mac-notification-ai/MacNotificationAI.xcodeproj',
+                    app: 'open ~/Applications/MacNotificationAI.app'
                 }},
                 { name: 'Notion MCP Server', status: 'active', description: 'Notion MCP 서버', tech: ['TypeScript', 'MCP'], links: {
                     github: 'https://github.com/parkjs1362/notion-mcp-server',
-                    npm: 'https://www.npmjs.com/package/@anthropic/notion-mcp-server'
+                    npm: 'https://www.npmjs.com/package/@notionhq/notion-mcp-server'
                 }},
-                { name: 'Obsidian Scripts', status: 'active', description: 'Obsidian Vault 관리 스크립트', tech: ['Python'], links: {}},
+                { name: 'Obsidian Scripts', status: 'active', description: 'Obsidian Vault 관리 스크립트', tech: ['Python'], links: {
+                    github: 'https://github.com/parkjs1362/obsidian-vault',
+                    folder: '~/Dropbox/code/obsidian-scripts/'
+                }},
 
                 // === Maintenance (1개) ===
                 { name: 'LawStudy', status: 'maintenance', description: '법학 학습 플랫폼', tech: ['Next.js', 'Supabase'], links: {
                     site: 'https://lawstudy.vercel.app',
                     vercel: 'https://vercel.com/joon-its-projects/lawstudy',
-                    supabase: 'https://supabase.com/dashboard/project/nezolbpgxaljuwbzpste'
+                    supabase: 'https://supabase.com/dashboard/project/nezolbpgxaljuwbzpste',
+                    gcp: 'https://console.cloud.google.com/welcome?hl=ko&project=lawstudy'
                 }},
 
                 // === Planned (1개) ===
@@ -2023,7 +2072,12 @@
             chromeStore:  { icon: 'fa-brands fa-chrome',       label: 'Web Store', class: 'link-chromeStore' },
             local:        { icon: 'fas fa-server',             label: 'Local',     class: 'link-local' },
             n8nDocs:      { icon: 'fas fa-book',               label: 'n8n Docs',  class: 'link-default' },
-            dataPortal:   { icon: 'fas fa-table',              label: '공공데이터', class: 'link-default' }
+            dataPortal:   { icon: 'fas fa-table',              label: '공공데이터', class: 'link-default' },
+            xcode:        { icon: 'fas fa-hammer',              label: 'Xcode',     class: 'link-xcode',    clipboard: true },
+            app:          { icon: 'fas fa-rocket',              label: '앱 실행',    class: 'link-app',      clipboard: true },
+            launchd:      { icon: 'fas fa-play-circle',         label: 'LaunchD',   class: 'link-launchd',  clipboard: true },
+            obsidian:     { icon: 'fas fa-gem',                 label: 'Obsidian',  class: 'link-obsidian' },
+            folder:       { icon: 'fas fa-folder-open',         label: '폴더',       class: 'link-folder',   clipboard: true }
         };
         const DEFAULT_SERVICE_META = { icon: 'fas fa-link', label: '', class: 'link-default' };
 
@@ -2074,6 +2128,9 @@
                         const iconHtml = meta.iconType === 'svg'
                             ? meta.icon
                             : `<i class="${meta.icon}"></i>`;
+                        if (meta.clipboard) {
+                            return `<button class="project-link-btn ${meta.class}" data-copy="${escapeHtml(url)}" title="클립보드 복사: ${escapeHtml(url)}">${iconHtml} ${escapeHtml(meta.label)}</button>`;
+                        }
                         return `<a href="${safeUrl(url)}" target="_blank" rel="noopener noreferrer" class="project-link-btn ${meta.class}">${iconHtml} ${escapeHtml(meta.label)}</a>`;
                     }).join('')}</div>`
                     : '';
@@ -2769,6 +2826,30 @@
                     ticking = true;
                 }
             });
+        }
+
+        // ===== Clipboard copy + Toast =====
+        document.addEventListener('click', e => {
+            const btn = e.target.closest('[data-copy]');
+            if (!btn) return;
+            const text = btn.dataset.copy;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`복사됨: ${text}`);
+            }).catch(() => {
+                showToast('복사 실패 — 브라우저 권한을 확인해주세요', true);
+            });
+        });
+
+        function showToast(msg, isError = false) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${isError ? 'toast-error' : 'toast-success'}`;
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
