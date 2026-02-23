@@ -646,64 +646,6 @@
             100% { transform: scale(1); opacity: 0.7; }
         }
 
-        /* GitHub Repos */
-        .repos-section {
-            padding: 30px 0;
-        }
-
-        .repos-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            max-width: var(--container);
-            margin: 0 auto;
-        }
-
-        .repo-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 16px;
-            background: var(--surface);
-            border-radius: var(--radius-sm);
-            transition: var(--transition);
-            text-decoration: none;
-            color: var(--ink);
-        }
-
-        .repo-item:hover {
-            background: var(--surface-soft);
-            transform: translateX(4px);
-        }
-
-        .repo-item .repo-icon {
-            color: var(--muted);
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .repo-item .repo-name {
-            font-weight: 500;
-            font-size: 0.92rem;
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .repo-item .repo-link-icon {
-            color: var(--muted);
-            font-size: 0.8rem;
-            flex-shrink: 0;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .repo-item:hover .repo-link-icon {
-            opacity: 1;
-        }
-
         /* News Widget */
         .news-widget-section {
             padding: 30px 0;
@@ -852,10 +794,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .repos-grid {
-                grid-template-columns: 1fr;
-            }
-
             .quick-link-card {
                 padding: 12px 14px;
             }
@@ -871,6 +809,10 @@
             .project-card .project-actions a {
                 justify-content: center;
             }
+
+            .project-controls { flex-direction: column; }
+            .project-filters { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 8px; }
+            .project-link-btn { font-size: 0.7rem; padding: 2px 6px; }
         }
 
         /* Tool Detail Modal */
@@ -1187,6 +1129,181 @@
         .project-card .btn-github:hover {
             background: var(--border);
         }
+
+        /* ===== Project Link Pills ===== */
+        .project-card .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .project-link-btn {
+            border-radius: 12px;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: white;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .project-link-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        .link-github     { background: #333; }
+        .link-vercel     { background: #000; }
+        .link-supabase   { background: #3ECF8E; }
+        .link-cloudflare { background: #F6821F; }
+        .link-gcp        { background: #4285F4; }
+        .link-site       { background: var(--brand); }
+        .link-kis        { background: #003DA5; }
+        .link-telegram   { background: #26A5E4; }
+        .link-npm        { background: #CB3837; }
+        .link-notion     { background: #000; }
+        .link-appStore   { background: #0D96F6; }
+        .link-playConsole{ background: #34A853; }
+        .link-chromeStore{ background: #4285F4; }
+        .link-local      { background: #6B7280; }
+        .link-default    { background: var(--muted); }
+
+        /* planned status badge */
+        .status-badge.planned {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        /* archived card dim */
+        .project-card.archived {
+            opacity: 0.65;
+        }
+
+        /* project controls (search + filter bar) */
+        .project-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .project-search-input {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--ink);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color var(--transition);
+        }
+
+        .project-search-input:focus {
+            border-color: var(--brand);
+        }
+
+        .project-search-input::placeholder {
+            color: var(--muted);
+            opacity: 0.7;
+        }
+
+        .project-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-filter-btn {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--muted);
+            transition: var(--transition);
+        }
+
+        .project-filter-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            color: var(--ink);
+        }
+
+        .project-filter-btn.active {
+            background: var(--brand);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 8px 16px rgba(15, 118, 110, 0.2);
+        }
+
+        .project-no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--muted);
+            padding: 32px 0;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        /* Dark mode overrides */
+        body.dark .status-badge.planned {
+            background: #1e3a5f;
+            color: #93c5fd;
+        }
+
+        body.dark .project-card.archived {
+            opacity: 0.5;
+        }
+
+        body.dark .project-search-input {
+            background: var(--surface);
+            color: var(--ink);
+            border-color: var(--border);
+        }
+
+        body.dark .project-filter-btn {
+            background: var(--surface);
+            color: var(--muted);
+            border-color: var(--border);
+        }
+
+        body.dark .project-filter-btn.active {
+            background: var(--brand);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        body.dark .project-filter-btn:hover {
+            color: var(--ink);
+        }
+
+        body.dark .link-vercel {
+            background: #e5e7eb;
+            color: #000;
+        }
+
+        body.dark .link-notion {
+            background: #e5e7eb;
+            color: #000;
+        }
+
+        body.dark .project-link-btn {
+            color: white;
+        }
+
+        body.dark .link-vercel,
+        body.dark .link-notion {
+            color: #000;
+        }
     </style>
 </head>
 <body>
@@ -1202,7 +1319,6 @@
                     <li><a href="#quick-links">빠른링크</a></li>
                     <li><a href="#projects">프로젝트</a></li>
                     <li><a href="#tools">AI 도구</a></li>
-                    <li><a href="#repos">저장소</a></li>
                     <li><a href="#news">뉴스</a></li>
                 </ul>
             </nav>
@@ -1220,7 +1336,7 @@
 
             <div class="hero-stats">
                 <div class="stat">
-                    <div class="stat-number">5</div>
+                    <div class="stat-number">25</div>
                     <div class="stat-label">프로젝트</div>
                 </div>
                 <div class="stat">
@@ -1228,8 +1344,8 @@
                     <div class="stat-label">AI 도구</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">11</div>
-                    <div class="stat-label">저장소</div>
+                    <div class="stat-number">18</div>
+                    <div class="stat-label">진행중</div>
                 </div>
             </div>
         </div>
@@ -1247,7 +1363,19 @@
     <section id="projects" class="projects-section">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-rocket"></i> 내 프로젝트</h2>
-            <div id="projectsGrid" class="projects-grid"></div>
+            <div class="project-controls">
+                <input type="text" class="project-search-input" placeholder="프로젝트 검색..." id="projectSearchInput">
+                <div class="project-filters">
+                    <button class="project-filter-btn active" data-status="all">전체</button>
+                    <button class="project-filter-btn" data-status="active">진행중</button>
+                    <button class="project-filter-btn" data-status="planned">계획중</button>
+                    <button class="project-filter-btn" data-status="maintenance">유지관리</button>
+                    <button class="project-filter-btn" data-status="archived">아카이브</button>
+                </div>
+            </div>
+            <div id="projectsGrid" class="projects-grid">
+                <div class="project-no-results" id="projectNoResults">일치하는 프로젝트가 없습니다.</div>
+            </div>
         </div>
     </section>
 
@@ -1727,14 +1855,6 @@
         </div>
     </section>
 
-    <!-- GitHub Repos Section -->
-    <section id="repos" class="repos-section">
-        <div class="container">
-            <h2 class="section-title"><i class="fa-brands fa-github"></i> GitHub 저장소</h2>
-            <div id="reposGrid" class="repos-grid"></div>
-        </div>
-    </section>
-
     <!-- AI News Section -->
     <section id="news" class="news-widget-section">
         <div class="container">
@@ -1770,7 +1890,6 @@
                         <li><a href="#quick-links">빠른링크</a></li>
                         <li><a href="#projects">프로젝트</a></li>
                         <li><a href="#tools">AI 도구</a></li>
-                        <li><a href="#repos">저장소</a></li>
                         <li><a href="#news">뉴스</a></li>
                     </ul>
                 </div>
@@ -1809,26 +1928,113 @@
                 { name: 'n8n (Local)', url: 'http://localhost:5678', iconType: 'fa', icon: 'fas fa-diagram-project', color: '#FF6D5A', description: 'Workflow Automation' }
             ],
             projects: [
-                { name: 'ADHD Community', url: 'https://adhd-community-gold.vercel.app', github: 'https://github.com/parkjs1362/adhd-community', status: 'active', description: 'ADHD 커뮤니티 플랫폼', tech: ['Next.js', 'Supabase', 'Tailwind'] },
-                { name: 'LawStudy', url: 'https://lawstudy.vercel.app', github: null, status: 'maintenance', description: '법학 학습 플랫폼', tech: ['Next.js', 'Supabase'] },
-                { name: 'Joonit Blog', url: 'https://joonit.vercel.app', github: 'https://github.com/parkjs1362/joonit', status: 'active', description: '개인 기술 블로그', tech: ['Next.js'] },
-                { name: 'Keyword Dashboard', url: 'https://keyword-dashboard.pages.dev', github: 'https://github.com/parkjs1362/keyword-dashboard', status: 'active', description: 'SEO 키워드 분석 대시보드', tech: ['React', 'Cloudflare Pages'] },
-                { name: 'JoonHub', url: 'https://parkjs1362.github.io/ai-tools-hub/', github: 'https://github.com/parkjs1362/ai-tools-hub', status: 'active', description: '개인 개발 포털 (현재 사이트)', tech: ['Vanilla HTML/CSS/JS'] }
-            ],
-            repos: [
-                { name: 'adhd-community', url: 'https://github.com/parkjs1362/adhd-community' },
-                { name: 'bookmark-sync', url: 'https://github.com/parkjs1362/bookmark-sync' },
-                { name: 'expense-tracker', url: 'https://github.com/parkjs1362/expense-tracker' },
-                { name: 'gmail-filter', url: 'https://github.com/parkjs1362/gmail-filter' },
-                { name: 'joonit', url: 'https://github.com/parkjs1362/joonit' },
-                { name: 'keyword-dashboard', url: 'https://github.com/parkjs1362/keyword-dashboard' },
-                { name: 'portfolio', url: 'https://github.com/parkjs1362/portfolio' },
-                { name: 'real-estate-aggregator', url: 'https://github.com/parkjs1362/real-estate-aggregator' },
-                { name: 'relations', url: 'https://github.com/parkjs1362/relations' },
-                { name: 'webapp', url: 'https://github.com/parkjs1362/webapp' },
-                { name: 'ai-tools-hub', url: 'https://github.com/parkjs1362/ai-tools-hub' }
+                // === Active (18개) ===
+                { name: 'ADHD Community', status: 'active', description: 'ADHD 커뮤니티 플랫폼', tech: ['Next.js', 'Supabase', 'Tailwind'], links: {
+                    site: 'https://adhd-community-gold.vercel.app',
+                    github: 'https://github.com/parkjs1362/adhd-community',
+                    vercel: 'https://vercel.com/joon-its-projects/adhd-community',
+                    supabase: 'https://supabase.com/dashboard/project/vnepfecmrxfhayzvkdbq'
+                }},
+                { name: 'JoonHub', status: 'active', description: '개인 개발 포털 (현재 사이트)', tech: ['Vanilla HTML/CSS/JS'], links: {
+                    site: 'https://parkjs1362.github.io/ai-tools-hub/',
+                    github: 'https://github.com/parkjs1362/ai-tools-hub'
+                }},
+                { name: 'Joonit Blog', status: 'active', description: '개인 기술 블로그', tech: ['Next.js'], links: {
+                    site: 'https://joonit.vercel.app',
+                    github: 'https://github.com/parkjs1362/joonit',
+                    vercel: 'https://vercel.com/joon-its-projects/joonit'
+                }},
+                { name: 'Keyword Dashboard', status: 'active', description: 'SEO 키워드 분석 대시보드', tech: ['React', 'Cloudflare Pages'], links: {
+                    site: 'https://keyword-dashboard.pages.dev',
+                    github: 'https://github.com/parkjs1362/keyword-dashboard',
+                    cloudflare: 'https://dash.cloudflare.com'
+                }},
+                { name: 'Gmail Filter', status: 'active', description: 'Gmail 자동 필터 메뉴바 앱', tech: ['Node.js', 'GCP'], links: {
+                    github: 'https://github.com/parkjs1362/gmail-filter',
+                    gcp: 'https://console.cloud.google.com/welcome?hl=ko&project=gmail-filter-488023'
+                }},
+                { name: 'BookmarkSync', status: 'active', description: '브라우저 북마크 동기화 앱', tech: ['Swift', 'macOS'], links: {
+                    github: 'https://github.com/parkjs1362/bookmark-sync'
+                }},
+                { name: 'Expense Tracker', status: 'active', description: '가계부 앱', tech: ['React', 'Node.js'], links: {
+                    github: 'https://github.com/parkjs1362/expense-tracker'
+                }},
+                { name: 'Frontend Hero', status: 'active', description: '프론트엔드 학습 Chrome 확장', tech: ['Chrome Extension', 'Manifest V3'], links: {
+                    chromeStore: 'https://chromewebstore.google.com'
+                }},
+                { name: 'Portfolio', status: 'active', description: '포트폴리오 웹사이트', tech: ['Next.js', 'Tailwind'], links: {
+                    github: 'https://github.com/parkjs1362/portfolio'
+                }},
+                { name: 'Real Estate Aggregator', status: 'active', description: '부동산 데이터 통합 플랫폼', tech: ['React', 'Node.js'], links: {
+                    github: 'https://github.com/parkjs1362/real-estate-aggregator',
+                    dataPortal: 'https://www.data.go.kr'
+                }},
+                { name: 'URL Admin', status: 'active', description: 'URL 관리 패널', tech: ['React', 'Node.js'], links: {}},
+                { name: 'Study System', status: 'active', description: '학습 관리 시스템', tech: ['React', 'Node.js'], links: {
+                    github: 'https://github.com/parkjs1362/webapp'
+                }},
+                { name: 'n8n Setup', status: 'active', description: 'n8n 로컬 자동화 설정', tech: ['n8n', 'Docker'], links: {
+                    local: 'http://localhost:5678'
+                }},
+                { name: 'Daysie', status: 'active', description: 'D-Day 카운트다운 앱', tech: ['Flutter', 'Drift', 'Riverpod'], links: {
+                    appStore: 'https://apps.apple.com',
+                    playConsole: 'https://play.google.com/console'
+                }},
+                { name: 'KIS Trading', status: 'active', description: '한국투자증권 자동매매 봇', tech: ['Python', 'KIS API'], links: {
+                    kis: 'https://apiportal.koreainvestment.com',
+                    telegram: 'https://t.me'
+                }},
+                { name: 'MacNotificationAI', status: 'active', description: 'macOS 알림 AI 분석', tech: ['Swift', 'macOS'], links: {
+                    github: 'https://github.com/parkjs1362/mac-notification-ai'
+                }},
+                { name: 'Notion MCP Server', status: 'active', description: 'Notion MCP 서버', tech: ['TypeScript', 'MCP'], links: {
+                    github: 'https://github.com/parkjs1362/notion-mcp-server',
+                    npm: 'https://www.npmjs.com/package/@anthropic/notion-mcp-server'
+                }},
+                { name: 'Obsidian Scripts', status: 'active', description: 'Obsidian Vault 관리 스크립트', tech: ['Python'], links: {}},
+
+                // === Maintenance (1개) ===
+                { name: 'LawStudy', status: 'maintenance', description: '법학 학습 플랫폼', tech: ['Next.js', 'Supabase'], links: {
+                    site: 'https://lawstudy.vercel.app',
+                    vercel: 'https://vercel.com/joon-its-projects/lawstudy',
+                    supabase: 'https://supabase.com/dashboard/project/nezolbpgxaljuwbzpste'
+                }},
+
+                // === Planned (1개) ===
+                { name: 'Relations', status: 'planned', description: '인맥 관리 앱', tech: ['React', 'Node.js'], links: {
+                    github: 'https://github.com/parkjs1362/relations'
+                }},
+
+                // === Archived (5개) ===
+                { name: 'D-Day Tracker', status: 'archived', description: 'D-Day Chrome 확장 (Daysie로 대체)', tech: ['Chrome Extension'], links: {}},
+                { name: 'Form Template', status: 'archived', description: '폼 디자인 템플릿', tech: ['HTML', 'CSS'], links: {}},
+                { name: 'Reminders Migration', status: 'archived', description: 'Apple 미리알림 마이그레이션', tech: ['Python'], links: {}},
+                { name: 'SEO Analysis', status: 'archived', description: 'SEO 분석 데이터', tech: ['Python'], links: {}},
+                { name: 'Samsung DS Clone', status: 'archived', description: '삼성 DS 클론 사이트', tech: ['HTML', 'CSS'], links: {}}
             ]
         };
+
+        // ===== Service Icon/Label Mapping =====
+        const SERVICE_META = {
+            site:         { icon: 'fas fa-external-link-alt', label: '사이트',    class: 'link-site' },
+            github:       { icon: 'fa-brands fa-github',      label: 'GitHub',    class: 'link-github' },
+            vercel:       { iconType: 'svg', icon: '<svg width="12" height="12" viewBox="0 0 76 65" fill="currentColor"><path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/></svg>', label: 'Vercel', class: 'link-vercel' },
+            supabase:     { icon: 'fas fa-database',          label: 'Supabase',  class: 'link-supabase' },
+            cloudflare:   { icon: 'fa-brands fa-cloudflare',  label: 'Cloudflare',class: 'link-cloudflare' },
+            gcp:          { icon: 'fa-brands fa-google',      label: 'GCP',       class: 'link-gcp' },
+            kis:          { icon: 'fas fa-chart-line',         label: 'KIS',       class: 'link-kis' },
+            telegram:     { icon: 'fa-brands fa-telegram',    label: 'Telegram',  class: 'link-telegram' },
+            npm:          { icon: 'fa-brands fa-npm',          label: 'npm',       class: 'link-npm' },
+            notion:       { icon: 'fas fa-sticky-note',        label: 'Notion',    class: 'link-notion' },
+            notionDocs:   { icon: 'fas fa-book',               label: 'Notion API',class: 'link-notion' },
+            appStore:     { icon: 'fa-brands fa-apple',        label: 'App Store', class: 'link-appStore' },
+            playConsole:  { icon: 'fa-brands fa-google-play',  label: 'Play Store',class: 'link-playConsole' },
+            chromeStore:  { icon: 'fa-brands fa-chrome',       label: 'Web Store', class: 'link-chromeStore' },
+            local:        { icon: 'fas fa-server',             label: 'Local',     class: 'link-local' },
+            n8nDocs:      { icon: 'fas fa-book',               label: 'n8n Docs',  class: 'link-default' },
+            dataPortal:   { icon: 'fas fa-table',              label: '공공데이터', class: 'link-default' }
+        };
+        const DEFAULT_SERVICE_META = { icon: 'fas fa-link', label: '', class: 'link-default' };
 
         function migrateStorage() {
             const migrations = {
@@ -1864,23 +2070,31 @@
         function renderProjects() {
             const grid = document.getElementById('projectsGrid');
             if (!grid) return;
-            const statusLabels = { active: '진행중', maintenance: '메인터넌스', archived: '아카이브' };
+            const statusLabels = { active: '진행중', maintenance: '유지관리', planned: '계획중', archived: '아카이브' };
             grid.innerHTML = JOONHUB.projects.map(proj => {
                 const techHtml = proj.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('');
-                const githubBtn = proj.github
-                    ? `<a href="${safeUrl(proj.github)}" target="_blank" rel="noopener noreferrer" class="btn-github"><i class="fa-brands fa-github"></i> GitHub</a>`
+                const searchStr = [proj.name, ...proj.tech].join(' ').toLowerCase();
+                const archivedClass = proj.status === 'archived' ? ' archived' : '';
+
+                const linkEntries = Object.entries(proj.links || {});
+                const linksHtml = linkEntries.length > 0
+                    ? `<div class="project-links">${linkEntries.map(([key, url]) => {
+                        const meta = SERVICE_META[key] || DEFAULT_SERVICE_META;
+                        const iconHtml = meta.iconType === 'svg'
+                            ? meta.icon
+                            : `<i class="${meta.icon}"></i>`;
+                        return `<a href="${safeUrl(url)}" target="_blank" rel="noopener noreferrer" class="project-link-btn ${meta.class}">${iconHtml} ${escapeHtml(meta.label)}</a>`;
+                    }).join('')}</div>`
                     : '';
-                return `<div class="project-card">
+
+                return `<div class="project-card${archivedClass}" data-status="${escapeHtml(proj.status)}" data-search="${escapeHtml(searchStr)}">
             <div class="project-header">
                 <span class="project-name">${escapeHtml(proj.name)}</span>
-                <span class="status-badge ${proj.status}">${statusLabels[proj.status] || proj.status}</span>
+                <span class="status-badge ${escapeHtml(proj.status)}">${escapeHtml(statusLabels[proj.status] || proj.status)}</span>
             </div>
             <p class="project-desc">${escapeHtml(proj.description)}</p>
             <div class="tech-tags">${techHtml}</div>
-            <div class="project-actions">
-                <a href="${safeUrl(proj.url)}" target="_blank" rel="noopener noreferrer" class="btn-visit"><i class="fas fa-external-link-alt"></i> 사이트 방문</a>
-                ${githubBtn}
-            </div>
+            ${linksHtml}
         </div>`;
             }).join('');
         }
@@ -1892,20 +2106,73 @@
             if (stats.length >= 3) {
                 stats[0].textContent = JOONHUB.projects.length;
                 stats[1].textContent = '20+';
-                stats[2].textContent = JOONHUB.repos.length;
+                stats[2].textContent = JOONHUB.projects.filter(p => p.status === 'active').length;
             }
         }
 
-        function renderRepos() {
-            const grid = document.getElementById('reposGrid');
-            if (!grid) return;
-            grid.innerHTML = JOONHUB.repos.map(repo => {
-                return `<a href="${safeUrl(repo.url)}" target="_blank" rel="noopener noreferrer" class="repo-item">
-                    <i class="fa-brands fa-github repo-icon"></i>
-                    <span class="repo-name">${escapeHtml(repo.name)}</span>
-                    <i class="fas fa-external-link-alt repo-link-icon"></i>
-                </a>`;
-            }).join('');
+        function updateFilterCounts() {
+            const counts = { all: JOONHUB.projects.length };
+            JOONHUB.projects.forEach(p => { counts[p.status] = (counts[p.status] || 0) + 1; });
+            document.querySelectorAll('#projects .project-filter-btn').forEach(btn => {
+                const status = btn.dataset.status;
+                const count = status === 'all' ? counts.all : (counts[status] || 0);
+                const labels = { all: '전체', active: '진행중', planned: '계획중', maintenance: '유지관리', archived: '아카이브' };
+                btn.textContent = `${labels[status] || status} (${count})`;
+            });
+        }
+
+        function initProjectFilters() {
+            const filterBtns = document.querySelectorAll('#projects .project-filter-btn');
+            const searchInput = document.getElementById('projectSearchInput');
+            const noResults = document.getElementById('projectNoResults');
+
+            if (!filterBtns.length) return;
+
+            updateFilterCounts();
+
+            let activeStatus = 'all';
+            let searchTerm = '';
+
+            function applyProjectFilters() {
+                const term = searchTerm.trim().toLowerCase();
+                const cards = document.querySelectorAll('#projectsGrid .project-card');
+                let visibleCount = 0;
+
+                cards.forEach(card => {
+                    const matchesStatus = activeStatus === 'all' || card.dataset.status === activeStatus;
+                    const searchData = (card.dataset.search || '').toLowerCase();
+                    const matchesSearch = !term || searchData.includes(term);
+                    const visible = matchesStatus && matchesSearch;
+                    card.style.display = visible ? '' : 'none';
+                    if (visible) visibleCount++;
+                });
+
+                if (noResults) {
+                    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+                }
+            }
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeStatus = btn.dataset.status || 'all';
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    applyProjectFilters();
+                });
+            });
+
+            if (searchInput) {
+                let debounceTimer;
+                searchInput.addEventListener('input', e => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        searchTerm = e.target.value;
+                        applyProjectFilters();
+                    }, 200);
+                });
+            }
+
+            applyProjectFilters();
         }
 
         // ===== Theme Toggle with localStorage =====
@@ -2517,7 +2784,7 @@
             migrateStorage();
             renderQuickLinks();
             renderProjects();
-            renderRepos();
+            initProjectFilters();
             updateHeroStats();
             restoreTheme();
             restoreFavorites();
