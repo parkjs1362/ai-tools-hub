@@ -1518,6 +1518,77 @@
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         body.dark .toast-success { background: #e8e8e8; color: #166534; }
         body.dark .toast-error { background: #e8e8e8; color: #991b1b; }
+
+        /* ===== Bookmarks Section ===== */
+        .bookmarks-section {
+            padding: 3rem 0;
+        }
+        .bookmarks-category {
+            margin-bottom: 2rem;
+        }
+        .bookmarks-category-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .bookmarks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.6rem;
+        }
+        .bookmark-item {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.65rem 0.9rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--ink);
+            transition: background var(--transition), border-color var(--transition), transform var(--transition);
+        }
+        .bookmark-item:hover {
+            background: var(--surface-soft);
+            border-color: var(--brand);
+            transform: translateY(-1px);
+        }
+        .bookmark-item i {
+            font-size: 0.9rem;
+            color: var(--brand);
+            flex-shrink: 0;
+            width: 16px;
+            text-align: center;
+        }
+        .bookmark-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .bookmark-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .bookmark-desc {
+            font-size: 0.72rem;
+            color: var(--muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 600px) {
+            .bookmarks-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
     </style>
 </head>
 <body>
