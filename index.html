@@ -2152,6 +2152,13 @@
         </div>
     </section>
 
+    <section id="bookmarks" class="bookmarks-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-bookmark"></i> 북마크</h2>
+            <div id="bookmarksContainer"></div>
+        </div>
+    </section>
+
     <!-- Tool Detail Modal -->
     <div class="modal-overlay" id="toolModal" onclick="closeToolModal(event)">
         <div class="modal">
@@ -2404,6 +2411,27 @@
                 <span class="ql-desc">${escapeHtml(link.description)}</span>
             </span>
         </a>`;
+            }).join('');
+        }
+
+        function renderBookmarks() {
+            const container = document.getElementById('bookmarksContainer');
+            if (!container) return;
+            const categories = [...new Set(JOONHUB.bookmarks.map(b => b.category))];
+            container.innerHTML = categories.map(cat => {
+                const items = JOONHUB.bookmarks.filter(b => b.category === cat);
+                const itemsHtml = items.map(b => `
+                    <a href="${safeUrl(b.url)}" target="_blank" rel="noopener noreferrer" class="bookmark-item">
+                        <i class="${escapeHtml(b.icon)}"></i>
+                        <span class="bookmark-info">
+                            <span class="bookmark-name">${escapeHtml(b.name)}</span>
+                            <span class="bookmark-desc">${escapeHtml(b.description)}</span>
+                        </span>
+                    </a>`).join('');
+                return `<div class="bookmarks-category">
+                    <div class="bookmarks-category-title">${escapeHtml(cat)}</div>
+                    <div class="bookmarks-grid">${itemsHtml}</div>
+                </div>`;
             }).join('');
         }
 
@@ -3218,6 +3246,7 @@
             migrateStorage();
             renderQuickLinks();
             renderProjects();
+            renderBookmarks();
             initProjectFilters();
             updateHeroStats();
             restoreTheme();
