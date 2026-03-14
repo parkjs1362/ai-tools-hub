@@ -499,12 +499,6 @@
             transition: var(--transition);
         }
 
-        .card:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: var(--shadow);
-            border-color: rgba(15, 118, 110, 0.3);
-        }
-
         .card:hover::before {
             opacity: 1;
         }
@@ -1592,6 +1586,132 @@
                 grid-template-columns: 1fr 1fr;
             }
         }
+
+        /* ===== Scroll to Top Button ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand), var(--accent));
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(15, 118, 110, 0.35);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 150;
+            font-size: 1rem;
+            pointer-events: none;
+        }
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .scroll-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 36px rgba(15, 118, 110, 0.5);
+        }
+
+        /* ===== Card Top Accent on Hover ===== */
+        .card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: var(--shadow), inset 0 3px 0 var(--brand);
+            border-color: rgba(15, 118, 110, 0.3);
+        }
+
+        /* ===== Tag Color Variants ===== */
+        .tag { transition: background 0.2s, color 0.2s; }
+        .tag:nth-child(1) { background: rgba(15, 118, 110, 0.12); color: var(--brand); }
+        .tag:nth-child(2) { background: rgba(249, 115, 22, 0.12); color: #ea580c; }
+        .tag:nth-child(3) { background: rgba(99, 102, 241, 0.12); color: #4f46e5; }
+        body.dark .tag:nth-child(1) { background: rgba(15, 118, 110, 0.22); color: #5eead4; }
+        body.dark .tag:nth-child(2) { background: rgba(249, 115, 22, 0.22); color: #fb923c; }
+        body.dark .tag:nth-child(3) { background: rgba(99, 102, 241, 0.22); color: #a5b4fc; }
+
+        /* ===== Section background stripe ===== */
+        .section:nth-of-type(even) {
+            background: var(--bg-secondary);
+        }
+
+        /* ===== Hero stat number glow ===== */
+        .stat-number {
+            background: linear-gradient(120deg, #fff 40%, rgba(249,115,22,0.85));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== Improved quick link card ===== */
+        .quick-link-card {
+            border-left-width: 5px;
+        }
+        .quick-link-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(120deg, rgba(15,118,110,0.05), rgba(249,115,22,0.05));
+            opacity: 0;
+            transition: opacity 0.28s ease;
+        }
+        .quick-link-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .quick-link-card:hover::before {
+            opacity: 1;
+        }
+
+        /* ===== Bookmark category header improvement ===== */
+        .bookmarks-category-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bookmarks-category-title::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 14px;
+            border-radius: 2px;
+            background: linear-gradient(to bottom, var(--brand), var(--accent));
+        }
+
+        /* ===== Footer social links ===== */
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--border);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            transition: background var(--transition), color var(--transition), transform var(--transition);
+        }
+        .footer-social a:hover {
+            background: var(--brand);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ===== Animated counter ===== */
+        .stat-number[data-target] {
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -1629,7 +1749,7 @@
                     <div class="stat-label">프로젝트</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">20+</div>
+                    <div class="stat-number">28+</div>
                     <div class="stat-label">AI 도구</div>
                 </div>
                 <div class="stat">
@@ -2140,6 +2260,188 @@
                         <button class="btn btn-secondary" onclick="openToolDetail('udio')">자세히</button>
                     </div>
                 </div>
+
+                <!-- Felo -->
+                <div class="card" data-category="search" data-badge="new" data-name="felo">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/felo-icon-filled-256.webp" alt="Felo" class="card-icon">
+                            <h3>Felo</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>일본 기반 AI 검색 엔진. 다국어 검색과 심층 리서치 기능으로 글로벌 정보를 빠르게 수집합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">다국어</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://felo.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary" onclick="openToolDetail('felo')">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Genspark -->
+                <div class="card" data-category="search" data-badge="hot" data-name="genspark">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/genspark-icon-filled-256.webp" alt="Genspark" class="card-icon">
+                            <h3>Genspark</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>AI 슈퍼 에이전트 검색 플랫폼. 멀티 에이전트 기술로 복잡한 리서치를 자동으로 수행합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">에이전트</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://www.genspark.ai" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary" onclick="openToolDetail('genspark')">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Google AI Studio -->
+                <div class="card" data-category="code" data-badge="new" data-name="google-ai-studio">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <img src="images/google-ai-studio-icon-filled-256.webp" alt="Google AI Studio" class="card-icon">
+                            <h3>Google AI Studio</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Gemini API 플레이그라운드. 프롬프트 개발, 모델 테스트, API 키 관리를 한 곳에서 처리합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">API</span>
+                        <span class="tag">Google</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://aistudio.google.com" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary" onclick="openToolDetail('google-ai-studio')">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Windsurf -->
+                <div class="card" data-category="code" data-badge="hot" data-name="windsurf">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)"><i class="fas fa-wind"></i></span>
+                            <h3>Windsurf</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Codeium이 만든 AI 코드 에디터. Cascade 에이전트로 프로젝트 전체를 이해하며 자율 코딩합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                        <span class="tag">IDE</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://codeium.com/windsurf" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary" onclick="openToolDetail('windsurf')">자세히</button>
+                    </div>
+                </div>
+
+                <!-- v0 -->
+                <div class="card" data-category="code" data-badge="hot" data-name="v0">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#1e1e1e,#444)"><i class="fas fa-wand-magic-sparkles"></i></span>
+                            <h3>v0 by Vercel</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>Vercel의 AI UI 생성기. 텍스트 설명으로 React 컴포넌트를 즉시 생성하고 배포할 수 있습니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Vercel</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://v0.dev" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary" onclick="openToolDetail('v0')">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Bolt.new -->
+                <div class="card" data-category="code" data-badge="new" data-name="bolt">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-bolt"></i></span>
+                            <h3>Bolt.new</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>StackBlitz의 AI 풀스택 앱 빌더. 브라우저 안에서 전체 앱을 생성·실행·배포합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                        <span class="tag">풀스택</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://bolt.new" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary" onclick="openToolDetail('bolt')">자세히</button>
+                    </div>
+                </div>
+
+                <!-- ElevenLabs -->
+                <div class="card" data-category="productivity" data-badge="new" data-name="elevenlabs">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#334155,#1e293b)"><i class="fas fa-microphone"></i></span>
+                            <h3>ElevenLabs</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>AI 음성 합성 플랫폼. 텍스트를 자연스러운 음성으로 변환하고 음성 클로닝도 지원합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                        <span class="tag">TTS</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://elevenlabs.io" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary" onclick="openToolDetail('elevenlabs')">자세히</button>
+                    </div>
+                </div>
+
+                <!-- Lovable -->
+                <div class="card" data-category="code" data-badge="hot" data-name="lovable">
+                    <div class="card-header">
+                        <div class="card-title-row">
+                            <span class="card-icon-fa" style="background:linear-gradient(135deg,#f43f5e,#be123c)"><i class="fas fa-heart"></i></span>
+                            <h3>Lovable</h3>
+                        </div>
+                        <button class="favorite-btn" onclick="toggleFavorite(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <p>AI 풀스택 앱 생성기. 자연어 명령으로 프로덕션급 웹 앱을 생성하고 즉시 배포합니다.</p>
+                    <div class="card-tags">
+                        <span class="tag">무료</span>
+                        <span class="tag">유료</span>
+                        <span class="tag">풀스택</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="https://lovable.dev" target="_blank" rel="noopener" class="btn btn-primary">사용하기</a>
+                        <button class="btn btn-secondary" onclick="openToolDetail('lovable')">자세히</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2162,6 +2464,11 @@
             <div id="bookmarksContainer"></div>
         </div>
     </section>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()" aria-label="맨 위로 이동">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Tool Detail Modal -->
     <div class="modal-overlay" id="toolModal" onclick="closeToolModal(event)">
@@ -2198,6 +2505,12 @@
                         <li><a href="#tools">AI 도구</a></li>
                         <li><a href="#news">뉴스</a></li>
                     </ul>
+                    <div class="footer-social">
+                        <a href="https://github.com/parkjs1362" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://vercel.com/joon-its-projects" target="_blank" rel="noopener" title="Vercel">
+                            <svg width="14" height="12" viewBox="0 0 76 65" fill="currentColor"><path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -2222,7 +2535,11 @@
                 { name: 'Supabase (ADHD)', url: 'https://supabase.com/dashboard/project/vnepfecmrxfhayzvkdbq', iconType: 'fa', icon: 'fas fa-database', color: '#3ECF8E', description: 'ADHD Community DB' },
                 { name: 'Supabase (LawStudy)', url: 'https://supabase.com/dashboard/project/nezolbpgxaljuwbzpste', iconType: 'fa', icon: 'fas fa-database', color: '#3ECF8E', description: 'LawStudy DB' },
                 { name: 'Cloudflare', url: 'https://dash.cloudflare.com', iconType: 'fa', icon: 'fa-brands fa-cloudflare', color: '#F6821F', description: 'CDN & Pages' },
-                { name: 'n8n (Local)', url: 'http://localhost:5678', iconType: 'fa', icon: 'fas fa-diagram-project', color: '#FF6D5A', description: 'Workflow Automation' }
+                { name: 'n8n (Local)', url: 'http://localhost:5678', iconType: 'fa', icon: 'fas fa-diagram-project', color: '#FF6D5A', description: 'Workflow Automation' },
+                { name: 'Claude AI', url: 'https://claude.ai', iconType: 'fa', icon: 'fas fa-message', color: '#b45309', description: 'Anthropic AI Chat' },
+                { name: 'Google AI Studio', url: 'https://aistudio.google.com', iconType: 'fa', icon: 'fa-brands fa-google', color: '#4285F4', description: 'Gemini API Playground' },
+                { name: 'Linear', url: 'https://linear.app', iconType: 'fa', icon: 'fas fa-list-check', color: '#5E6AD2', description: 'Issue Tracker' },
+                { name: 'Figma', url: 'https://figma.com', iconType: 'fa', icon: 'fab fa-figma', color: '#F24E1E', description: 'UI Design Tool' }
             ],
             bookmarks: [
                 // === AI 도구 ===
@@ -2298,6 +2615,21 @@
                 { category: '기타', name: 'Google Fonts', url: 'https://fonts.google.com', description: '무료 웹폰트 라이브러리', icon: 'fas fa-font' },
                 { category: '기타', name: 'Lucide Icons', url: 'https://lucide.dev', description: '오픈소스 아이콘 세트', icon: 'fas fa-icons' },
                 { category: '기타', name: 'unDraw', url: 'https://undraw.co', description: '무료 SVG 일러스트', icon: 'fas fa-image' },
+                // === 추가 AI 코딩 도구 ===
+                { category: 'AI 코딩', name: 'v0', url: 'https://v0.dev', description: 'Vercel AI UI 생성기', icon: 'fas fa-wand-magic-sparkles' },
+                { category: 'AI 코딩', name: 'Lovable', url: 'https://lovable.dev', description: 'AI 풀스택 앱 빌더', icon: 'fas fa-heart' },
+                { category: 'AI 코딩', name: 'Bolt.new', url: 'https://bolt.new', description: 'AI 즉석 앱 빌더', icon: 'fas fa-bolt' },
+                { category: 'AI 코딩', name: 'Windsurf', url: 'https://codeium.com/windsurf', description: 'AI IDE by Codeium', icon: 'fas fa-wind' },
+                { category: 'AI 코딩', name: 'Cursor', url: 'https://cursor.com', description: 'AI 코드 에디터', icon: 'fas fa-terminal' },
+                { category: 'AI 코딩', name: 'GitHub Copilot', url: 'https://github.com/features/copilot', description: 'AI 코드 자동완성', icon: 'fab fa-github' },
+                { category: 'AI 코딩', name: 'Claude Code', url: 'https://claude.ai', description: 'Anthropic CLI 에이전트', icon: 'fas fa-code' },
+                // === 클라우드 인프라 ===
+                { category: '클라우드 인프라', name: 'Vercel', url: 'https://vercel.com', description: '프론트엔드 배포 플랫폼', icon: 'fas fa-triangle-exclamation' },
+                { category: '클라우드 인프라', name: 'Supabase', url: 'https://supabase.com', description: 'Firebase 오픈소스 대안', icon: 'fas fa-database' },
+                { category: '클라우드 인프라', name: 'Cloudflare Pages', url: 'https://pages.cloudflare.com', description: '정적 사이트 호스팅', icon: 'fa-brands fa-cloudflare' },
+                { category: '클라우드 인프라', name: 'Railway', url: 'https://railway.app', description: '백엔드 앱 배포', icon: 'fas fa-train' },
+                { category: '클라우드 인프라', name: 'Render', url: 'https://render.com', description: '풀스택 클라우드 플랫폼', icon: 'fas fa-server' },
+                { category: '클라우드 인프라', name: 'Netlify', url: 'https://netlify.com', description: 'JAMstack 호스팅', icon: 'fas fa-globe' },
             ],
             projects: [
                 // === Active (18개) ===
@@ -2524,7 +2856,8 @@
             const stats = statsEl.querySelectorAll('.stat-number');
             if (stats.length >= 3) {
                 stats[0].textContent = JOONHUB.projects.length;
-                stats[1].textContent = '20+';
+                const toolCount = document.querySelectorAll('#toolsGrid .card').length;
+                stats[1].textContent = toolCount + '+';
                 stats[2].textContent = JOONHUB.projects.filter(p => p.status === 'active').length;
             }
         }
@@ -3152,6 +3485,62 @@
                 features: ['고품질 음악 생성', '세밀한 스타일/장르 제어', '음악 확장 및 리믹스 기능'],
                 price: '무료 (제한적) / Standard $10/월',
                 url: 'https://www.udio.com'
+            },
+            'felo': {
+                name: 'Felo',
+                desc: '일본 기반 AI 검색 엔진으로, 실시간 웹 검색과 다국어 처리 능력이 뛰어납니다. 복잡한 리서치를 빠르고 정확하게 수행합니다.',
+                features: ['실시간 멀티 소스 검색', '한국어·일본어 특화 처리', '마인드맵·슬라이드 자동 생성'],
+                price: '무료 / Pro 플랜 제공',
+                url: 'https://felo.ai'
+            },
+            'genspark': {
+                name: 'Genspark',
+                desc: 'AI 슈퍼 에이전트 검색 플랫폼입니다. 여러 AI 에이전트가 협력하여 복잡한 리서치를 자동화하고 커스텀 Sparkpages를 생성합니다.',
+                features: ['멀티 에이전트 자율 리서치', 'Sparkpages 맞춤형 답변 페이지', '실시간 웹 + 멀티모달 검색'],
+                price: '무료 / 프리미엄 플랜 제공',
+                url: 'https://www.genspark.ai'
+            },
+            'google-ai-studio': {
+                name: 'Google AI Studio',
+                desc: 'Google의 Gemini API 개발 플레이그라운드입니다. 프롬프트 설계, 모델 파라미터 조정, API 키 발급을 웹에서 바로 할 수 있습니다.',
+                features: ['Gemini 1.5 Pro/Flash 모델 직접 테스트', '프롬프트 튜닝 및 파인튜닝', '무료 API 쿼터 제공'],
+                price: '무료 (API 쿼터 내) / 초과 사용량 과금',
+                url: 'https://aistudio.google.com'
+            },
+            'windsurf': {
+                name: 'Windsurf',
+                desc: 'Codeium이 개발한 AI 네이티브 코드 에디터입니다. Cascade 에이전트가 프로젝트 전체 맥락을 이해하고 자율적으로 코드를 작성·수정합니다.',
+                features: ['Cascade 에이전트 자율 코딩', '프로젝트 전체 컨텍스트 이해', 'VS Code 호환 + 자체 에디터'],
+                price: '무료 (제한) / Pro $15/월',
+                url: 'https://codeium.com/windsurf'
+            },
+            'v0': {
+                name: 'v0 by Vercel',
+                desc: 'Vercel의 AI UI 생성 도구입니다. 텍스트 설명만으로 shadcn/ui 기반의 React 컴포넌트를 즉시 만들고 Vercel에 배포할 수 있습니다.',
+                features: ['shadcn/ui 기반 컴포넌트 생성', 'Vercel 원클릭 배포 통합', '채팅으로 반복 수정 가능'],
+                price: '무료 (크레딧 제한) / Premium $20/월',
+                url: 'https://v0.dev'
+            },
+            'bolt': {
+                name: 'Bolt.new',
+                desc: 'StackBlitz가 만든 AI 풀스택 앱 빌더입니다. 브라우저 안에서 전체 개발 환경을 실행하며 AI가 앱을 생성·수정·배포까지 담당합니다.',
+                features: ['브라우저 내 풀 Node.js 환경', 'AI 기반 전체 앱 생성 및 수정', '즉시 미리보기 및 배포'],
+                price: '무료 (토큰 제한) / Pro $20/월',
+                url: 'https://bolt.new'
+            },
+            'elevenlabs': {
+                name: 'ElevenLabs',
+                desc: 'AI 음성 합성의 선두주자입니다. 자연스러운 TTS(텍스트→음성) 변환과 개인 음성 클로닝 기능으로 팟캐스트·오디오북 제작에 최적화되어 있습니다.',
+                features: ['초고품질 자연어 TTS', '음성 클로닝 (목소리 복제)', '다국어 지원 및 감정 표현'],
+                price: '무료 (10,000자/월) / Starter $5/월',
+                url: 'https://elevenlabs.io'
+            },
+            'lovable': {
+                name: 'Lovable',
+                desc: 'AI 기반 풀스택 앱 빌더입니다. 자연어 대화만으로 프로덕션 수준의 React 앱을 생성하고, Supabase·GitHub 연동으로 즉시 배포합니다.',
+                features: ['자연어로 풀스택 앱 생성', 'Supabase DB·인증 자동 연동', 'GitHub 연동 및 즉시 배포'],
+                price: '무료 (5개 프로젝트) / Pro $20/월',
+                url: 'https://lovable.dev'
             }
         };
 
@@ -3290,6 +3679,53 @@
             }, 2500);
         }
 
+        // ===== Scroll to Top =====
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function initScrollTop() {
+            const btn = document.getElementById('scrollTopBtn');
+            if (!btn) return;
+            window.addEventListener('scroll', () => {
+                btn.classList.toggle('visible', window.scrollY > 400);
+            }, { passive: true });
+        }
+
+        // ===== Animated Number Counter =====
+        function animateCounter(el, target, duration = 1200) {
+            const start = 0;
+            const step = (timestamp) => {
+                if (!el._startTime) el._startTime = timestamp;
+                const progress = Math.min((timestamp - el._startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.floor(eased * target) + (el.dataset.suffix || '');
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }
+
+        function initCounters() {
+            const statsEl = document.querySelector('.hero-stats');
+            if (!statsEl) return;
+            const nums = statsEl.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const raw = el.textContent.trim();
+                        const num = parseInt(raw);
+                        if (!isNaN(num)) {
+                            el.dataset.suffix = raw.replace(num.toString(), '');
+                            animateCounter(el, num);
+                        }
+                        observer.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            nums.forEach(n => observer.observe(n));
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             migrateStorage();
             renderQuickLinks();
@@ -3305,6 +3741,8 @@
             initScrollReveal();
             initCardStagger();
             initActiveNav();
+            initScrollTop();
+            initCounters();
 
             // Service Worker 등록 (PWA)
             if ('serviceWorker' in navigator) {
