@@ -945,7 +945,7 @@
                 scroll-snap-align: start;
                 flex-shrink: 0;
             }
-            .project-link-btn { font-size: var(--text-xs); padding: 3px 8px; }
+            .project-link-btn { font-size: var(--text-sm); padding: 5px 10px; }
 
             .section-title::after { display: none; }
 
@@ -1278,9 +1278,10 @@
             display: inline-flex;
             align-items: center;
             gap: var(--gap-xs);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: var(--radius-sm);
             font-size: var(--text-sm);
+            line-height: 1;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
@@ -1314,17 +1315,19 @@
 
         .project-link-btn {
             border-radius: var(--radius-sm);
-            padding: 3px 10px;
-            font-size: var(--text-xs);
+            padding: 6px 12px;
+            font-size: var(--text-sm);
+            line-height: 1;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             color: white;
             transition: var(--transition);
             border: none;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         .project-link-btn:hover {
@@ -1357,7 +1360,7 @@
             cursor: pointer;
             border: none;
             font-family: inherit;
-            font-size: inherit;
+            font-size: var(--text-sm);
         }
 
         /* planned status badge */
